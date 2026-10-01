@@ -1,22 +1,22 @@
 "use client";
 
-import { CalendarPlus, CalendarSync, ChevronRight } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { CalendarPlus, CalendarSync, ChevronRight, ImageDown } from "lucide-react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { renderWeekImage, shareOrDownload, weekImageFilename } from "@/lib/client/exportImage";
 import { cx, dayNumber } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
 import type { Person } from "@/lib/schedule/types";
 import {
   DAY_NAMES,
   DAY_SHORT,
-  PERIOD_LABEL,
   formatDayMonth,
   formatHours,
-  initials,
+  joinNames,
   type DayEntry,
   type PersonDay,
   type WeekSummary,
 } from "@/lib/schedule/view";
-import { ShiftChip } from "./ShiftChip";
+import { ShiftChip, compactRange } from "./ShiftChip";
 
 type Props = {
   staff: Person[];
@@ -28,15 +28,14 @@ type Props = {
   summary: WeekSummary | null;
   weekStatus: "published" | "upcoming" | "missing";
   changed: Set<string>;
+  checkedAt: string;
   onGoToCurrentWeek: () => void;
   onRefresh: () => void;
 };
 
-const DUTY_TAGS = ["Εφημερία", "Ολονυχτία"];
-
 export function MyWeek(props: Props) {
-  const { staff, onSelectPerson, person, week, today, days, summary, weekStatus, changed, onGoToCurrentWeek, onRefresh } =
-    props;
+  const { staff, onSelectPerson, person, week, today, days, summary, weekStatus, changed } = props;
+
   if (!person || !days || !summary) {
     return (
       <div className="empty empty--pick">
@@ -48,9 +47,6 @@ export function MyWeek(props: Props) {
           {staff.map((p) => (
             <li key={p.id}>
               <button type="button" className="pick-list__item" onClick={() => onSelectPerson(p.id)}>
-                <span className="pick-list__avatar" aria-hidden="true">
-                  {initials(p.name)}
-                </span>
                 <span className="pick-list__name">{p.name}</span>
                 <ChevronRight aria-hidden="true" className="icon pick-list__chevron" />
               </button>
@@ -74,11 +70,11 @@ export function MyWeek(props: Props) {
         </p>
         <div className="empty__actions">
           {weekStatus === "upcoming" ? (
-            <button type="button" className="button button--primary" onClick={onRefresh}>
+            <button type="button" className="button button--primary" onClick={props.onRefresh}>
               Ανανέωση
             </button>
           ) : null}
-          <button type="button" className="button" onClick={onGoToCurrentWeek}>
+          <button type="button" className="button" onClick={props.onGoToCurrentWeek}>
             Τρέχουσα εβδομάδα
           </button>
         </div>
@@ -87,133 +83,103 @@ export function MyWeek(props: Props) {
   }
 
   const absent = days.every((d) => d.entries.length === 0);
+  const todayDay = days.find((d) => d.date === today);
 
   return (
     <div className="myweek">
-      <div className="myweek__summary">
+      <div className="myweek__lead">
+        {todayDay ? <TodayBox day={todayDay} /> : null}
         {absent ? (
-          <p className="notice">
+          <p className="notice-text">
             Δεν εμφανίζεσαι στο πρόγραμμα αυτής της εβδομάδας. Αν περιμένεις βάρδιες, έλεγξε το φύλλο ή ρώτα τον
             υπεύθυνο του προγράμματος.
           </p>
         ) : (
-          <Summary days={days} summary={summary} today={today} />
+          <Facts days={days} summary={summary} />
         )}
       </div>
 
-      <table className="days myweek__table">
+      <table className="roster myweek__table">
         <caption className="visually-hidden">
           Πρόγραμμα για {person.name}, εβδομάδα από {formatDayMonth(week, "long")}
         </caption>
-        <thead className="visually-hidden">
+        <thead>
           <tr>
             <th scope="col">Ημέρα</th>
-            <th scope="col">Βάρδια</th>
+            <th scope="col">Ωράριο</th>
+            <th scope="col">Με</th>
           </tr>
         </thead>
         <tbody>
           {days.map((day) => (
-            <DayRow
-              key={day.date}
-              day={day}
-              today={today}
-              changed={changed.has(`${week}:${day.index}`)}
-            />
+            <DayRow key={day.date} day={day} today={today} changed={changed.has(`${week}:${day.index}`)} />
           ))}
         </tbody>
       </table>
 
-      {!absent ? <CalendarActions personId={person.id} week={week} /> : null}
+      {!absent ? (
+        <Actions person={person} week={week} days={days} summary={summary} checkedAt={props.checkedAt} />
+      ) : null}
     </div>
   );
 }
 
-function Summary({ days, summary, today }: { days: PersonDay[]; summary: WeekSummary; today: IsoDate }) {
-  const dayLabel = (index: number) => `${DAY_NAMES[index]} ${formatDayMonth(days[index]!.date)}`;
-  const sundayDuty = summary.sunday.flatMap((e) => e.tags.filter((t) => DUTY_TAGS.includes(t)));
-  const todayDay = days.find((d) => d.date === today);
+function formatDayNumeric(iso: IsoDate): string {
+  const [, m, d] = iso.split("-").map(Number);
+  return `${d}/${m}`;
+}
+
+/** Today's hours in a ruled box, the first thing to read. */
+function TodayBox({ day }: { day: PersonDay }) {
+  const shifts = day.entries.filter((e) => e.kind === "shift");
+  const first = day.entries[0];
+  const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
+  const duty = shifts.flatMap((e) => e.tags).find((t) => t === "Εφημερία" || t === "Ολονυχτία");
+
+  let hours = "Χωρίς βάρδια";
+  if (shifts.length) hours = shifts.map((e) => `${e.start} – ${e.end}`).join(" · ");
+  else if (first?.kind === "off") hours = "Ρεπό";
+  else if (first?.kind === "leave") hours = first.label ?? "Άδεια";
 
   return (
-    <dl className="summary">
-      {todayDay ? <TodayItem day={todayDay} /> : null}
+    <div className={cx("today-box", first?.kind === "off" && "today-box--off")}>
+      <p className="today-box__label">
+        Σήμερα · {DAY_NAMES[day.index]} {formatDayNumeric(day.date)}
+        {duty ? ` · ${duty}` : ""}
+      </p>
+      <p className="today-box__hours">{hours}</p>
+      {coworkers.length ? <p className="today-box__with">με {joinNames(coworkers)}</p> : null}
+    </div>
+  );
+}
 
-      <div className="summary__item">
+/** Ρεπό, Κυριακή and total hours, printed as one line of label–value pairs. */
+function Facts({ days, summary }: { days: PersonDay[]; summary: WeekSummary }) {
+  const off = summary.offDays.map((i) => `${DAY_NAMES[i]} ${formatDayNumeric(days[i]!.date)}`).join(" και ");
+  return (
+    <dl className="facts">
+      <div>
         <dt>Ρεπό</dt>
-        <dd>
-          {summary.offDays.length ? (
-            <span className="summary__value summary__value--off">
-              {summary.offDays.map(dayLabel).join(" και ")}
-            </span>
-          ) : (
-            <span className="summary__value summary__value--muted">Κανένα αυτή την εβδομάδα</span>
-          )}
-        </dd>
+        <dd className={summary.offDays.length ? "facts__off" : undefined}>{off || "κανένα"}</dd>
       </div>
-
-      <div className="summary__item">
+      <div>
         <dt>Κυριακή</dt>
+        <dd>{summary.sunday.length ? summary.sunday.map((e) => compactRange(e.start, e.end)).join(", ") : "όχι"}</dd>
+      </div>
+      <div>
+        <dt>Σύνολο</dt>
         <dd>
-          {summary.sunday.length ? (
-            <span className="summary__value summary__inline">
-              <span>Δουλεύεις</span>
-              {summary.sunday.map((entry, i) => (
-                <ShiftChip key={i} entry={entry} />
-              ))}
-              {sundayDuty.length ? <span className="tag">{sundayDuty[0]}</span> : null}
-            </span>
-          ) : (
-            <span className="summary__value">Δεν δουλεύεις</span>
-          )}
+          {summary.totalIncomplete ? "τουλάχιστον " : ""}
+          {formatHours(summary.totalMinutes)}
         </dd>
       </div>
-
-      <div className="summary__item">
-        <dt>Ώρες</dt>
-        <dd>
-          <span className="summary__value">
-            {summary.totalIncomplete ? "τουλάχιστον " : ""}
-            {formatHours(summary.totalMinutes)}
-          </span>
-          <span className="summary__aside">
-            {summary.shiftCount === 1 ? "1 βάρδια" : `${summary.shiftCount} βάρδιες`}
-          </span>
-        </dd>
-      </div>
-
       {summary.leaveDays.length ? (
-        <div className="summary__item">
+        <div>
           <dt>Άδεια</dt>
-          <dd>
-            <span className="summary__value">{summary.leaveDays.map((i) => DAY_SHORT[i]).join(", ")}</span>
-          </dd>
+          <dd>{summary.leaveDays.map((i) => DAY_SHORT[i]).join(", ")}</dd>
         </div>
       ) : null}
     </dl>
-  );
-}
-
-/** The first answer on the page: what today holds. */
-function TodayItem({ day }: { day: PersonDay }) {
-  const shifts = day.entries.filter((e) => e.kind === "shift");
-  const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
-  return (
-    <div className="summary__item summary__item--today">
-      <dt>Σήμερα</dt>
-      <dd>
-        {day.entries.length ? (
-          <span className="summary__stack">
-            <span className="summary__inline">
-              {day.entries.map((entry, i) => (
-                <ShiftChip key={i} entry={entry} />
-              ))}
-            </span>
-            {coworkers.length ? <span className="summary__aside">με {coworkers.join(", ")}</span> : null}
-          </span>
-        ) : (
-          <span className="summary__value summary__value--muted">Χωρίς βάρδια</span>
-        )}
-      </dd>
-    </div>
   );
 }
 
@@ -222,90 +188,66 @@ function DayRow({ day, today, changed }: { day: PersonDay; today: IsoDate; chang
   const isPast = day.date < today;
   return (
     <tr
-      className={cx("day", isToday && "day--today", isPast && "day--past", `day--${day.status}`)}
+      className={cx("roster-row", isToday && "roster-row--today", isPast && "roster-row--past")}
       aria-current={isToday ? "date" : undefined}
     >
-      <th scope="row" className="day__date">
-        <span className="day__dow" aria-hidden="true">
-          {DAY_SHORT[day.index]}
-        </span>
-        <span className="day__num" aria-hidden="true">
-          {dayNumber(day.date)}
+      <th scope="row" className="roster-row__day">
+        <span aria-hidden="true">
+          {DAY_SHORT[day.index]} {dayNumber(day.date)}
         </span>
         <span className="visually-hidden">
           {DAY_NAMES[day.index]} {formatDayMonth(day.date, "long")}
           {isToday ? " (σήμερα)" : ""}
         </span>
       </th>
-      <td className="day__body">
-        {changed ? <span className="badge">Άλλαξε</span> : null}
+      <td className="roster-row__hours">
         {day.entries.length === 0 ? (
-          <span className="day__empty">Χωρίς βάρδια</span>
+          <span className="slot slot--none">—</span>
         ) : (
-          day.entries.map((entry, i) => <Entry key={i} entry={entry} />)
+          day.entries.map((entry, i) => <ShiftChip key={i} entry={entry} />)
         )}
+      </td>
+      <td className="roster-row__with">
+        {changed ? <span className="overprint">Άλλαξε</span> : null}
+        {day.entries.map((entry, i) => (
+          <EntryNotes key={i} entry={entry} />
+        ))}
       </td>
     </tr>
   );
 }
 
-function Entry({ entry }: { entry: DayEntry }) {
-  const duty = entry.tags.find((t) => DUTY_TAGS.includes(t));
-  const otherTags = entry.tags.filter((t) => t !== duty && t !== entry.label);
-
-  if (entry.kind !== "shift") {
-    return (
-      <div className="entry">
-        <div className="entry__line">
-          <ShiftChip entry={entry} />
-          {entry.kind === "note" && entry.label ? <span className="entry__meta">{entry.label}</span> : null}
-          {otherTags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const label = duty ?? PERIOD_LABEL[entry.period ?? "morning"];
+function EntryNotes({ entry }: { entry: DayEntry }) {
+  const extra = entry.tags.filter((t) => t !== "Εφημερία" && t !== "Ολονυχτία" && t !== entry.label);
   return (
-    <div className="entry">
-      <div className="entry__line">
-        <ShiftChip entry={entry} />
-        <span className="entry__meta">
-          {label}
-          {entry.minutes !== null ? ` · ${formatHours(entry.minutes)}` : ""}
+    <>
+      {entry.kind === "shift" ? (
+        <span className="roster-row__names">{entry.coworkers.length ? joinNames(entry.coworkers) : "—"}</span>
+      ) : null}
+      {entry.kind === "note" && entry.label ? <span className="roster-row__note">{entry.label}</span> : null}
+      {extra.map((tag) => (
+        <span key={tag} className="roster-row__note">
+          {tag}
         </span>
-        {otherTags.map((tag) => (
-          <span key={tag} className="tag">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <p className="entry__with">
-        {entry.coworkers.length ? (
-          <>
-            <span className="entry__with-label">Με </span>
-            {entry.coworkers.join(", ")}
-          </>
-        ) : (
-          <span className="entry__with-label">Κανείς άλλος σε αυτή τη βάρδια</span>
-        )}
-      </p>
+      ))}
       {entry.timeSource === "inherited" ? (
-        <p className="entry__hint">Η ώρα δεν γράφεται στο φύλλο· δείχνουμε την ώρα της γραμμής από πάνω.</p>
+        <span className="roster-row__note">≈ η ώρα λείπει στο φύλλο· πάρθηκε από τη γραμμή από πάνω</span>
       ) : null}
-      {entry.timeSource === "override" ? (
-        <p className="entry__hint">Ειδικό ωράριο, γραμμένο δίπλα στο όνομα.</p>
-      ) : null}
-    </div>
+      {entry.timeSource === "override" ? <span className="roster-row__note">ειδικό ωράριο</span> : null}
+    </>
   );
 }
 
-function CalendarActions({ personId, week }: { personId: string; week: IsoDate }) {
-  const path = `/api/calendar/${encodeURIComponent(personId)}.ics`;
+type ActionsProps = {
+  person: Person;
+  week: IsoDate;
+  days: PersonDay[];
+  summary: WeekSummary;
+  checkedAt: string;
+};
+
+function Actions({ person, week, days, summary, checkedAt }: ActionsProps) {
+  const path = `/api/calendar/${encodeURIComponent(person.id)}.ics`;
   // webcal:// needs the absolute host, which only the browser knows.
   const host = useSyncExternalStore(
     () => () => {},
@@ -314,19 +256,46 @@ function CalendarActions({ personId, week }: { personId: string; week: IsoDate }
   );
   const feedUrl = host ? `webcal://${host}${path}` : path;
 
+  // Render the image before the tap, so the share sheet opens inside the user's gesture (iOS requires it).
+  const imageRef = useRef<Promise<Blob> | null>(null);
+  useEffect(() => {
+    const pending = renderWeekImage({ personName: person.name, monday: week, days, summary, checkedAt });
+    pending.catch(() => undefined);
+    imageRef.current = pending;
+  }, [person, week, days, summary, checkedAt]);
+
+  const [status, setStatus] = useState<"idle" | "busy" | "saved" | "failed">("idle");
+  const saveImage = async () => {
+    setStatus("busy");
+    try {
+      const blob = await (imageRef.current ?? renderWeekImage({ personName: person.name, monday: week, days, summary, checkedAt }));
+      const result = await shareOrDownload(blob, weekImageFilename(person.id, week), `Πρόγραμμα · ${person.name}`);
+      setStatus(result === "downloaded" ? "saved" : "idle");
+    } catch {
+      setStatus("failed");
+    }
+  };
+
   return (
-    <div className="cal-actions myweek__actions">
-      <a className="button button--primary" href={`${path}?week=${week}`}>
+    <div className="actions myweek__actions">
+      <button type="button" className="button button--primary" onClick={() => void saveImage()} disabled={status === "busy"}>
+        <ImageDown aria-hidden="true" className="icon" />
+        <span>{status === "busy" ? "Ετοιμάζεται…" : "Εικόνα της εβδομάδας"}</span>
+      </button>
+      <a className="button" href={`${path}?week=${week}`}>
         <CalendarPlus aria-hidden="true" className="icon" />
-        <span>Προσθήκη στο ημερολόγιο</span>
+        <span>Στο ημερολόγιο</span>
       </a>
       <a className="button" href={feedUrl}>
         <CalendarSync aria-hidden="true" className="icon" />
-        <span>Συνδρομή που ενημερώνεται</span>
+        <span>Συνδρομή ημερολογίου</span>
       </a>
-      <p className="cal-actions__hint">
-        Η «Προσθήκη» περνά αυτή την εβδομάδα στο κινητό σου. Η «Συνδρομή» κρατά το ημερολόγιο ενημερωμένο μόνη της
-        (iPhone, Mac, Outlook).
+      <p className="actions__hint" aria-live="polite">
+        {status === "saved"
+          ? "Η εικόνα αποθηκεύτηκε στις λήψεις."
+          : status === "failed"
+            ? "Η εικόνα δεν δημιουργήθηκε. Δοκίμασε ξανά."
+            : "Η εικόνα έχει μέγεθος οθόνης κινητού, για αποθήκευση ή αποστολή. Η «Συνδρομή» κρατά ενημερωμένο το ημερολόγιο του κινητού."}
       </p>
     </div>
   );

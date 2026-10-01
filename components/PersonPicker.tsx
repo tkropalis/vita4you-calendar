@@ -1,5 +1,4 @@
-import { ChevronsUpDown } from "lucide-react";
-import { initials } from "@/lib/schedule/view";
+import { ChevronDown } from "lucide-react";
 import type { Person } from "@/lib/schedule/types";
 
 type Props = {
@@ -8,16 +7,21 @@ type Props = {
   onChange: (id: string) => void;
 };
 
+/** The name as an underlined field on the notice; the native select sits on top for the picker. */
 export function PersonPicker({ people, value, onChange }: Props) {
   const selected = people.find((p) => p.id === value);
   return (
     <div className="picker">
-      <label htmlFor="person" className={selected ? "visually-hidden" : "picker__label"}>
+      <label htmlFor="person" className="visually-hidden">
         Το όνομά σου
       </label>
       <div className={selected ? "picker__field" : "picker__field picker__field--empty"}>
-        <span className="picker__avatar" aria-hidden="true">
-          {selected ? initials(selected.name) : "?"}
+        <span className="picker__name" aria-hidden="true">
+          {selected ? selected.name : "Διάλεξε όνομα"}
+        </span>
+        <span className="picker__change" aria-hidden="true">
+          {selected ? "Αλλαγή" : "Λίστα"}
+          <ChevronDown className="icon" />
         </span>
         <select
           id="person"
@@ -36,7 +40,6 @@ export function PersonPicker({ people, value, onChange }: Props) {
             </option>
           ))}
         </select>
-        <ChevronsUpDown aria-hidden="true" className="icon picker__chevron" />
       </div>
     </div>
   );

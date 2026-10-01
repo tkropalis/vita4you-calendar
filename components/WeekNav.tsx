@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { addDays, type IsoDate } from "@/lib/schedule/dates";
-import { currentMonday, formatWeekRange, relativeWeekLabel } from "@/lib/schedule/view";
+import { currentMonday, formatWeekRangeNumeric, relativeWeekLabel } from "@/lib/schedule/view";
 
 type Props = {
   week: IsoDate;
@@ -32,7 +32,7 @@ export function WeekNav({ week, today, canPrev, canNext, changedBefore, changedA
 
       <div className="weeknav__label">
         <h2 className="weeknav__range" aria-live="polite">
-          {formatWeekRange(week)}
+          {formatWeekRangeNumeric(week)}
         </h2>
         <p className="weeknav__relative">
           <span>{relativeWeekLabel(week, today)}</span>

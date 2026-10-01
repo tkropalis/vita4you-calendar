@@ -1,4 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import "@fontsource/fira-sans-condensed/400.css";
+import "@fontsource/fira-sans-condensed/600.css";
+import "@fontsource/fira-sans-condensed/800.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,8 +19,8 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f4f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0c10" },
+    { media: "(prefers-color-scheme: light)", color: "#fcfdfb" },
+    { media: "(prefers-color-scheme: dark)", color: "#070709" },
   ],
 };
 

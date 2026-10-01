@@ -182,6 +182,13 @@ export function formatWeekRange(monday: IsoDate): string {
   return `${a.d} ${MONTHS_SHORT[a.m - 1]} – ${b.d} ${MONTHS_SHORT[b.m - 1]}`;
 }
 
+/** "28/9 – 4/10", as typed on a notice. */
+export function formatWeekRangeNumeric(monday: IsoDate): string {
+  const a = fromIso(monday);
+  const b = fromIso(addDays(monday, 6));
+  return `${a.d}/${a.m} – ${b.d}/${b.m}`;
+}
+
 export function relativeWeekLabel(monday: IsoDate, today: IsoDate): string {
   const diff = Math.round((Date.parse(monday) - Date.parse(currentMonday(today))) / (7 * 86_400_000));
   if (diff === 0) return "Αυτή την εβδομάδα";
@@ -199,6 +206,16 @@ export function formatHours(minutes: number): string {
 export function formatTimeRange(start?: string, end?: string): string {
   if (!start || !end) return "";
   return `${start} – ${end}`;
+}
+
+/** "Χαμζαλάρι Γ." → "Χαμζαλάρι\u00a0Γ.", so a list never breaks a surname from its initial. */
+export function keepTogether(name: string): string {
+  return name.replace(/ (\S{1,3}\.?)$/u, "\u00a0$1");
+}
+
+/** Comma-separated names that never break apart at a line end. */
+export function joinNames(names: string[]): string {
+  return names.map(keepTogether).join(", ");
 }
 
 export function initials(name: string): string {

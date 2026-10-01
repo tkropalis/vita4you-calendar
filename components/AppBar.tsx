@@ -14,9 +14,12 @@ export function AppBar({ checking, checkedAt, today, onRefresh }: Props) {
   const short = full.startsWith("σήμερα") ? formatClock(checkedAt) : full;
   return (
     <header className="appbar">
-      <div className="appbar__titles">
+      <div className="appbar__brand">
+        <span className="cross" aria-hidden="true" />
+        <div className="appbar__titles">
         <h1 className="appbar__title">Πρόγραμμα</h1>
-        <p className="appbar__subtitle">Vita4you Τσιμισκή</p>
+          <p className="appbar__subtitle">Vita4you Τσιμισκή</p>
+        </div>
       </div>
       <button
         type="button"

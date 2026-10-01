@@ -34,7 +34,6 @@ export function TeamWeek({ week, monday, today, people, selectedId, weekStatus }
 
   return (
     <div className="team">
-      <Legend rows={rows} />
       <TeamMatrix rows={rows} monday={monday} today={today} selectedId={selectedId} />
       <TeamDay
         rows={rows}
@@ -45,32 +44,6 @@ export function TeamWeek({ week, monday, today, people, selectedId, weekStatus }
         selectedId={selectedId}
       />
     </div>
-  );
-}
-
-/** Colour key for the matrix, listing only what this week contains. */
-function Legend({ rows }: { rows: TeamRow[] }) {
-  const entries = rows.flatMap((r) => r.days.flat());
-  const has = (test: (e: DayEntry) => boolean) => entries.some(test);
-  const items = [
-    has((e) => e.period === "morning") && { className: "chip--morning", label: PERIOD_LABEL.morning },
-    has((e) => e.period === "afternoon") && { className: "chip--afternoon", label: PERIOD_LABEL.afternoon },
-    has((e) => e.period === "duty") && {
-      className: "chip--duty",
-      label: has((e) => e.tags.includes("Εφημερία")) ? "Βραδινή / Εφημερία" : PERIOD_LABEL.duty,
-    },
-    has((e) => e.kind === "off") && { className: "chip--off", label: "Ρεπό" },
-    has((e) => e.kind === "leave") && { className: "chip--leave", label: "Άδεια" },
-  ].filter((item): item is { className: string; label: string } => Boolean(item));
-
-  return (
-    <ul className="legend" aria-label="Υπόμνημα χρωμάτων">
-      {items.map((item) => (
-        <li key={item.className}>
-          <span className={`chip chip--compact ${item.className}`}>{item.label}</span>
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -224,9 +197,9 @@ function groupDay(rows: TeamRow[], day: number): Group[] {
     group.caption = `${group.caption} · ${countLabel(group.names.length)}`;
   }
   const tail: Group[] = [];
-  if (off.length) tail.push({ key: "off", title: <span className="chip chip--off">Ρεπό</span>, caption: countLabel(off.length), names: off });
-  if (leave.length) tail.push({ key: "leave", title: <span className="chip chip--leave">Άδεια</span>, caption: countLabel(leave.length), names: leave });
-  if (other.length) tail.push({ key: "other", title: <span className="chip chip--note">Χωρίς ώρα</span>, caption: countLabel(other.length), names: other });
+  if (off.length) tail.push({ key: "off", title: <span className="slot slot--off">Ρεπό</span>, caption: countLabel(off.length), names: off });
+  if (leave.length) tail.push({ key: "leave", title: <span className="slot slot--leave">Άδεια</span>, caption: countLabel(leave.length), names: leave });
+  if (other.length) tail.push({ key: "other", title: <span className="slot slot--note">Χωρίς ώρα</span>, caption: countLabel(other.length), names: other });
   return [...ordered, ...tail];
 }
 
