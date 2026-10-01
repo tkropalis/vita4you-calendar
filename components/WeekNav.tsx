@@ -10,13 +10,15 @@ type Props = {
   /** A refresh found changes for the selected person in an earlier / later week. */
   changedBefore: boolean;
   changedAfter: boolean;
+  /** In "my week" on wide screens the nav centres over the day list, not the whole column. */
+  alignToTable: boolean;
   onChange: (monday: IsoDate) => void;
 };
 
-export function WeekNav({ week, today, canPrev, canNext, changedBefore, changedAfter, onChange }: Props) {
+export function WeekNav({ week, today, canPrev, canNext, changedBefore, changedAfter, alignToTable, onChange }: Props) {
   const isCurrent = week === currentMonday(today);
   return (
-    <nav className="weeknav" aria-label="Εβδομάδα">
+    <nav className={alignToTable ? "weeknav weeknav--table" : "weeknav"} aria-label="Εβδομάδα">
       <button
         type="button"
         className="button button--icon weeknav__step"

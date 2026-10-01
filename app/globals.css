@@ -518,6 +518,13 @@ a {
   }
 }
 
+/* Centre over the day list when "my week" shows its summary column (see .myweek). */
+@container (min-width: 820px) {
+  .weeknav--table {
+    padding-right: 324px;
+  }
+}
+
 .weeknav__step {
   position: relative;
 }

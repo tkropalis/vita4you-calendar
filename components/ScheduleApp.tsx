@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PERSON_COOKIE, type ClientSnapshot } from "@/lib/client/snapshot";
+import { dayNumber } from "@/lib/client/format";
 import { addDays, todayInAthens, type IsoDate } from "@/lib/schedule/dates";
 import {
   currentMonday,
   currentStaff,
+  DAY_SHORT,
   daySignature,
   findWeek,
   formatWeekRange,
@@ -205,6 +207,7 @@ export function ScheduleApp(props: Props) {
             canNext={week < lastWeek}
             changedBefore={changedBefore}
             changedAfter={changedAfter}
+            alignToTable={view === "me" && Boolean(days) && weekStatus === "published"}
             onChange={goToWeek}
           />
 
@@ -264,7 +267,11 @@ export function ScheduleApp(props: Props) {
   );
 }
 
-/** Toast text for a refresh that found a new version of the sheet, naming the week that changed. */
+/**
+ * One sentence for a refresh that found a new version of the sheet: which of the
+ * person's days changed here, and the nearest other week with changes (with a
+ * button that names and opens it).
+ */
 function changeMessage(
   diff: Set<string>,
   before: ClientSnapshot,
@@ -275,32 +282,39 @@ function changeMessage(
   if (diff.size === 0) {
     return { tone: "neutral", text: "Το φύλλο ενημερώθηκε. Οι βάρδιές σου δεν άλλαξαν." };
   }
+  const visibleDays: number[] = [];
   const perWeek = new Map<IsoDate, number>();
   for (const key of diff) {
-    const monday = key.split(":")[0]!;
-    perWeek.set(monday, (perWeek.get(monday) ?? 0) + 1);
+    const [monday, day] = key.split(":") as [IsoDate, string];
+    if (monday === visibleWeek) visibleDays.push(Number(day));
+    else perWeek.set(monday, (perWeek.get(monday) ?? 0) + 1);
   }
-  // "Άλλαξε 1 μέρα σου" / "Άλλαξαν 3 μέρες σου": the verb agrees with the count.
-  const changedDaysText = (n: number) => (n === 1 ? "Άλλαξε 1 μέρα σου" : `Άλλαξαν ${n} μέρες σου`);
-  const describe = (monday: IsoDate) =>
-    !findWeek(before, monday) && findWeek(after, monday)
-      ? `Αναρτήθηκε το πρόγραμμα για ${formatWeekRange(monday)}.`
-      : `${changedDaysText(perWeek.get(monday)!)} για ${formatWeekRange(monday)}.`;
+  visibleDays.sort((a, b) => a - b);
+  const other = [...perWeek.keys()].sort()[0];
+  const otherRange = other ? formatWeekRange(other) : "";
+  const published = other ? !findWeek(before, other) && Boolean(findWeek(after, other)) : false;
+  const changed = (n: number) => (n === 1 ? "Άλλαξε 1 μέρα σου" : `Άλλαξαν ${n} μέρες σου`);
+  const dayNames = visibleDays
+    .map((d) => `${DAY_SHORT[d]} ${dayNumber(addDays(visibleWeek, d))}`)
+    .join(", ");
 
-  const others = [...perWeek.keys()].filter((m) => m !== visibleWeek).sort();
-  const parts: string[] = [];
-  if (perWeek.has(visibleWeek)) {
-    const n = perWeek.get(visibleWeek)!;
-    parts.push(`${changedDaysText(n)} σε αυτή την εβδομάδα (${n === 1 ? "σημειωμένη" : "σημειωμένες"} με «Άλλαξε»).`);
+  let text: string;
+  if (visibleDays.length && other) {
+    text = published
+      ? `${changed(visibleDays.length)}: ${dayNames}. Αναρτήθηκε και η εβδομάδα ${otherRange}.`
+      : `${changed(visibleDays.length + perWeek.get(other)!)}: ${dayNames} και ${perWeek.get(other)} στις ${otherRange}.`;
+  } else if (visibleDays.length) {
+    text = `${changed(visibleDays.length)}: ${dayNames}.`;
+  } else {
+    text = published
+      ? `Αναρτήθηκε το πρόγραμμα για ${otherRange}.`
+      : `${changed(perWeek.get(other!)!)} στις ${otherRange}.`;
   }
-  if (others[0]) parts.push(describe(others[0]));
-  if (others.length > 1) parts.push(`Και ${others.length - 1} ακόμα εβδομάδα με αλλαγές.`);
 
-  const target = others[0];
   return {
     tone: "neutral",
-    text: parts.join(" "),
-    action: target ? { label: "Προβολή", onClick: () => goToWeek(target) } : undefined,
+    text,
+    action: other ? { label: `Δες ${otherRange}`, onClick: () => goToWeek(other) } : undefined,
   };
 }
 
