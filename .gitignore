@@ -13,3 +13,4 @@ tests/fixtures/live-snapshot.xlsx
 .impeccable/config.local.json
 test-results/
 playwright-report/
+.impeccable/mockups/
