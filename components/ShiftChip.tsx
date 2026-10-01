@@ -1,3 +1,4 @@
+import { Moon } from "lucide-react";
 import { cx } from "@/lib/client/format";
 import type { DayEntry } from "@/lib/schedule/view";
 
@@ -7,6 +8,7 @@ export function ShiftChip({ entry, compact = false }: { entry: DayEntry; compact
     const text = compact ? compactRange(entry.start, entry.end) : `${entry.start} – ${entry.end}`;
     return (
       <span className={cx("chip", `chip--${entry.period ?? "morning"}`, compact && "chip--compact")}>
+        {entry.period === "duty" && !compact ? <Moon aria-hidden="true" className="chip__icon" /> : null}
         {entry.timeSource === "inherited" ? (
           <span className="chip__approx" title="Η ώρα δεν γράφεται στο φύλλο· πάρθηκε από τη γραμμή από πάνω">
             ≈

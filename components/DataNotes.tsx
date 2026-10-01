@@ -3,11 +3,13 @@ import { formatCheckedAt } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
 import type { Week, WeekWarning } from "@/lib/schedule/types";
 
-type Props = { week: Week | undefined; sheetUrl: string; checkedAt: string; today: IsoDate };
+type Props = { week: Week | undefined; view: "me" | "team"; sheetUrl: string; checkedAt: string; today: IsoDate };
 
 /** Where the data comes from, and anything we had to guess while reading this week. */
-export function DataNotes({ week, sheetUrl, checkedAt, today }: Props) {
-  const warnings = week?.warnings ?? [];
+export function DataNotes({ week, view, sheetUrl, checkedAt, today }: Props) {
+  // Row-level details help whoever maintains the sheet (team view). In "my week" they are noise:
+  // a person's own approximated times are already marked inline. Uncertain dates concern everyone.
+  const warnings = (week?.warnings ?? []).filter((w) => view === "team" || w.type === "dates-inferred");
   return (
     <footer className="notes">
       {warnings.length ? (

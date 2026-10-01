@@ -12,7 +12,7 @@ export function PersonPicker({ people, value, onChange }: Props) {
   const selected = people.find((p) => p.id === value);
   return (
     <div className="picker">
-      <label htmlFor="person" className="picker__label">
+      <label htmlFor="person" className={selected ? "visually-hidden" : "picker__label"}>
         Το όνομά σου
       </label>
       <div className={selected ? "picker__field" : "picker__field picker__field--empty"}>

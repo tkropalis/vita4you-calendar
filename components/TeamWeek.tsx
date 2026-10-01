@@ -34,7 +34,7 @@ export function TeamWeek({ week, monday, today, people, selectedId, weekStatus }
 
   return (
     <div className="team">
-      <Legend />
+      <Legend rows={rows} />
       <TeamMatrix rows={rows} monday={monday} today={today} selectedId={selectedId} />
       <TeamDay
         rows={rows}
@@ -48,14 +48,28 @@ export function TeamWeek({ week, monday, today, people, selectedId, weekStatus }
   );
 }
 
-function Legend() {
+/** Colour key for the matrix, listing only what this week contains. */
+function Legend({ rows }: { rows: TeamRow[] }) {
+  const entries = rows.flatMap((r) => r.days.flat());
+  const has = (test: (e: DayEntry) => boolean) => entries.some(test);
+  const items = [
+    has((e) => e.period === "morning") && { className: "chip--morning", label: PERIOD_LABEL.morning },
+    has((e) => e.period === "afternoon") && { className: "chip--afternoon", label: PERIOD_LABEL.afternoon },
+    has((e) => e.period === "duty") && {
+      className: "chip--duty",
+      label: has((e) => e.tags.includes("Εφημερία")) ? "Βραδινή / Εφημερία" : PERIOD_LABEL.duty,
+    },
+    has((e) => e.kind === "off") && { className: "chip--off", label: "Ρεπό" },
+    has((e) => e.kind === "leave") && { className: "chip--leave", label: "Άδεια" },
+  ].filter((item): item is { className: string; label: string } => Boolean(item));
+
   return (
     <ul className="legend" aria-label="Υπόμνημα χρωμάτων">
-      <li><span className="legend__swatch chip--morning" />{PERIOD_LABEL.morning}</li>
-      <li><span className="legend__swatch chip--afternoon" />{PERIOD_LABEL.afternoon}</li>
-      <li><span className="legend__swatch chip--duty" />Βραδινή / Εφημερία</li>
-      <li><span className="legend__swatch chip--off" />Ρεπό</li>
-      <li><span className="legend__swatch chip--leave" />Άδεια</li>
+      {items.map((item) => (
+        <li key={item.className}>
+          <span className={`chip chip--compact ${item.className}`}>{item.label}</span>
+        </li>
+      ))}
     </ul>
   );
 }

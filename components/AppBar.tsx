@@ -30,7 +30,7 @@ export function AppBar({ checking, checkedAt, today, onRefresh }: Props) {
           <span className="refresh__label">{checking ? "Έλεγχος…" : "Ανανέωση"}</span>
           <span className="refresh__fresh">
             <span className="visually-hidden">Τελευταίος έλεγχος </span>
-            <span aria-hidden="true">ενημ. </span>
+            <span aria-hidden="true">έλεγχος </span>
             {short}
           </span>
         </span>

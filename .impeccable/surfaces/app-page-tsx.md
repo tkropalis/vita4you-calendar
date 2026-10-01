@@ -23,7 +23,7 @@ OWN-WORLD: iOS-grouped neutral ground (cool, tinted, never pure white or black),
 
 STORY: The visitor sees who they are, which week it is, and today's shift first. They scan seven days with times, read their ρεπό and Sunday at a glance, see who they work with, refresh to confirm it is current, and optionally add the week to their phone calendar.
 
-FIRST VIEWPORT (390px): a compact app bar (title "Πρόγραμμα", store name, refresh button with freshness time); a large native name picker; a segmented control (Η εβδομάδα μου / Ομάδα); a week switcher with a range label and prev/next; a 3-row summary group (Ρεπό, Κυριακή, Ώρες); then the day list starting with Monday, today ringed in blue.
+FIRST VIEWPORT (390px): a compact app bar (title "Πρόγραμμα", store name, refresh button with its "έλεγχος" time); a large native name picker; a segmented control (Η εβδομάδα μου / Ομάδα); a week switcher with the range as the heading and the relative label plus Σήμερα beneath it; a summary group that opens with Σήμερα (today's chip and coworkers, current week only), then Ρεπό, Κυριακή, Ώρες; then the day list from Monday with today's date in a filled blue circle. (Amended after the finish review: today's answer must sit above the fold.)
 
 FORM: Canon (category standard), chosen by the user over the assigned direction (metro line strip-map) and the pick (pill organizer). Degraded roll, seed key ac90d0ef. References: Deputy / When I Work, Apple Calendar.
 

@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Το εβδομαδιαίο πρόγραμμα βαρδιών της ομάδας.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f2f3f7",
-    theme_color: "#f2f3f7",
+    background_color: "#f2f4f7",
+    theme_color: "#f2f4f7",
     lang: "el",
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },

@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarPlus, CalendarSync } from "lucide-react";
+import { CalendarPlus, CalendarSync, ChevronRight } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { cx, dayNumber } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
@@ -11,6 +11,7 @@ import {
   PERIOD_LABEL,
   formatDayMonth,
   formatHours,
+  initials,
   type DayEntry,
   type PersonDay,
   type WeekSummary,
@@ -18,6 +19,8 @@ import {
 import { ShiftChip } from "./ShiftChip";
 
 type Props = {
+  staff: Person[];
+  onSelectPerson: (id: string) => void;
   person: Person | null;
   week: IsoDate;
   today: IsoDate;
@@ -31,18 +34,29 @@ type Props = {
 
 const DUTY_TAGS = ["Εφημερία", "Ολονυχτία"];
 
-export function MyWeek({ person, week, today, days, summary, weekStatus, changed, onGoToCurrentWeek, onRefresh }: Props) {
+export function MyWeek(props: Props) {
+  const { staff, onSelectPerson, person, week, today, days, summary, weekStatus, changed, onGoToCurrentWeek, onRefresh } =
+    props;
   if (!person || !days || !summary) {
     return (
-      <div className="empty">
-        <h3 className="empty__title">Διάλεξε το όνομά σου</h3>
+      <div className="empty empty--pick">
+        <h3 className="empty__title">Ποιο είναι το όνομά σου;</h3>
         <p className="empty__text">
-          Θα δεις τις βάρδιές σου, το ρεπό σου και αν δουλεύεις Κυριακή. Η επιλογή μένει αποθηκευμένη σε αυτή
-          τη συσκευή.
+          Θα δεις τις βάρδιές σου, το ρεπό σου και αν δουλεύεις Κυριακή. Η επιλογή μένει σε αυτή τη συσκευή.
         </p>
-        <button type="button" className="button button--primary" onClick={() => document.getElementById("person")?.focus()}>
-          Επιλογή ονόματος
-        </button>
+        <ul className="pick-list">
+          {staff.map((p) => (
+            <li key={p.id}>
+              <button type="button" className="pick-list__item" onClick={() => onSelectPerson(p.id)}>
+                <span className="pick-list__avatar" aria-hidden="true">
+                  {initials(p.name)}
+                </span>
+                <span className="pick-list__name">{p.name}</span>
+                <ChevronRight aria-hidden="true" className="icon pick-list__chevron" />
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -83,7 +97,7 @@ export function MyWeek({ person, week, today, days, summary, weekStatus, changed
             υπεύθυνο του προγράμματος.
           </p>
         ) : (
-          <Summary days={days} summary={summary} />
+          <Summary days={days} summary={summary} today={today} />
         )}
       </div>
 
@@ -114,12 +128,15 @@ export function MyWeek({ person, week, today, days, summary, weekStatus, changed
   );
 }
 
-function Summary({ days, summary }: { days: PersonDay[]; summary: WeekSummary }) {
+function Summary({ days, summary, today }: { days: PersonDay[]; summary: WeekSummary; today: IsoDate }) {
   const dayLabel = (index: number) => `${DAY_NAMES[index]} ${formatDayMonth(days[index]!.date)}`;
   const sundayDuty = summary.sunday.flatMap((e) => e.tags.filter((t) => DUTY_TAGS.includes(t)));
+  const todayDay = days.find((d) => d.date === today);
 
   return (
     <dl className="summary">
+      {todayDay ? <TodayItem day={todayDay} /> : null}
+
       <div className="summary__item">
         <dt>Ρεπό</dt>
         <dd>
@@ -172,6 +189,31 @@ function Summary({ days, summary }: { days: PersonDay[]; summary: WeekSummary })
         </div>
       ) : null}
     </dl>
+  );
+}
+
+/** The first answer on the page: what today holds. */
+function TodayItem({ day }: { day: PersonDay }) {
+  const shifts = day.entries.filter((e) => e.kind === "shift");
+  const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
+  return (
+    <div className="summary__item summary__item--today">
+      <dt>Σήμερα</dt>
+      <dd>
+        {day.entries.length ? (
+          <span className="summary__stack">
+            <span className="summary__inline">
+              {day.entries.map((entry, i) => (
+                <ShiftChip key={i} entry={entry} />
+              ))}
+            </span>
+            {coworkers.length ? <span className="summary__aside">με {coworkers.join(", ")}</span> : null}
+          </span>
+        ) : (
+          <span className="summary__value summary__value--muted">Χωρίς βάρδια</span>
+        )}
+      </dd>
+    </div>
   );
 }
 

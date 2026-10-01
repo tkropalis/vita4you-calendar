@@ -8,6 +8,7 @@ import {
   currentStaff,
   daySignature,
   findWeek,
+  formatWeekRange,
   personWeek,
   summarize,
 } from "@/lib/schedule/view";
@@ -97,6 +98,14 @@ export function ScheduleApp(props: Props) {
     [firstWeek, lastWeek],
   );
 
+  // The refresh callback reads the latest week and navigator without being re-created.
+  const weekRef = useRef(week);
+  const goToWeekRef = useRef(goToWeek);
+  useEffect(() => {
+    weekRef.current = week;
+    goToWeekRef.current = goToWeek;
+  }, [week, goToWeek]);
+
   const refresh = useCallback(
     async (options: { silent?: boolean } = {}) => {
       setChecking(true);
@@ -111,7 +120,7 @@ export function ScheduleApp(props: Props) {
 
         if (data.staleReason) {
           if (!options.silent) {
-            setToast({ tone: "error", text: "Το φύλλο δεν απαντά. Δείχνουμε το πρόγραμμα που είχαμε ήδη." });
+            setToast({ tone: "error", text: "Το φύλλο δεν απαντά. Βλέπεις το πρόγραμμα του τελευταίου ελέγχου." });
           }
           return;
         }
@@ -125,12 +134,7 @@ export function ScheduleApp(props: Props) {
         const diff = personId ? changedDays(before, after, personId) : new Set<string>();
         setSnapshot(after);
         setChanged((prev) => new Set([...prev, ...diff]));
-        setToast({
-          tone: "success",
-          text: diff.size
-            ? `Το πρόγραμμα άλλαξε: ${diff.size === 1 ? "1 μέρα σου" : `${diff.size} μέρες σου`}. Σημειώνονται με «Άλλαξε».`
-            : "Το φύλλο ενημερώθηκε. Οι βάρδιές σου δεν άλλαξαν.",
-        });
+        setToast(changeMessage(diff, before, after, weekRef.current, (m) => goToWeekRef.current(m)));
       } catch {
         if (!options.silent) setToast({ tone: "error", text: "Δεν ήταν δυνατός ο έλεγχος. Δοκίμασε ξανά σε λίγο." });
       } finally {
@@ -170,6 +174,10 @@ export function ScheduleApp(props: Props) {
 
   const dismissToast = useCallback(() => setToast(null), []);
 
+  const changedWeeks = [...changed].map((key) => key.split(":")[0]!);
+  const changedBefore = changedWeeks.some((monday) => monday < week);
+  const changedAfter = changedWeeks.some((monday) => monday > week);
+
   const weekStatus = weekData ? "published" : week > lastPublished ? "upcoming" : "missing";
 
   return (
@@ -195,6 +203,8 @@ export function ScheduleApp(props: Props) {
             today={today}
             canPrev={week > firstWeek}
             canNext={week < lastWeek}
+            changedBefore={changedBefore}
+            changedAfter={changedAfter}
             onChange={goToWeek}
           />
 
@@ -206,6 +216,9 @@ export function ScheduleApp(props: Props) {
             className="panel"
           >
             <MyWeek
+              key={week}
+              staff={staff}
+              onSelectPerson={selectPerson}
               person={person}
               week={week}
               today={today}
@@ -236,13 +249,59 @@ export function ScheduleApp(props: Props) {
             />
           </div>
 
-          <DataNotes week={weekData} sheetUrl={snapshot.sheetUrl} checkedAt={checkedAt} today={today} />
+          <DataNotes
+            week={weekData}
+            view={view}
+            sheetUrl={snapshot.sheetUrl}
+            checkedAt={checkedAt}
+            today={today}
+          />
         </main>
       </div>
 
       <Toast message={toast} onDismiss={dismissToast} />
     </div>
   );
+}
+
+/** Toast text for a refresh that found a new version of the sheet, naming the week that changed. */
+function changeMessage(
+  diff: Set<string>,
+  before: ClientSnapshot,
+  after: ClientSnapshot,
+  visibleWeek: IsoDate,
+  goToWeek: (monday: IsoDate) => void,
+): ToastMessage {
+  if (diff.size === 0) {
+    return { tone: "neutral", text: "Το φύλλο ενημερώθηκε. Οι βάρδιές σου δεν άλλαξαν." };
+  }
+  const perWeek = new Map<IsoDate, number>();
+  for (const key of diff) {
+    const monday = key.split(":")[0]!;
+    perWeek.set(monday, (perWeek.get(monday) ?? 0) + 1);
+  }
+  // "Άλλαξε 1 μέρα σου" / "Άλλαξαν 3 μέρες σου": the verb agrees with the count.
+  const changedDaysText = (n: number) => (n === 1 ? "Άλλαξε 1 μέρα σου" : `Άλλαξαν ${n} μέρες σου`);
+  const describe = (monday: IsoDate) =>
+    !findWeek(before, monday) && findWeek(after, monday)
+      ? `Αναρτήθηκε το πρόγραμμα για ${formatWeekRange(monday)}.`
+      : `${changedDaysText(perWeek.get(monday)!)} για ${formatWeekRange(monday)}.`;
+
+  const others = [...perWeek.keys()].filter((m) => m !== visibleWeek).sort();
+  const parts: string[] = [];
+  if (perWeek.has(visibleWeek)) {
+    const n = perWeek.get(visibleWeek)!;
+    parts.push(`${changedDaysText(n)} σε αυτή την εβδομάδα (${n === 1 ? "σημειωμένη" : "σημειωμένες"} με «Άλλαξε»).`);
+  }
+  if (others[0]) parts.push(describe(others[0]));
+  if (others.length > 1) parts.push(`Και ${others.length - 1} ακόμα εβδομάδα με αλλαγές.`);
+
+  const target = others[0];
+  return {
+    tone: "neutral",
+    text: parts.join(" "),
+    action: target ? { label: "Προβολή", onClick: () => goToWeek(target) } : undefined,
+  };
 }
 
 /** Keys ("<monday>:<day>") of the person's days whose content differs between two snapshots. */
