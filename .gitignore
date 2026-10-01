@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.vercel
+.DS_Store
+# Real rota snapshot (staff names); kept local only. See tests/README.md.
+tests/fixtures/live-snapshot.xlsx
+.impeccable/review/
+.impeccable/config.local.json
+test-results/
+playwright-report/
