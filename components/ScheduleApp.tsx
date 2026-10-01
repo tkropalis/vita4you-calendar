@@ -229,6 +229,7 @@ export function ScheduleApp(props: Props) {
               summary={summary}
               weekStatus={weekStatus}
               changed={changed}
+              checkedAt={checkedAt}
               onGoToCurrentWeek={() => goToWeek(thisMonday)}
               onRefresh={() => void refresh()}
             />

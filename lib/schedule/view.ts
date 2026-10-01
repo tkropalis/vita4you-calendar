@@ -201,6 +201,16 @@ export function formatTimeRange(start?: string, end?: string): string {
   return `${start} – ${end}`;
 }
 
+/** "Χαμζαλάρι Γ." → "Χαμζαλάρι\u00a0Γ.", so a list never breaks a surname from its initial. */
+export function keepTogether(name: string): string {
+  return name.replace(/ (\S{1,3}\.?)$/u, "\u00a0$1");
+}
+
+/** "με Α, Β και Γ"-style coworker line, with names that never break apart. */
+export function joinNames(names: string[]): string {
+  return names.map(keepTogether).join(", ");
+}
+
 export function initials(name: string): string {
   const parts = name.replace(/\./g, "").split(/\s+/).filter(Boolean);
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();

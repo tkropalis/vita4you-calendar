@@ -130,3 +130,11 @@ export function cellHasExplicitYear(cell: Cell | undefined): boolean {
   if (cell.kind !== "text") return false;
   return /20\d\d/.test(cell.text);
 }
+
+/** ISO-8601 week number and week-year of a date. */
+export function isoWeek(iso: IsoDate): { year: number; week: number } {
+  const thursday = addDays(iso, 3 - weekdayIndex(fromIso(iso)));
+  const year = fromIso(thursday).y;
+  const week = Math.floor(daysBetween(`${year}-01-01`, thursday) / 7) + 1;
+  return { year, week };
+}

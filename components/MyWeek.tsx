@@ -1,9 +1,11 @@
 "use client";
 
-import { CalendarPlus, CalendarSync, ChevronRight } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { CalendarPlus, CalendarSync, ChevronRight, ImageDown } from "lucide-react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { weekCode } from "@/lib/barcode";
+import { renderWeekImage, shareOrDownload, weekImageFilename } from "@/lib/client/exportImage";
 import { cx, dayNumber } from "@/lib/client/format";
-import type { IsoDate } from "@/lib/schedule/dates";
+import { isoWeek, type IsoDate } from "@/lib/schedule/dates";
 import type { Person } from "@/lib/schedule/types";
 import {
   DAY_NAMES,
@@ -12,10 +14,12 @@ import {
   formatDayMonth,
   formatHours,
   initials,
+  joinNames,
   type DayEntry,
   type PersonDay,
   type WeekSummary,
 } from "@/lib/schedule/view";
+import { Barcode } from "./Barcode";
 import { ShiftChip } from "./ShiftChip";
 
 type Props = {
@@ -28,6 +32,7 @@ type Props = {
   summary: WeekSummary | null;
   weekStatus: "published" | "upcoming" | "missing";
   changed: Set<string>;
+  checkedAt: string;
   onGoToCurrentWeek: () => void;
   onRefresh: () => void;
 };
@@ -35,8 +40,8 @@ type Props = {
 const DUTY_TAGS = ["Εφημερία", "Ολονυχτία"];
 
 export function MyWeek(props: Props) {
-  const { staff, onSelectPerson, person, week, today, days, summary, weekStatus, changed, onGoToCurrentWeek, onRefresh } =
-    props;
+  const { staff, onSelectPerson, person, week, today, days, summary, weekStatus, changed } = props;
+
   if (!person || !days || !summary) {
     return (
       <div className="empty empty--pick">
@@ -48,7 +53,7 @@ export function MyWeek(props: Props) {
           {staff.map((p) => (
             <li key={p.id}>
               <button type="button" className="pick-list__item" onClick={() => onSelectPerson(p.id)}>
-                <span className="pick-list__avatar" aria-hidden="true">
+                <span className="pick-list__initials" aria-hidden="true">
                   {initials(p.name)}
                 </span>
                 <span className="pick-list__name">{p.name}</span>
@@ -74,11 +79,11 @@ export function MyWeek(props: Props) {
         </p>
         <div className="empty__actions">
           {weekStatus === "upcoming" ? (
-            <button type="button" className="button button--primary" onClick={onRefresh}>
+            <button type="button" className="button button--primary" onClick={props.onRefresh}>
               Ανανέωση
             </button>
           ) : null}
-          <button type="button" className="button" onClick={onGoToCurrentWeek}>
+          <button type="button" className="button" onClick={props.onGoToCurrentWeek}>
             Τρέχουσα εβδομάδα
           </button>
         </div>
@@ -87,149 +92,165 @@ export function MyWeek(props: Props) {
   }
 
   const absent = days.every((d) => d.entries.length === 0);
+  const todayDay = days.find((d) => d.date === today);
+  const { week: weekNumber, year } = isoWeek(week);
 
   return (
     <div className="myweek">
-      <div className="myweek__summary">
+      <section className="box myweek__box" aria-labelledby="box-name">
+        <header className="box__head">
+          <h3 id="box-name" className="box__name">
+            {person.name}
+          </h3>
+          <p className="box__desc">
+            Εβδομάδα {weekNumber} · {summary.shiftCount === 1 ? "1 βάρδια" : `${summary.shiftCount} βάρδιες`}
+          </p>
+        </header>
+
+        {todayDay ? <TodayBand day={todayDay} /> : null}
+
         {absent ? (
-          <p className="notice">
+          <p className="box__notice">
             Δεν εμφανίζεσαι στο πρόγραμμα αυτής της εβδομάδας. Αν περιμένεις βάρδιες, έλεγξε το φύλλο ή ρώτα τον
             υπεύθυνο του προγράμματος.
           </p>
         ) : (
-          <Summary days={days} summary={summary} today={today} />
+          <Facts days={days} summary={summary} />
         )}
-      </div>
 
-      <table className="days myweek__table">
+        <div className="strip">
+          <div className="strip__code">
+            <Barcode code={weekCode(person.id, year, weekNumber)} className="strip__bars" />
+            <span className="strip__digits" aria-hidden="true">
+              {formatCode(weekCode(person.id, year, weekNumber))}
+            </span>
+          </div>
+          <div className="strip__info">
+            <span className="strip__name">{person.name}</span>
+            <span>
+              Εβδ. {weekNumber}/{year}
+            </span>
+            <span>
+              {summary.totalIncomplete ? "≥ " : ""}
+              {formatHours(summary.totalMinutes)}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <table className="dosage myweek__table">
         <caption className="visually-hidden">
           Πρόγραμμα για {person.name}, εβδομάδα από {formatDayMonth(week, "long")}
         </caption>
-        <thead className="visually-hidden">
+        <thead>
           <tr>
             <th scope="col">Ημέρα</th>
             <th scope="col">Βάρδια</th>
+            <th scope="col" className="dosage__hours">
+              Ώρες
+            </th>
           </tr>
         </thead>
         <tbody>
           {days.map((day) => (
-            <DayRow
-              key={day.date}
-              day={day}
-              today={today}
-              changed={changed.has(`${week}:${day.index}`)}
-            />
+            <DayRow key={day.date} day={day} today={today} changed={changed.has(`${week}:${day.index}`)} />
           ))}
         </tbody>
       </table>
 
-      {!absent ? <CalendarActions personId={person.id} week={week} /> : null}
+      {!absent ? (
+        <Actions
+          person={person}
+          week={week}
+          today={today}
+          days={days}
+          summary={summary}
+          checkedAt={props.checkedAt}
+        />
+      ) : null}
     </div>
   );
 }
 
-function Summary({ days, summary, today }: { days: PersonDay[]; summary: WeekSummary; today: IsoDate }) {
-  const dayLabel = (index: number) => `${DAY_NAMES[index]} ${formatDayMonth(days[index]!.date)}`;
-  const sundayDuty = summary.sunday.flatMap((e) => e.tags.filter((t) => DUTY_TAGS.includes(t)));
-  const todayDay = days.find((d) => d.date === today);
+function formatCode(code: string): string {
+  return `${code[0]} ${code.slice(1, 7)} ${code.slice(7)}`;
+}
+
+/** Today's dose, on the band colour of today's shift. */
+function TodayBand({ day }: { day: PersonDay }) {
+  const shifts = day.entries.filter((e) => e.kind === "shift");
+  const first = day.entries[0];
+  const tone = !first ? "none" : first.kind === "shift" ? (first.period ?? "morning") : first.kind;
+  const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
+  const duty = shifts.flatMap((e) => e.tags).find((t) => DUTY_TAGS.includes(t));
+
+  let dose = "Χωρίς βάρδια";
+  if (shifts.length) dose = shifts.map((e) => `${e.start}–${e.end}`).join(" · ");
+  else if (first?.kind === "off") dose = "Ρεπό";
+  else if (first?.kind === "leave") dose = first.label ?? "Άδεια";
 
   return (
-    <dl className="summary">
-      {todayDay ? <TodayItem day={todayDay} /> : null}
+    <div className={`today today--${tone}`}>
+      <p className="today__label">
+        Σήμερα · {DAY_NAMES[day.index]} {dayNumber(day.date)}
+        {duty ? ` · ${duty}` : ""}
+      </p>
+      <p className="today__dose">{dose}</p>
+      {coworkers.length ? <p className="today__with">με {joinNames(coworkers)}</p> : null}
+    </div>
+  );
+}
 
-      <div className="summary__item">
+function Facts({ days, summary }: { days: PersonDay[]; summary: WeekSummary }) {
+  const dayLabel = (index: number) => `${DAY_NAMES[index]} ${formatDayMonth(days[index]!.date)}`;
+  const sundayDuty = summary.sunday.flatMap((e) => e.tags.filter((t) => DUTY_TAGS.includes(t)));
+  return (
+    <dl className="facts">
+      <div className="facts__row">
         <dt>Ρεπό</dt>
-        <dd>
-          {summary.offDays.length ? (
-            <span className="summary__value summary__value--off">
-              {summary.offDays.map(dayLabel).join(" και ")}
-            </span>
-          ) : (
-            <span className="summary__value summary__value--muted">Κανένα αυτή την εβδομάδα</span>
-          )}
+        <dd className={summary.offDays.length ? "facts__off" : "facts__muted"}>
+          {summary.offDays.length ? summary.offDays.map(dayLabel).join(" και ") : "Κανένα αυτή την εβδομάδα"}
         </dd>
       </div>
-
-      <div className="summary__item">
+      <div className="facts__row">
         <dt>Κυριακή</dt>
         <dd>
-          {summary.sunday.length ? (
-            <span className="summary__value summary__inline">
-              <span>Δουλεύεις</span>
-              {summary.sunday.map((entry, i) => (
-                <ShiftChip key={i} entry={entry} />
-              ))}
-              {sundayDuty.length ? <span className="tag">{sundayDuty[0]}</span> : null}
-            </span>
-          ) : (
-            <span className="summary__value">Δεν δουλεύεις</span>
-          )}
+          {summary.sunday.length
+            ? `Δουλεύεις ${summary.sunday.map((e) => `${e.start}–${e.end}`).join(", ")}${sundayDuty[0] ? ` · ${sundayDuty[0]}` : ""}`
+            : "Δεν δουλεύεις"}
         </dd>
       </div>
-
-      <div className="summary__item">
-        <dt>Ώρες</dt>
+      <div className="facts__row">
+        <dt>Σύνολο</dt>
         <dd>
-          <span className="summary__value">
-            {summary.totalIncomplete ? "τουλάχιστον " : ""}
-            {formatHours(summary.totalMinutes)}
-          </span>
-          <span className="summary__aside">
-            {summary.shiftCount === 1 ? "1 βάρδια" : `${summary.shiftCount} βάρδιες`}
-          </span>
+          {summary.totalIncomplete ? "τουλάχιστον " : ""}
+          {formatHours(summary.totalMinutes)}
         </dd>
       </div>
-
       {summary.leaveDays.length ? (
-        <div className="summary__item">
+        <div className="facts__row">
           <dt>Άδεια</dt>
-          <dd>
-            <span className="summary__value">{summary.leaveDays.map((i) => DAY_SHORT[i]).join(", ")}</span>
-          </dd>
+          <dd>{summary.leaveDays.map((i) => DAY_SHORT[i]).join(", ")}</dd>
         </div>
       ) : null}
     </dl>
   );
 }
 
-/** The first answer on the page: what today holds. */
-function TodayItem({ day }: { day: PersonDay }) {
-  const shifts = day.entries.filter((e) => e.kind === "shift");
-  const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
-  return (
-    <div className="summary__item summary__item--today">
-      <dt>Σήμερα</dt>
-      <dd>
-        {day.entries.length ? (
-          <span className="summary__stack">
-            <span className="summary__inline">
-              {day.entries.map((entry, i) => (
-                <ShiftChip key={i} entry={entry} />
-              ))}
-            </span>
-            {coworkers.length ? <span className="summary__aside">με {coworkers.join(", ")}</span> : null}
-          </span>
-        ) : (
-          <span className="summary__value summary__value--muted">Χωρίς βάρδια</span>
-        )}
-      </dd>
-    </div>
-  );
-}
-
 function DayRow({ day, today, changed }: { day: PersonDay; today: IsoDate; changed: boolean }) {
   const isToday = day.date === today;
   const isPast = day.date < today;
+  const minutes = day.entries.reduce((sum, e) => sum + (e.minutes ?? 0), 0);
   return (
     <tr
-      className={cx("day", isToday && "day--today", isPast && "day--past", `day--${day.status}`)}
+      className={cx("dose-row", isToday && "dose-row--today", isPast && "dose-row--past")}
       aria-current={isToday ? "date" : undefined}
     >
-      <th scope="row" className="day__date">
-        <span className="day__dow" aria-hidden="true">
+      <th scope="row" className="dose-row__day">
+        <span className="dose-row__dow" aria-hidden="true">
           {DAY_SHORT[day.index]}
         </span>
-        <span className="day__num" aria-hidden="true">
+        <span className="dose-row__num" aria-hidden="true">
           {dayNumber(day.date)}
         </span>
         <span className="visually-hidden">
@@ -237,14 +258,15 @@ function DayRow({ day, today, changed }: { day: PersonDay; today: IsoDate; chang
           {isToday ? " (σήμερα)" : ""}
         </span>
       </th>
-      <td className="day__body">
-        {changed ? <span className="badge">Άλλαξε</span> : null}
+      <td className="dose-row__body">
+        {changed ? <span className="overstamp">Άλλαξε</span> : null}
         {day.entries.length === 0 ? (
-          <span className="day__empty">Χωρίς βάρδια</span>
+          <span className="dose-row__empty">Χωρίς βάρδια</span>
         ) : (
           day.entries.map((entry, i) => <Entry key={i} entry={entry} />)
         )}
       </td>
+      <td className="dose-row__hours">{minutes ? formatHours(minutes).replace(" ώρες", "").replace(" ώρα", "") : "—"}</td>
     </tr>
   );
 }
@@ -253,59 +275,42 @@ function Entry({ entry }: { entry: DayEntry }) {
   const duty = entry.tags.find((t) => DUTY_TAGS.includes(t));
   const otherTags = entry.tags.filter((t) => t !== duty && t !== entry.label);
 
-  if (entry.kind !== "shift") {
-    return (
-      <div className="entry">
-        <div className="entry__line">
-          <ShiftChip entry={entry} />
-          {entry.kind === "note" && entry.label ? <span className="entry__meta">{entry.label}</span> : null}
-          {otherTags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const label = duty ?? PERIOD_LABEL[entry.period ?? "morning"];
   return (
     <div className="entry">
       <div className="entry__line">
         <ShiftChip entry={entry} />
-        <span className="entry__meta">
-          {label}
-          {entry.minutes !== null ? ` · ${formatHours(entry.minutes)}` : ""}
-        </span>
+        {entry.kind === "shift" ? <span className="entry__kind">{duty ?? PERIOD_LABEL[entry.period ?? "morning"]}</span> : null}
+        {entry.kind === "note" && entry.label ? <span className="entry__kind">{entry.label}</span> : null}
         {otherTags.map((tag) => (
           <span key={tag} className="tag">
             {tag}
           </span>
         ))}
       </div>
-      <p className="entry__with">
-        {entry.coworkers.length ? (
-          <>
-            <span className="entry__with-label">Με </span>
-            {entry.coworkers.join(", ")}
-          </>
-        ) : (
-          <span className="entry__with-label">Κανείς άλλος σε αυτή τη βάρδια</span>
-        )}
-      </p>
+      {entry.kind === "shift" ? (
+        <p className="entry__with">
+          {entry.coworkers.length ? `με ${joinNames(entry.coworkers)}` : "κανείς άλλος στη βάρδια"}
+        </p>
+      ) : null}
       {entry.timeSource === "inherited" ? (
         <p className="entry__hint">Η ώρα δεν γράφεται στο φύλλο· δείχνουμε την ώρα της γραμμής από πάνω.</p>
       ) : null}
-      {entry.timeSource === "override" ? (
-        <p className="entry__hint">Ειδικό ωράριο, γραμμένο δίπλα στο όνομα.</p>
-      ) : null}
+      {entry.timeSource === "override" ? <p className="entry__hint">Ειδικό ωράριο, γραμμένο δίπλα στο όνομα.</p> : null}
     </div>
   );
 }
 
-function CalendarActions({ personId, week }: { personId: string; week: IsoDate }) {
-  const path = `/api/calendar/${encodeURIComponent(personId)}.ics`;
+type ActionsProps = {
+  person: Person;
+  week: IsoDate;
+  today: IsoDate;
+  days: PersonDay[];
+  summary: WeekSummary;
+  checkedAt: string;
+};
+
+function Actions({ person, week, today, days, summary, checkedAt }: ActionsProps) {
+  const path = `/api/calendar/${encodeURIComponent(person.id)}.ics`;
   // webcal:// needs the absolute host, which only the browser knows.
   const host = useSyncExternalStore(
     () => () => {},
@@ -314,19 +319,46 @@ function CalendarActions({ personId, week }: { personId: string; week: IsoDate }
   );
   const feedUrl = host ? `webcal://${host}${path}` : path;
 
+  // Render the image ahead of the tap, so the share sheet opens inside the user's gesture (iOS requires it).
+  const imageRef = useRef<Promise<Blob> | null>(null);
+  useEffect(() => {
+    imageRef.current = renderWeekImage({ personId: person.id, personName: person.name, monday: week, today, days, summary, checkedAt });
+    imageRef.current.catch(() => undefined);
+  }, [person, week, today, days, summary, checkedAt]);
+
+  const [status, setStatus] = useState<"idle" | "busy" | "saved" | "failed">("idle");
+  const saveImage = async () => {
+    setStatus("busy");
+    try {
+      const blob = await (imageRef.current ??
+        renderWeekImage({ personId: person.id, personName: person.name, monday: week, today, days, summary, checkedAt }));
+      const result = await shareOrDownload(blob, weekImageFilename(person.id, week), `Πρόγραμμα · ${person.name}`);
+      setStatus(result === "downloaded" ? "saved" : "idle");
+    } catch {
+      setStatus("failed");
+    }
+  };
+
   return (
-    <div className="cal-actions myweek__actions">
-      <a className="button button--primary" href={`${path}?week=${week}`}>
+    <div className="actions myweek__actions">
+      <button type="button" className="button button--primary" onClick={() => void saveImage()} disabled={status === "busy"}>
+        <ImageDown aria-hidden="true" className="icon" />
+        <span>{status === "busy" ? "Ετοιμάζεται…" : "Εικόνα της εβδομάδας"}</span>
+      </button>
+      <a className="button" href={`${path}?week=${week}`}>
         <CalendarPlus aria-hidden="true" className="icon" />
-        <span>Προσθήκη στο ημερολόγιο</span>
+        <span>Στο ημερολόγιο</span>
       </a>
       <a className="button" href={feedUrl}>
         <CalendarSync aria-hidden="true" className="icon" />
-        <span>Συνδρομή που ενημερώνεται</span>
+        <span>Συνδρομή ημερολογίου</span>
       </a>
-      <p className="cal-actions__hint">
-        Η «Προσθήκη» περνά αυτή την εβδομάδα στο κινητό σου. Η «Συνδρομή» κρατά το ημερολόγιο ενημερωμένο μόνη της
-        (iPhone, Mac, Outlook).
+      <p className="actions__hint" aria-live="polite">
+        {status === "saved"
+          ? "Η εικόνα αποθηκεύτηκε στις λήψεις."
+          : status === "failed"
+            ? "Η εικόνα δεν δημιουργήθηκε. Δοκίμασε ξανά."
+            : "Η εικόνα είναι σε μέγεθος κινητού, για αποθήκευση ή αποστολή. Η «Συνδρομή» κρατά το ημερολόγιο του κινητού ενημερωμένο μόνη της."}
       </p>
     </div>
   );
