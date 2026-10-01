@@ -40,7 +40,6 @@ The sheet is the single source of truth and stays that way. Nobody re-enters dat
 - Refresh button: re-reads the sheet and reports whether anything changed.
 - Add to phone calendar: download the week as `.ics`.
 - Whole-team week view: a cleaned-up rendering of the week for everyone.
-- Export the selected week as a phone-sized image (1080×1920 PNG) to save or share.
 - Remember the last selected name on the device.
 - Access: anyone with the link, no login; hidden from search engines.
 - The sheet's data quality is low and will stay low. Parsing must tolerate typos and never crash on a malformed block.
@@ -48,7 +47,7 @@ The sheet is the single source of truth and stays that way. Nobody re-enters dat
 ## Brand Commitments
 
 - Name: "Vita4you Τσιμισκή" with the product named "Πρόγραμμα". No official Vita4you logo or brand colors are used. The site has its own look.
-- Visual direction (chosen by the user after rejecting the generic app look as "AI-generated"): **the visual system of Greek medicine packaging**. White box faces, one solid colour band per shift type, strength-style numerals for times, and the authenticity strip (ταινία γνησιότητας) as the signature element. Creative but never playful: no jokes, no nostalgia, no pastel app chips.
+- Standing visual preference (chosen by the user over an assigned concept direction): the **category standard, played straight**. A familiar staff-scheduling app with no metaphor and no smuggled quirk. Craft bar: purpose-built shift apps (Deputy, When I Work) for the rota content, and Apple Calendar / iOS for calm, native-feeling polish.
 
 ## Evidence on Hand
 

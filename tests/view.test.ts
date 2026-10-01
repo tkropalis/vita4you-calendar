@@ -97,23 +97,3 @@ describe("calendar export", () => {
     }
   });
 });
-
-describe("week code", async () => {
-  const { ean13CheckDigit, ean13Modules, weekCode } = await import("../lib/barcode");
-  const { isoWeek } = await import("../lib/schedule/dates");
-
-  it("computes ISO weeks", () => {
-    expect(isoWeek("2026-09-28")).toEqual({ year: 2026, week: 40 });
-    expect(isoWeek("2027-01-01")).toEqual({ year: 2026, week: 53 });
-  });
-
-  it("builds valid in-store EAN-13 codes", () => {
-    expect(ean13CheckDigit("400638133393")).toBe(1);
-    const code = weekCode("kontra-a", 2026, 40);
-    expect(code).toMatch(/^202640\d{7}$/);
-    expect(ean13CheckDigit(code.slice(0, 12))).toBe(Number(code[12]));
-    expect(ean13Modules(code)).toHaveLength(95);
-    // Known reference: 4006381333931
-    expect(ean13Modules("4006381333931").slice(0, 17)).toBe("10100011010100111");
-  });
-});

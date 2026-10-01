@@ -8,7 +8,6 @@ A small web app that turns the shared rota spreadsheet ("ΠΡΟΓΡΑΜΜΑ ΤΣ
 - a team view of the whole week (a matrix on desktop, a per-day list on phones)
 - **Ανανέωση**, which re-reads the sheet, says whether anything changed, and marks the changed days with «Άλλαξε»
 - calendar export: one week as an `.ics` file, or a subscription feed that keeps itself up to date
-- **Εικόνα της εβδομάδας**: the week as a 1080×1920 PNG, drawn on a canvas in the browser. On phones it opens the share sheet (save to Photos, Viber, WhatsApp); elsewhere it downloads.
 
 The UI is in Greek and designed phone-first, with automatic dark mode. The chosen name is remembered on the device (cookie). The URL is shareable: `/?p=kontra-a&w=2026-10-05&v=team`.
 
@@ -87,6 +86,10 @@ Keep the sheet's sharing at **"Anyone with the link → Viewer"**. If it becomes
 
 ## Design
 
-The interface uses the visual system of Greek medicine packaging: box-board faces with printed ink rules, a solid colour band per shift type (morning, afternoon, night/εφημερία, ρεπό, άδεια) carrying strength-style numerals, regulatory label lines, and an authenticity strip whose EAN-13 (in the GS1 in-store range 20–29) encodes the person and ISO week. Type is Commissioner, self-hosted.
+The interface follows the [Impeccable](https://impeccable.style) workflow:
 
-It follows the [Impeccable](https://impeccable.style) workflow: `PRODUCT.md` (product truth), `DESIGN.md` (the visual system), `.impeccable/surfaces/` (the direction contract). Canvas colours for the exported image live in `lib/design/palette.ts` and mirror the CSS tokens.
+- `PRODUCT.md`: product truth (users, purpose, constraints)
+- `DESIGN.md`: the visual system (tokens, components)
+- `.impeccable/surfaces/`: the direction contract for the page
+
+It is deliberately a standard scheduling app played straight, held to the polish of Deputy / When I Work and Apple Calendar.
