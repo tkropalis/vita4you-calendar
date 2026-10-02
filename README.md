@@ -7,9 +7,8 @@ A small web app that turns the shared rota spreadsheet ("ΠΡΟΓΡΑΜΜΑ ΤΣ
 - previous and next weeks (the next week shows up as soon as it is added to the sheet)
 - a team view of the whole week (a matrix on desktop, a per-day list on phones)
 - **Ανανέωση**, which re-reads the sheet, says whether anything changed, and marks the changed days with «Άλλαξε»
-- calendar export: one week as an `.ics` file, or a subscription feed that keeps itself up to date
-- **Επόμενη βάρδια**: a live line such as "αύριο 08:00 · σε 14 ώρες", or "Σε βάρδια τώρα · έως 21:00"
-- **Αλλαγή βάρδιας;** under each upcoming shift: who is on ρεπό, on another shift, or on leave that day, so you know whom to ask
+- calendar export: one week as an `.ics` file, or a subscription feed that keeps itself up to date (linked in the footer)
+- **Επόμενη βάρδια**: a live line such as "αύριο 08:00 · σε 14 ώρες", or "Σε βάρδια ως 21:00 · άλλες 3 ώρες"
 - **Εικόνα της εβδομάδας**: the week as a 1080×1920 PNG in the notice style, drawn in the browser. On phones it opens the share sheet; elsewhere it downloads
 - works offline after the first visit (service worker), and can be added to the home screen
 

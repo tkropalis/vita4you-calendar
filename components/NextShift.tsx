@@ -1,7 +1,6 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { IsoDate } from "@/lib/schedule/dates";
 import { formatIn, formatLeft, formatShiftDay, nowInAthens, shiftStatus } from "@/lib/schedule/timeline";
 import type { Week } from "@/lib/schedule/types";
 
@@ -27,33 +26,27 @@ export function useAthensNow() {
   return minute === null ? null : nowInAthens(new Date(minute * 60_000));
 }
 
-/** Live suffix for today's box: "σε 5 ώρες" or "σε βάρδια, άλλες 3 ώρες". */
-export function TodayLive({ weeks, personId, date }: { weeks: Week[]; personId: string; date: IsoDate }) {
-  const now = useAthensNow();
-  if (!now || now.date !== date) return null;
-  const status = shiftStatus({ weeks }, personId, now);
-  if (status.kind === "on") return <> · σε βάρδια, {formatLeft(status.minutesLeft)}</>;
-  if (status.kind === "next" && status.shift.date === date) return <> · {formatIn(status.minutesUntil)}</>;
-  return null;
-}
-
 /**
- * "Επόμενη βάρδια: αύριο 08:00 · σε 14 ώρες", shown only when the next shift is on a later day
- * (today's box already says when today's shift starts).
+ * One status line above the facts: "Σε βάρδια · άλλες 3 ώρες" or
+ * "Επόμενη βάρδια: σήμερα 13:00 · σε 5 ώρες". The table's inverted row already marks today.
  */
-export function NextShift({ weeks, personId, todayHasShift }: { weeks: Week[]; personId: string; todayHasShift: boolean }) {
+export function NextShift({ weeks, personId }: { weeks: Week[]; personId: string }) {
   const now = useAthensNow();
   if (!now) return null;
   const status = shiftStatus({ weeks }, personId, now);
-  const today: IsoDate = now.date;
 
-  if (status.kind === "on") return null;
-  if (status.kind === "next" && status.shift.date === today && todayHasShift) return null;
+  if (status.kind === "on") {
+    return (
+      <p className="next-shift" role="status">
+        <strong>Σε βάρδια</strong> ως {status.shift.end} · {formatLeft(status.minutesLeft)}
+      </p>
+    );
+  }
   if (status.kind === "next") {
     const duty = status.shift.tags.find((t) => t === "Εφημερία" || t === "Ολονυχτία");
     return (
       <p className="next-shift" role="status">
-        <strong>Επόμενη βάρδια:</strong> {formatShiftDay(status.shift.date, today)} {status.shift.start}
+        <strong>Επόμενη βάρδια:</strong> {formatShiftDay(status.shift.date, now.date)} {status.shift.start}
         {duty ? ` (${duty.toLowerCase()})` : ""} · {formatIn(status.minutesUntil)}
       </p>
     );

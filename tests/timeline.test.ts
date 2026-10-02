@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { sheetIssues } from "../lib/schedule/checks";
-import { dayAlternatives, formatIn, formatShiftDay, localMinute, nowInAthens, shiftStatus } from "../lib/schedule/timeline";
+import { formatIn, formatShiftDay, localMinute, nowInAthens, shiftStatus } from "../lib/schedule/timeline";
 import type { Assignment, Schedule, Week } from "../lib/schedule/types";
 
 const a = (personId: string, day: number, kind: Assignment["kind"], start?: string, end?: string, row = 10): Assignment => ({
@@ -50,24 +50,6 @@ describe("shift status", () => {
     expect(formatIn(3 * 1440)).toBe("σε 3 μέρες");
     expect(formatShiftDay("2026-10-02", "2026-10-01")).toBe("αύριο");
     expect(formatShiftDay("2026-10-03", "2026-10-01")).toBe("Σάββατο 3/10");
-  });
-});
-
-describe("swap alternatives", () => {
-  it("lists who is off and who is on another shift", () => {
-    const w = week("2026-09-28", [
-      a("p", 1, "shift", "08:00", "16:00"),
-      a("q", 1, "off"),
-      a("r", 1, "shift", "13:00", "21:00"),
-      a("s", 1, "shift", "08:00", "16:00"),
-      a("t", 1, "leave"),
-    ]);
-    const names = new Map([["q", "Q"], ["r", "R"], ["s", "S"], ["t", "T"]]);
-    expect(dayAlternatives(w, 1, "p", names, { start: "08:00", end: "16:00" })).toEqual({
-      off: ["Q"],
-      leave: ["T"],
-      shifts: [{ start: "13:00", end: "21:00", names: ["R"] }],
-    });
   });
 });
 

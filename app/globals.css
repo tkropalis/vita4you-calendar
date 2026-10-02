@@ -154,7 +154,6 @@ a {
 
 /* Notice labels: uppercase, tracked (Greek capitals drop the tonos with lang="el"). */
 .appbar__subtitle,
-.today-box__label,
 .facts dt,
 .roster thead th,
 .weeknav__relative,
@@ -573,35 +572,6 @@ a {
   }
 }
 
-.today-box {
-  padding: 10px 12px 12px;
-  border: var(--rule) solid var(--ink);
-}
-
-.today-box__label {
-  font-size: var(--text-label);
-  font-weight: 600;
-}
-
-.today-box__hours {
-  font-size: var(--text-display);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.roster-row--today .swap-trigger .slot--off {
-  color: var(--green-on-ink);
-}
-
-.today-box--off .today-box__hours {
-  color: var(--green);
-  text-transform: uppercase;
-}
-
-.today-box__with {
-  margin-top: 2px;
-}
-
 .facts {
   font-size: var(--text-m);
   line-height: 1.5;
@@ -775,6 +745,10 @@ a {
 .actions__hint {
   color: var(--ink-2);
   font-size: var(--text-s);
+}
+
+.actions__hint:empty {
+  display: none;
 }
 
 /* ---------- Empty states ---------- */
@@ -1265,6 +1239,11 @@ a {
   border-top: var(--border) solid var(--ink);
 }
 
+/* The disclaimer's heavy rule closes the last list: no hairline seam above it. */
+.health__week:last-of-type .health__item:last-child {
+  border-bottom: 0;
+}
+
 /* ---------- Next shift line ---------- */
 
 .next-shift {
@@ -1274,75 +1253,6 @@ a {
 
 .next-shift strong {
   font-weight: 800;
-}
-
-.next-shift--on strong {
-  color: var(--green);
-}
-
-/* ---------- Swap helper ---------- */
-
-.swap-trigger {
-  display: inline-grid;
-  justify-items: start;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.swap-trigger .slot__time {
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.22em;
-}
-
-.swap-trigger[aria-expanded="true"] .slot__time {
-  text-decoration-style: solid;
-  text-decoration-color: var(--green);
-}
-
-.roster-row--today .swap-trigger[aria-expanded="true"] .slot__time {
-  text-decoration-color: var(--green-on-ink);
-}
-
-.swap {
-  margin-top: 8px;
-  padding-top: 6px;
-  border-top: 1px dotted currentColor;
-}
-
-.swap__title {
-  font-size: var(--text-label);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.swap__list {
-  display: grid;
-  gap: 2px;
-  margin-top: 2px;
-}
-
-.swap__list div {
-  display: flex;
-  gap: 8px;
-}
-
-.swap__list dt {
-  flex: none;
-  min-width: 48px;
-  font-weight: 800;
-}
-
-.myweek__hint {
-  margin-top: 8px;
-  color: var(--ink-2);
-  font-size: var(--text-s);
 }
 
 .banner--offline {

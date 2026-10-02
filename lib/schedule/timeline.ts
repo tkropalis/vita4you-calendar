@@ -98,38 +98,3 @@ export function formatShiftDay(date: IsoDate, today: IsoDate): string {
   const weekday = (new Date(Date.parse(date)).getUTCDay() + 6) % 7;
   return `${DAY_NAMES[weekday]} ${d}/${m}`;
 }
-
-export type DayAlternatives = {
-  off: string[];
-  leave: string[];
-  shifts: { start: string; end: string; names: string[] }[];
-};
-
-/**
- * Who could take over a shift: people with ρεπό that day, and people on a different shift.
- * Leave is listed separately because those people are not available.
- */
-export function dayAlternatives(week: Week | undefined, day: number, personId: string, names: Map<string, string>, mine?: { start?: string; end?: string }): DayAlternatives {
-  const result: DayAlternatives = { off: [], leave: [], shifts: [] };
-  if (!week) return result;
-  const name = (id: string) => names.get(id) ?? id;
-  const byTime = new Map<string, { start: string; end: string; names: string[] }>();
-  for (const a of week.assignments) {
-    if (a.day !== day || a.personId === personId) continue;
-    if (a.kind === "off") result.off.push(name(a.personId));
-    else if (a.kind === "leave") result.leave.push(name(a.personId));
-    else if (a.kind === "shift" && a.start && a.end && !(a.start === mine?.start && a.end === mine?.end)) {
-      const key = `${a.start}-${a.end}`;
-      const group = byTime.get(key) ?? { start: a.start, end: a.end, names: [] };
-      group.names.push(name(a.personId));
-      byTime.set(key, group);
-    }
-  }
-  const sort = (list: string[]) => [...new Set(list)].sort((x, y) => x.localeCompare(y, "el"));
-  result.off = sort(result.off);
-  result.leave = sort(result.leave);
-  result.shifts = [...byTime.values()]
-    .map((g) => ({ ...g, names: sort(g.names) }))
-    .sort((x, y) => x.start.localeCompare(y.start));
-  return result;
-}

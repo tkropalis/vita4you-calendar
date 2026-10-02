@@ -247,8 +247,6 @@ export function ScheduleApp(props: Props) {
               changed={changed}
               checkedAt={checkedAt}
               weeks={snapshot.weeks}
-              weekData={weekData}
-              names={names}
               isCurrentWeek={week === thisMonday}
               onGoToCurrentWeek={() => goToWeek(thisMonday)}
               onRefresh={() => void refresh()}
@@ -279,6 +277,7 @@ export function ScheduleApp(props: Props) {
             sheetUrl={snapshot.sheetUrl}
             checkedAt={checkedAt}
             today={today}
+            personId={view === "me" ? personId : null}
           />
         </main>
       </div>

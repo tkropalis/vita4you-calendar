@@ -1,16 +1,32 @@
 import { ExternalLink, Info } from "lucide-react";
 import Link from "next/link";
+import { useSyncExternalStore } from "react";
 import { formatCheckedAt } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
 import type { Week, WeekWarning } from "@/lib/schedule/types";
 
-type Props = { week: Week | undefined; view: "me" | "team"; sheetUrl: string; checkedAt: string; today: IsoDate };
+type Props = {
+  week: Week | undefined;
+  view: "me" | "team";
+  sheetUrl: string;
+  checkedAt: string;
+  today: IsoDate;
+  /** In "my week", the person whose calendar feed the footer offers. */
+  personId: string | null;
+};
 
 /** Where the data comes from, and anything we had to guess while reading this week. */
-export function DataNotes({ week, view, sheetUrl, checkedAt, today }: Props) {
+export function DataNotes({ week, view, sheetUrl, checkedAt, today, personId }: Props) {
   // Row-level details help whoever maintains the sheet (team view). In "my week" they are noise:
   // a person's own approximated times are already marked inline. Uncertain dates concern everyone.
   const warnings = (week?.warnings ?? []).filter((w) => view === "team" || w.type === "dates-inferred");
+  // webcal:// needs the absolute host, which only the browser knows.
+  const host = useSyncExternalStore(
+    () => () => {},
+    () => window.location.host,
+    () => null,
+  );
+  const feedPath = personId ? `/api/calendar/${encodeURIComponent(personId)}.ics` : null;
   return (
     <footer className="notes">
       {warnings.length ? (
@@ -33,6 +49,14 @@ export function DataNotes({ week, view, sheetUrl, checkedAt, today }: Props) {
         <Link className="notes__link" href="/elegxos">
           Έλεγχος φύλλου
         </Link>
+        {feedPath ? (
+          <>
+            {" "}·{" "}
+            <a className="notes__link" href={host ? `webcal://${host}${feedPath}` : feedPath}>
+              Συνδρομή ημερολογίου
+            </a>
+          </>
+        ) : null}
       </p>
     </footer>
   );

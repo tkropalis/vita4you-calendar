@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarPlus, ChevronRight, ImageDown } from "lucide-react";
-import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { renderWeekImage, shareOrDownload, weekImageFilename } from "@/lib/client/exportImage";
 import { cx, dayNumber } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
@@ -16,9 +16,8 @@ import {
   type PersonDay,
   type WeekSummary,
 } from "@/lib/schedule/view";
-import { dayAlternatives, type DayAlternatives } from "@/lib/schedule/timeline";
 import type { Week } from "@/lib/schedule/types";
-import { NextShift, TodayLive } from "./NextShift";
+import { NextShift } from "./NextShift";
 import { ShiftChip, compactRange } from "./ShiftChip";
 
 type Props = {
@@ -32,10 +31,8 @@ type Props = {
   weekStatus: "published" | "upcoming" | "missing";
   changed: Set<string>;
   checkedAt: string;
-  /** All loaded weeks (for the next-shift line) and this week's raw data (for swap candidates). */
+  /** All loaded weeks, for the next-shift line. */
   weeks: Week[];
-  weekData: Week | undefined;
-  names: Map<string, string>;
   isCurrentWeek: boolean;
   onGoToCurrentWeek: () => void;
   onRefresh: () => void;
@@ -91,22 +88,11 @@ export function MyWeek(props: Props) {
   }
 
   const absent = days.every((d) => d.entries.length === 0);
-  const todayDay = days.find((d) => d.date === today);
-  const swapDays = days.filter((d) => d.date >= today && d.entries.some((e) => e.kind === "shift")).map((d) => d.index);
 
   return (
     <div className="myweek">
       <div className="myweek__lead">
-        {props.isCurrentWeek ? (
-          <NextShift
-            weeks={props.weeks}
-            personId={person.id}
-            todayHasShift={Boolean(todayDay?.entries.some((e) => e.kind === "shift"))}
-          />
-        ) : null}
-        {todayDay ? (
-          <TodayBox day={todayDay} live={<TodayLive weeks={props.weeks} personId={person.id} date={todayDay.date} />} />
-        ) : null}
+        {props.isCurrentWeek ? <NextShift weeks={props.weeks} personId={person.id} /> : null}
         {absent ? (
           <p className="notice-text">
             Δεν εμφανίζεσαι στο πρόγραμμα αυτής της εβδομάδας. Αν περιμένεις βάρδιες, έλεγξε το φύλλο ή ρώτα τον
@@ -117,8 +103,7 @@ export function MyWeek(props: Props) {
         )}
       </div>
 
-      <div className="myweek__table">
-      <table className="roster">
+      <table className="roster myweek__table">
         <caption className="visually-hidden">
           Πρόγραμμα για {person.name}, εβδομάδα από {formatDayMonth(week, "long")}
         </caption>
@@ -131,24 +116,10 @@ export function MyWeek(props: Props) {
         </thead>
         <tbody>
           {days.map((day) => (
-            <DayRow
-              key={day.date}
-              day={day}
-              today={today}
-              changed={changed.has(`${week}:${day.index}`)}
-              alternatives={
-                swapDays.includes(day.index)
-                  ? dayAlternatives(props.weekData, day.index, person.id, props.names, day.entries.find((e) => e.kind === "shift"))
-                  : null
-              }
-            />
+            <DayRow key={day.date} day={day} today={today} changed={changed.has(`${week}:${day.index}`)} />
           ))}
         </tbody>
       </table>
-      {swapDays.length ? (
-        <p className="myweek__hint">Πάτα ένα ωράριο για να δεις ποιος θα μπορούσε να αλλάξει βάρδια μαζί σου.</p>
-      ) : null}
-      </div>
 
       {!absent ? (
         <Actions person={person} week={week} days={days} summary={summary} checkedAt={props.checkedAt} />
@@ -160,31 +131,6 @@ export function MyWeek(props: Props) {
 function formatDayNumeric(iso: IsoDate): string {
   const [, m, d] = iso.split("-").map(Number);
   return `${d}/${m}`;
-}
-
-/** Today's hours in a ruled box, the first thing to read. */
-function TodayBox({ day, live }: { day: PersonDay; live: React.ReactNode }) {
-  const shifts = day.entries.filter((e) => e.kind === "shift");
-  const first = day.entries[0];
-  const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
-  const duty = shifts.flatMap((e) => e.tags).find((t) => t === "Εφημερία" || t === "Ολονυχτία");
-
-  let hours = "Χωρίς βάρδια";
-  if (shifts.length) hours = shifts.map((e) => `${e.start} – ${e.end}`).join(" · ");
-  else if (first?.kind === "off") hours = "Ρεπό";
-  else if (first?.kind === "leave") hours = first.label ?? "Άδεια";
-
-  return (
-    <div className={cx("today-box", first?.kind === "off" && "today-box--off")}>
-      <p className="today-box__label">
-        Σήμερα · {DAY_NAMES[day.index]} {formatDayNumeric(day.date)}
-        {duty ? ` · ${duty}` : ""}
-        {live}
-      </p>
-      <p className="today-box__hours">{hours}</p>
-      {coworkers.length ? <p className="today-box__with">με {joinNames(coworkers)}</p> : null}
-    </div>
-  );
 }
 
 /**
@@ -212,14 +158,11 @@ function Facts({ days, summary }: { days: PersonDay[]; summary: WeekSummary }) {
   );
 }
 
-type DayRowProps = { day: PersonDay; today: IsoDate; changed: boolean; alternatives: DayAlternatives | null };
+type DayRowProps = { day: PersonDay; today: IsoDate; changed: boolean };
 
-function DayRow({ day, today, changed, alternatives }: DayRowProps) {
+function DayRow({ day, today, changed }: DayRowProps) {
   const isToday = day.date === today;
   const isPast = day.date < today;
-  const [swapOpen, setSwapOpen] = useState(false);
-  const panelId = useId();
-  const slots = day.entries.map((entry, i) => <ShiftChip key={i} entry={entry} />);
   return (
     <tr
       className={cx("roster-row", isToday && "roster-row--today", isPast && "roster-row--past")}
@@ -237,19 +180,8 @@ function DayRow({ day, today, changed, alternatives }: DayRowProps) {
       <td className="roster-row__hours">
         {day.entries.length === 0 ? (
           <span className="slot slot--none">—</span>
-        ) : alternatives ? (
-          <button
-            type="button"
-            className="swap-trigger"
-            aria-expanded={swapOpen}
-            aria-controls={panelId}
-            onClick={() => setSwapOpen((open) => !open)}
-          >
-            {slots}
-            <span className="visually-hidden">: ποιος θα μπορούσε να αλλάξει βάρδια</span>
-          </button>
         ) : (
-          slots
+          day.entries.map((entry, i) => <ShiftChip key={i} entry={entry} />)
         )}
       </td>
       <td className="roster-row__with">
@@ -257,7 +189,6 @@ function DayRow({ day, today, changed, alternatives }: DayRowProps) {
         {day.entries.map((entry, i) => (
           <EntryNotes key={i} entry={entry} />
         ))}
-        {alternatives && swapOpen ? <SwapHelp id={panelId} alternatives={alternatives} /> : null}
       </td>
     </tr>
   );
@@ -277,42 +208,10 @@ function EntryNotes({ entry }: { entry: DayEntry }) {
         </span>
       ))}
       {entry.timeSource === "inherited" ? (
-        <span className="roster-row__note">≈ η ώρα λείπει στο φύλλο· πάρθηκε από τη γραμμή από πάνω</span>
+        <span className="roster-row__note">≈ η ώρα λείπει στο φύλλο</span>
       ) : null}
       {entry.timeSource === "override" ? <span className="roster-row__note">ειδικό ωράριο</span> : null}
     </>
-  );
-}
-
-/** Who to ask when you need to swap this shift. */
-function SwapHelp({ id, alternatives }: { id: string; alternatives: DayAlternatives }) {
-  const { off, shifts, leave } = alternatives;
-  const empty = !off.length && !shifts.length;
-  return (
-    <div className="swap" id={id}>
-      <p className="swap__title">Για αλλαγή βάρδιας</p>
-      <dl className="swap__list">
-        {off.length ? (
-          <div>
-            <dt>Ρεπό</dt>
-            <dd>{joinNames(off)}</dd>
-          </div>
-        ) : null}
-        {shifts.map((s) => (
-          <div key={`${s.start}-${s.end}`}>
-            <dt>{compactRange(s.start, s.end)}</dt>
-            <dd>{joinNames(s.names)}</dd>
-          </div>
-        ))}
-        {leave.length ? (
-          <div>
-            <dt>Άδεια</dt>
-            <dd>{joinNames(leave)} (μη διαθέσιμοι)</dd>
-          </div>
-        ) : null}
-        {empty ? <p>Κανείς άλλος δεν είναι διαθέσιμος αυτή τη μέρα στο φύλλο.</p> : null}
-      </dl>
-    </div>
   );
 }
 
@@ -326,13 +225,6 @@ type ActionsProps = {
 
 function Actions({ person, week, days, summary, checkedAt }: ActionsProps) {
   const path = `/api/calendar/${encodeURIComponent(person.id)}.ics`;
-  // webcal:// needs the absolute host, which only the browser knows.
-  const host = useSyncExternalStore(
-    () => () => {},
-    () => window.location.host,
-    () => null,
-  );
-  const feedUrl = host ? `webcal://${host}${path}` : path;
 
   // Render the image before the tap, so the share sheet opens inside the user's gesture (iOS requires it).
   const imageRef = useRef<Promise<Blob> | null>(null);
@@ -365,15 +257,7 @@ function Actions({ person, week, days, summary, checkedAt }: ActionsProps) {
         <span>Στο ημερολόγιο</span>
       </a>
       <p className="actions__hint" aria-live="polite">
-        {status === "saved" ? (
-          "Η εικόνα αποθηκεύτηκε στις λήψεις."
-        ) : status === "failed" ? (
-          "Η εικόνα δεν δημιουργήθηκε. Δοκίμασε ξανά."
-        ) : (
-          <>
-            Ή <a href={feedUrl}>συνδρομή</a>, για ημερολόγιο που ενημερώνεται μόνο του.
-          </>
-        )}
+        {status === "saved" ? "Η εικόνα αποθηκεύτηκε στις λήψεις." : status === "failed" ? "Η εικόνα δεν δημιουργήθηκε. Δοκίμασε ξανά." : null}
       </p>
     </div>
   );

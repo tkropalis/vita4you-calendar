@@ -60,8 +60,11 @@ export default async function SheetCheckPage() {
           </a>
         </p>
         <p className="health__totals">
-          <b>{count("error")}</b> {count("error") === 1 ? "σφάλμα" : "σφάλματα"} · <b>{count("warning")}</b>{" "}
-          {count("warning") === 1 ? "προειδοποίηση" : "προειδοποιήσεις"} · <b>{count("info")}</b>{" "}
+          {/* Non-breaking spaces keep each count with its noun. */}
+          <b>{count("error")}</b>{"\u00a0"}{count("error") === 1 ? "σφάλμα" : "σφάλματα"} · <b>{count("warning")}</b>
+          {"\u00a0"}
+          {count("warning") === 1 ? "προειδοποίηση" : "προειδοποιήσεις"} · <b>{count("info")}</b>
+          {"\u00a0"}
           {count("info") === 1 ? "σημείωση" : "σημειώσεις"}
         </p>
 
