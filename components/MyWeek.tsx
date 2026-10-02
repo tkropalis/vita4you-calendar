@@ -1,7 +1,7 @@
 "use client";
 
-import { CalendarPlus, CalendarSync, ChevronRight, ImageDown } from "lucide-react";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { CalendarPlus, ChevronRight, ImageDown } from "lucide-react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { renderWeekImage, shareOrDownload, weekImageFilename } from "@/lib/client/exportImage";
 import { cx, dayNumber } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
@@ -18,7 +18,7 @@ import {
 } from "@/lib/schedule/view";
 import { dayAlternatives, type DayAlternatives } from "@/lib/schedule/timeline";
 import type { Week } from "@/lib/schedule/types";
-import { NextShift } from "./NextShift";
+import { NextShift, TodayLive } from "./NextShift";
 import { ShiftChip, compactRange } from "./ShiftChip";
 
 type Props = {
@@ -92,12 +92,21 @@ export function MyWeek(props: Props) {
 
   const absent = days.every((d) => d.entries.length === 0);
   const todayDay = days.find((d) => d.date === today);
+  const swapDays = days.filter((d) => d.date >= today && d.entries.some((e) => e.kind === "shift")).map((d) => d.index);
 
   return (
     <div className="myweek">
       <div className="myweek__lead">
-        {props.isCurrentWeek ? <NextShift weeks={props.weeks} personId={person.id} /> : null}
-        {todayDay ? <TodayBox day={todayDay} /> : null}
+        {props.isCurrentWeek ? (
+          <NextShift
+            weeks={props.weeks}
+            personId={person.id}
+            todayHasShift={Boolean(todayDay?.entries.some((e) => e.kind === "shift"))}
+          />
+        ) : null}
+        {todayDay ? (
+          <TodayBox day={todayDay} live={<TodayLive weeks={props.weeks} personId={person.id} date={todayDay.date} />} />
+        ) : null}
         {absent ? (
           <p className="notice-text">
             Δεν εμφανίζεσαι στο πρόγραμμα αυτής της εβδομάδας. Αν περιμένεις βάρδιες, έλεγξε το φύλλο ή ρώτα τον
@@ -108,7 +117,8 @@ export function MyWeek(props: Props) {
         )}
       </div>
 
-      <table className="roster myweek__table">
+      <div className="myweek__table">
+      <table className="roster">
         <caption className="visually-hidden">
           Πρόγραμμα για {person.name}, εβδομάδα από {formatDayMonth(week, "long")}
         </caption>
@@ -127,7 +137,7 @@ export function MyWeek(props: Props) {
               today={today}
               changed={changed.has(`${week}:${day.index}`)}
               alternatives={
-                day.date >= today && day.entries.some((e) => e.kind === "shift")
+                swapDays.includes(day.index)
                   ? dayAlternatives(props.weekData, day.index, person.id, props.names, day.entries.find((e) => e.kind === "shift"))
                   : null
               }
@@ -135,6 +145,10 @@ export function MyWeek(props: Props) {
           ))}
         </tbody>
       </table>
+      {swapDays.length ? (
+        <p className="myweek__hint">Πάτα ένα ωράριο για να δεις ποιος θα μπορούσε να αλλάξει βάρδια μαζί σου.</p>
+      ) : null}
+      </div>
 
       {!absent ? (
         <Actions person={person} week={week} days={days} summary={summary} checkedAt={props.checkedAt} />
@@ -149,7 +163,7 @@ function formatDayNumeric(iso: IsoDate): string {
 }
 
 /** Today's hours in a ruled box, the first thing to read. */
-function TodayBox({ day }: { day: PersonDay }) {
+function TodayBox({ day, live }: { day: PersonDay; live: React.ReactNode }) {
   const shifts = day.entries.filter((e) => e.kind === "shift");
   const first = day.entries[0];
   const coworkers = [...new Set(shifts.flatMap((e) => e.coworkers))];
@@ -165,6 +179,7 @@ function TodayBox({ day }: { day: PersonDay }) {
       <p className="today-box__label">
         Σήμερα · {DAY_NAMES[day.index]} {formatDayNumeric(day.date)}
         {duty ? ` · ${duty}` : ""}
+        {live}
       </p>
       <p className="today-box__hours">{hours}</p>
       {coworkers.length ? <p className="today-box__with">με {joinNames(coworkers)}</p> : null}
@@ -172,33 +187,28 @@ function TodayBox({ day }: { day: PersonDay }) {
   );
 }
 
-/** Ρεπό, Κυριακή and total hours, printed as one line of label–value pairs. */
+/**
+ * Ρεπό, Κυριακή and total hours as one printed sentence, the same line the exported image carries.
+ * It sits above the table on purpose: the answers come first (PRODUCT.md, principle 1).
+ */
 function Facts({ days, summary }: { days: PersonDay[]; summary: WeekSummary }) {
   const off = summary.offDays.map((i) => `${DAY_NAMES[i]} ${formatDayNumeric(days[i]!.date)}`).join(" και ");
+  const sunday = summary.sunday.length ? summary.sunday.map((e) => compactRange(e.start, e.end)).join(", ") : "όχι";
+  const total = `${summary.totalIncomplete ? "τουλάχιστον " : ""}${formatHours(summary.totalMinutes)}`;
   return (
-    <dl className="facts">
-      <div>
-        <dt>Ρεπό</dt>
-        <dd className={summary.offDays.length ? "facts__off" : undefined}>{off || "κανένα"}</dd>
-      </div>
-      <div>
-        <dt>Κυριακή</dt>
-        <dd>{summary.sunday.length ? summary.sunday.map((e) => compactRange(e.start, e.end)).join(", ") : "όχι"}</dd>
-      </div>
-      <div>
-        <dt>Σύνολο</dt>
-        <dd>
-          {summary.totalIncomplete ? "τουλάχιστον " : ""}
-          {formatHours(summary.totalMinutes)}
-        </dd>
-      </div>
+    <p className="facts">
+      <b>Ρεπό:</b> <span className={summary.offDays.length ? "facts__off" : undefined}>{off || "κανένα"}</span>
+      <span className="facts__sep"> · </span>
+      <b>Κυριακή:</b> {sunday}
+      <span className="facts__sep"> · </span>
+      <b>Σύνολο:</b> {total}
       {summary.leaveDays.length ? (
-        <div>
-          <dt>Άδεια</dt>
-          <dd>{summary.leaveDays.map((i) => DAY_SHORT[i]).join(", ")}</dd>
-        </div>
+        <>
+          <span className="facts__sep"> · </span>
+          <b>Άδεια:</b> {summary.leaveDays.map((i) => DAY_SHORT[i]).join(", ")}
+        </>
       ) : null}
-    </dl>
+    </p>
   );
 }
 
@@ -207,6 +217,9 @@ type DayRowProps = { day: PersonDay; today: IsoDate; changed: boolean; alternati
 function DayRow({ day, today, changed, alternatives }: DayRowProps) {
   const isToday = day.date === today;
   const isPast = day.date < today;
+  const [swapOpen, setSwapOpen] = useState(false);
+  const panelId = useId();
+  const slots = day.entries.map((entry, i) => <ShiftChip key={i} entry={entry} />);
   return (
     <tr
       className={cx("roster-row", isToday && "roster-row--today", isPast && "roster-row--past")}
@@ -224,8 +237,19 @@ function DayRow({ day, today, changed, alternatives }: DayRowProps) {
       <td className="roster-row__hours">
         {day.entries.length === 0 ? (
           <span className="slot slot--none">—</span>
+        ) : alternatives ? (
+          <button
+            type="button"
+            className="swap-trigger"
+            aria-expanded={swapOpen}
+            aria-controls={panelId}
+            onClick={() => setSwapOpen((open) => !open)}
+          >
+            {slots}
+            <span className="visually-hidden">: ποιος θα μπορούσε να αλλάξει βάρδια</span>
+          </button>
         ) : (
-          day.entries.map((entry, i) => <ShiftChip key={i} entry={entry} />)
+          slots
         )}
       </td>
       <td className="roster-row__with">
@@ -233,7 +257,7 @@ function DayRow({ day, today, changed, alternatives }: DayRowProps) {
         {day.entries.map((entry, i) => (
           <EntryNotes key={i} entry={entry} />
         ))}
-        {alternatives ? <SwapHelp alternatives={alternatives} /> : null}
+        {alternatives && swapOpen ? <SwapHelp id={panelId} alternatives={alternatives} /> : null}
       </td>
     </tr>
   );
@@ -261,12 +285,12 @@ function EntryNotes({ entry }: { entry: DayEntry }) {
 }
 
 /** Who to ask when you need to swap this shift. */
-function SwapHelp({ alternatives }: { alternatives: DayAlternatives }) {
+function SwapHelp({ id, alternatives }: { id: string; alternatives: DayAlternatives }) {
   const { off, shifts, leave } = alternatives;
   const empty = !off.length && !shifts.length;
   return (
-    <details className="swap">
-      <summary>Αλλαγή βάρδιας;</summary>
+    <div className="swap" id={id}>
+      <p className="swap__title">Για αλλαγή βάρδιας</p>
       <dl className="swap__list">
         {off.length ? (
           <div>
@@ -288,7 +312,7 @@ function SwapHelp({ alternatives }: { alternatives: DayAlternatives }) {
         ) : null}
         {empty ? <p>Κανείς άλλος δεν είναι διαθέσιμος αυτή τη μέρα στο φύλλο.</p> : null}
       </dl>
-    </details>
+    </div>
   );
 }
 
@@ -340,16 +364,16 @@ function Actions({ person, week, days, summary, checkedAt }: ActionsProps) {
         <CalendarPlus aria-hidden="true" className="icon" />
         <span>Στο ημερολόγιο</span>
       </a>
-      <a className="button" href={feedUrl}>
-        <CalendarSync aria-hidden="true" className="icon" />
-        <span>Συνδρομή ημερολογίου</span>
-      </a>
       <p className="actions__hint" aria-live="polite">
-        {status === "saved"
-          ? "Η εικόνα αποθηκεύτηκε στις λήψεις."
-          : status === "failed"
-            ? "Η εικόνα δεν δημιουργήθηκε. Δοκίμασε ξανά."
-            : "Η εικόνα έχει μέγεθος οθόνης κινητού, για αποθήκευση ή αποστολή. Η «Συνδρομή» κρατά ενημερωμένο το ημερολόγιο του κινητού."}
+        {status === "saved" ? (
+          "Η εικόνα αποθηκεύτηκε στις λήψεις."
+        ) : status === "failed" ? (
+          "Η εικόνα δεν δημιουργήθηκε. Δοκίμασε ξανά."
+        ) : (
+          <>
+            Ή <a href={feedUrl}>συνδρομή</a>, για ημερολόγιο που ενημερώνεται μόνο του.
+          </>
+        )}
       </p>
     </div>
   );

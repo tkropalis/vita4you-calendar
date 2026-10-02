@@ -22,7 +22,7 @@ export type WeekImageInput = {
   checkedAt: string;
 };
 
-type TextOptions = { align?: CanvasTextAlign; caps?: boolean; maxWidth?: number };
+type TextOptions = { align?: CanvasTextAlign; caps?: boolean; tight?: boolean; maxWidth?: number };
 
 export async function renderWeekImage(input: WeekImageInput): Promise<Blob> {
   await Promise.all(["400", "600", "800"].map((w) => document.fonts.load(`${w} 40px ${FONT}`, "Αα Ωω 0123456789")));
@@ -38,7 +38,7 @@ export async function renderWeekImage(input: WeekImageInput): Promise<Blob> {
     ctx.font = font(size, weight);
     ctx.fillStyle = hex(color);
     ctx.textAlign = opts.align ?? "left";
-    setLetterSpacing(ctx, opts.caps ? `${size * 0.06}px` : "0px");
+    setLetterSpacing(ctx, opts.caps && !opts.tight ? `${size * 0.06}px` : "0px");
     let out = opts.caps ? upperGreek(value) : value;
     if (opts.maxWidth) out = fit(ctx, out, opts.maxWidth);
     ctx.fillText(out, x, y);
@@ -82,7 +82,7 @@ export async function renderWeekImage(input: WeekImageInput): Promise<Blob> {
   input.days.forEach((day, i) => {
     const y = top + i * rowH;
     const base = y + 70;
-    text(`${DAY_SHORT[day.index]} ${fromIso(day.date).d}`, dayX, base, 44, 800, "ink", { caps: true });
+    text(`${DAY_SHORT[day.index]} ${fromIso(day.date).d}`, dayX, base, 44, 800, "ink", { caps: true, tight: true });
 
     const shifts = day.entries.filter((e) => e.kind === "shift");
     const first = day.entries[0];
@@ -92,9 +92,9 @@ export async function renderWeekImage(input: WeekImageInput): Promise<Blob> {
       const hours = shifts.map((e) => `${e.timeSource === "inherited" ? "≈" : ""}${compact(e.start, e.end)}`).join(" · ");
       text(hours, hoursX, base, hours.length > 7 ? 46 : 60, 800, "ink", { maxWidth: withX - hoursX - 24 });
       const duty = shifts.flatMap((e) => e.tags).find((t) => t === "Εφημερία" || t === "Ολονυχτία");
-      if (duty) text(duty, hoursX, base + 40, 24, 600, "ink2", { caps: true });
+      if (duty) text(duty, hoursX, base + 42, 28, 800, "ink", { caps: true });
       const names = [...new Set(shifts.flatMap((e) => e.coworkers))];
-      wrapText(ctx, names.length ? names.join(", ") : "—", withX, base - 8, RIGHT - withX, 32, font(30, 400), hex("ink"), 2);
+      wrapText(ctx, names.length ? names.join(", ") : "—", withX, base - 8, RIGHT - withX, 38, font(30, 400), hex("ink"), 2);
     } else if (first.kind === "off") {
       text("Ρεπό", hoursX, base, 56, 800, "green", { caps: true });
     } else {

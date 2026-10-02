@@ -59,20 +59,11 @@ export default async function SheetCheckPage() {
             Άνοιγμα φύλλου
           </a>
         </p>
-        <dl className="health__totals">
-          <div>
-            <dt>Σφάλματα</dt>
-            <dd>{count("error")}</dd>
-          </div>
-          <div>
-            <dt>Προσοχή</dt>
-            <dd>{count("warning")}</dd>
-          </div>
-          <div>
-            <dt>Σημειώσεις</dt>
-            <dd>{count("info")}</dd>
-          </div>
-        </dl>
+        <p className="health__totals">
+          <b>{count("error")}</b> {count("error") === 1 ? "σφάλμα" : "σφάλματα"} · <b>{count("warning")}</b>{" "}
+          {count("warning") === 1 ? "προειδοποίηση" : "προειδοποιήσεις"} · <b>{count("info")}</b>{" "}
+          {count("info") === 1 ? "σημείωση" : "σημειώσεις"}
+        </p>
 
         {weeks.length === 0 ? <p className="health__clear">Δεν βρέθηκε κάτι να διορθωθεί.</p> : null}
 
@@ -101,8 +92,7 @@ export default async function SheetCheckPage() {
             </p>
             <ul className="health__list">
               {spellings.map(({ person, variants }) => (
-                <li key={person.id} className="health__item">
-                  <span className="health__tag health__tag--info">Σημείωση</span>
+                <li key={person.id} className="health__item health__item--plain">
                   <div>
                     <p className="health__title">{person.name}</p>
                     <p className="health__detail">{variants.join(" · ")}</p>

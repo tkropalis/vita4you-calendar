@@ -21,22 +21,34 @@ function subscribe(listener: () => void) {
 }
 const currentMinute = () => Math.floor(Date.now() / 60_000);
 
-/** "Σε βάρδια τώρα · έως 21:00" or "Επόμενη βάρδια: αύριο 08:00 · σε 14 ώρες". */
-export function NextShift({ weeks, personId }: { weeks: Week[]; personId: string }) {
+/** Athens "now" that re-renders every minute on the client and is null on the server. */
+export function useAthensNow() {
   const minute = useSyncExternalStore(subscribe, currentMinute, () => null);
-  if (minute === null) return <p className="next-shift next-shift--pending" aria-hidden="true" />;
+  return minute === null ? null : nowInAthens(new Date(minute * 60_000));
+}
 
-  const now = nowInAthens(new Date(minute * 60_000));
+/** Live suffix for today's box: "σε 5 ώρες" or "σε βάρδια, άλλες 3 ώρες". */
+export function TodayLive({ weeks, personId, date }: { weeks: Week[]; personId: string; date: IsoDate }) {
+  const now = useAthensNow();
+  if (!now || now.date !== date) return null;
+  const status = shiftStatus({ weeks }, personId, now);
+  if (status.kind === "on") return <> · σε βάρδια, {formatLeft(status.minutesLeft)}</>;
+  if (status.kind === "next" && status.shift.date === date) return <> · {formatIn(status.minutesUntil)}</>;
+  return null;
+}
+
+/**
+ * "Επόμενη βάρδια: αύριο 08:00 · σε 14 ώρες", shown only when the next shift is on a later day
+ * (today's box already says when today's shift starts).
+ */
+export function NextShift({ weeks, personId, todayHasShift }: { weeks: Week[]; personId: string; todayHasShift: boolean }) {
+  const now = useAthensNow();
+  if (!now) return null;
   const status = shiftStatus({ weeks }, personId, now);
   const today: IsoDate = now.date;
 
-  if (status.kind === "on") {
-    return (
-      <p className="next-shift next-shift--on" role="status">
-        <strong>Σε βάρδια τώρα</strong> · έως {status.shift.end} ({formatLeft(status.minutesLeft)})
-      </p>
-    );
-  }
+  if (status.kind === "on") return null;
+  if (status.kind === "next" && status.shift.date === today && todayHasShift) return null;
   if (status.kind === "next") {
     const duty = status.shift.tags.find((t) => t === "Εφημερία" || t === "Ολονυχτία");
     return (

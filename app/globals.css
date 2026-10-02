@@ -17,6 +17,7 @@
   --hairline: oklch(80% 0.004 260);
   --on-ink: var(--paper);
   --green: oklch(53% 0.16 148);
+  --green-on-ink: oklch(74% 0.17 148);
   --danger: oklch(50% 0.19 27);
 
   --font: "Fira Sans Condensed", "Arial Narrow", system-ui, sans-serif;
@@ -48,6 +49,7 @@
     --hairline: oklch(34% 0.006 260);
     --on-ink: oklch(13% 0.004 260);
     --green: oklch(74% 0.17 148);
+    --green-on-ink: oklch(46% 0.15 148);
     --danger: oklch(72% 0.15 27);
   }
 }
@@ -101,7 +103,7 @@ select {
 a {
   color: inherit;
   text-decoration-thickness: 2px;
-  text-underline-offset: 0.18em;
+  text-underline-offset: 0.3em;
 }
 
 ::selection {
@@ -587,6 +589,10 @@ a {
   line-height: 1.1;
 }
 
+.roster-row--today .swap-trigger .slot--off {
+  color: var(--green-on-ink);
+}
+
 .today-box--off .today-box__hours {
   color: var(--green);
   text-transform: uppercase;
@@ -597,29 +603,20 @@ a {
 }
 
 .facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
   font-size: var(--text-m);
+  line-height: 1.5;
 }
 
-.facts div {
-  display: flex;
-  gap: 6px;
-  align-items: baseline;
-}
-
-.facts dt {
-  font-size: var(--text-label);
+.facts b {
   font-weight: 800;
-}
-
-.facts dd {
-  font-weight: 600;
 }
 
 .facts__off {
   color: var(--green);
+}
+
+.facts__sep {
+  color: var(--ink-3);
 }
 
 .notice-text {
@@ -645,6 +642,10 @@ a {
   border-bottom: 1px solid var(--ink);
   vertical-align: top;
   text-align: left;
+}
+
+.roster tbody tr:last-child > * {
+  border-bottom: var(--rule) solid var(--ink);
 }
 
 .roster-row__day {
@@ -756,6 +757,10 @@ a {
 }
 
 .roster-row--today .slot--off,
+.team-matrix tr.is-selected .slot--off {
+  color: var(--green-on-ink);
+}
+
 .roster-row--today .slot--none {
   color: var(--on-ink);
 }
@@ -780,7 +785,6 @@ a {
   gap: 8px;
   padding: 16px 0;
   border-top: var(--rule) solid var(--ink);
-  border-bottom: var(--rule) solid var(--ink);
 }
 
 .empty__title {
@@ -871,6 +875,10 @@ a {
   vertical-align: top;
 }
 
+.team-matrix tbody tr:last-child > * {
+  border-bottom: var(--rule) solid var(--ink);
+}
+
 .team-matrix thead th {
   border-bottom: var(--rule) solid var(--ink);
   font-size: var(--text-label);
@@ -912,10 +920,6 @@ a {
 .team-matrix tr.is-selected th,
 .team-matrix tr.is-selected td {
   background: var(--ink);
-  color: var(--on-ink);
-}
-
-.team-matrix tr.is-selected .slot--off {
   color: var(--on-ink);
 }
 
@@ -984,6 +988,10 @@ a {
   border-bottom: 1px solid var(--ink);
 }
 
+.team-group:last-child {
+  border-bottom: var(--rule) solid var(--ink);
+}
+
 .team-group__head {
   display: flex;
   flex-wrap: wrap;
@@ -1029,8 +1037,6 @@ a {
   display: grid;
   gap: 10px;
   margin-top: 28px;
-  padding-top: 10px;
-  border-top: var(--border) solid var(--ink);
   color: var(--ink-2);
   font-size: var(--text-s);
 }
@@ -1172,8 +1178,16 @@ a {
 .health {
   display: grid;
   gap: 18px;
-  max-width: 760px;
   margin-top: 16px;
+}
+
+.health__detail,
+.health__intro {
+  max-width: 72ch;
+}
+
+.health__item.health__item--plain {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .health__intro {
@@ -1181,23 +1195,13 @@ a {
 }
 
 .health__totals {
-  display: flex;
-  gap: 28px;
   padding-bottom: 12px;
   border-bottom: var(--rule) solid var(--ink);
+  font-size: var(--text-l);
 }
 
-.health__totals dt {
-  font-size: var(--text-label);
+.health__totals b {
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.health__totals dd {
-  font-size: var(--text-display);
-  font-weight: 800;
-  line-height: 1;
 }
 
 .health__clear {
@@ -1278,36 +1282,50 @@ a {
 
 /* ---------- Swap helper ---------- */
 
-.swap {
-  margin-top: 6px;
+.swap-trigger {
+  display: inline-grid;
+  justify-items: start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.swap summary {
-  display: inline-block;
-  padding: 4px 0;
+.swap-trigger .slot__time {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+.swap-trigger[aria-expanded="true"] .slot__time {
+  text-decoration-style: solid;
+  text-decoration-color: var(--green);
+}
+
+.roster-row--today .swap-trigger[aria-expanded="true"] .slot__time {
+  text-decoration-color: var(--green-on-ink);
+}
+
+.swap {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dotted currentColor;
+}
+
+.swap__title {
   font-size: var(--text-label);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  cursor: pointer;
-  list-style: none;
-}
-
-.swap summary::-webkit-details-marker {
-  display: none;
-}
-
-.swap[open] summary {
-  text-decoration-color: var(--green);
 }
 
 .swap__list {
   display: grid;
   gap: 2px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .swap__list div {
@@ -1319,6 +1337,12 @@ a {
   flex: none;
   min-width: 48px;
   font-weight: 800;
+}
+
+.myweek__hint {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: var(--text-s);
 }
 
 .banner--offline {
