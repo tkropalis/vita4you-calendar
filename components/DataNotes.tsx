@@ -1,4 +1,5 @@
 import { ExternalLink, Info } from "lucide-react";
+import Link from "next/link";
 import { formatCheckedAt } from "@/lib/client/format";
 import type { IsoDate } from "@/lib/schedule/dates";
 import type { Week, WeekWarning } from "@/lib/schedule/types";
@@ -28,7 +29,10 @@ export function DataNotes({ week, view, sheetUrl, checkedAt, today }: Props) {
           Άνοιγμα φύλλου
           <ExternalLink aria-hidden="true" className="icon icon--inline" />
           <span className="visually-hidden"> (ανοίγει σε νέα καρτέλα)</span>
-        </a>
+        </a> ·{" "}
+        <Link className="notes__link" href="/elegxos">
+          Έλεγχος φύλλου
+        </Link>
       </p>
     </footer>
   );

@@ -16,6 +16,9 @@ import {
   type PersonDay,
   type WeekSummary,
 } from "@/lib/schedule/view";
+import { dayAlternatives, type DayAlternatives } from "@/lib/schedule/timeline";
+import type { Week } from "@/lib/schedule/types";
+import { NextShift } from "./NextShift";
 import { ShiftChip, compactRange } from "./ShiftChip";
 
 type Props = {
@@ -29,6 +32,11 @@ type Props = {
   weekStatus: "published" | "upcoming" | "missing";
   changed: Set<string>;
   checkedAt: string;
+  /** All loaded weeks (for the next-shift line) and this week's raw data (for swap candidates). */
+  weeks: Week[];
+  weekData: Week | undefined;
+  names: Map<string, string>;
+  isCurrentWeek: boolean;
   onGoToCurrentWeek: () => void;
   onRefresh: () => void;
 };
@@ -88,6 +96,7 @@ export function MyWeek(props: Props) {
   return (
     <div className="myweek">
       <div className="myweek__lead">
+        {props.isCurrentWeek ? <NextShift weeks={props.weeks} personId={person.id} /> : null}
         {todayDay ? <TodayBox day={todayDay} /> : null}
         {absent ? (
           <p className="notice-text">
@@ -112,7 +121,17 @@ export function MyWeek(props: Props) {
         </thead>
         <tbody>
           {days.map((day) => (
-            <DayRow key={day.date} day={day} today={today} changed={changed.has(`${week}:${day.index}`)} />
+            <DayRow
+              key={day.date}
+              day={day}
+              today={today}
+              changed={changed.has(`${week}:${day.index}`)}
+              alternatives={
+                day.date >= today && day.entries.some((e) => e.kind === "shift")
+                  ? dayAlternatives(props.weekData, day.index, person.id, props.names, day.entries.find((e) => e.kind === "shift"))
+                  : null
+              }
+            />
           ))}
         </tbody>
       </table>
@@ -183,7 +202,9 @@ function Facts({ days, summary }: { days: PersonDay[]; summary: WeekSummary }) {
   );
 }
 
-function DayRow({ day, today, changed }: { day: PersonDay; today: IsoDate; changed: boolean }) {
+type DayRowProps = { day: PersonDay; today: IsoDate; changed: boolean; alternatives: DayAlternatives | null };
+
+function DayRow({ day, today, changed, alternatives }: DayRowProps) {
   const isToday = day.date === today;
   const isPast = day.date < today;
   return (
@@ -212,6 +233,7 @@ function DayRow({ day, today, changed }: { day: PersonDay; today: IsoDate; chang
         {day.entries.map((entry, i) => (
           <EntryNotes key={i} entry={entry} />
         ))}
+        {alternatives ? <SwapHelp alternatives={alternatives} /> : null}
       </td>
     </tr>
   );
@@ -235,6 +257,38 @@ function EntryNotes({ entry }: { entry: DayEntry }) {
       ) : null}
       {entry.timeSource === "override" ? <span className="roster-row__note">ειδικό ωράριο</span> : null}
     </>
+  );
+}
+
+/** Who to ask when you need to swap this shift. */
+function SwapHelp({ alternatives }: { alternatives: DayAlternatives }) {
+  const { off, shifts, leave } = alternatives;
+  const empty = !off.length && !shifts.length;
+  return (
+    <details className="swap">
+      <summary>Αλλαγή βάρδιας;</summary>
+      <dl className="swap__list">
+        {off.length ? (
+          <div>
+            <dt>Ρεπό</dt>
+            <dd>{joinNames(off)}</dd>
+          </div>
+        ) : null}
+        {shifts.map((s) => (
+          <div key={`${s.start}-${s.end}`}>
+            <dt>{compactRange(s.start, s.end)}</dt>
+            <dd>{joinNames(s.names)}</dd>
+          </div>
+        ))}
+        {leave.length ? (
+          <div>
+            <dt>Άδεια</dt>
+            <dd>{joinNames(leave)} (μη διαθέσιμοι)</dd>
+          </div>
+        ) : null}
+        {empty ? <p>Κανείς άλλος δεν είναι διαθέσιμος αυτή τη μέρα στο φύλλο.</p> : null}
+      </dl>
+    </details>
   );
 }
 

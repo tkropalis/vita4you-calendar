@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { PERSON_COOKIE, type ClientSnapshot } from "@/lib/client/snapshot";
-import { dayNumber } from "@/lib/client/format";
+import { dayNumber, formatCheckedAt } from "@/lib/client/format";
 import { addDays, todayInAthens, type IsoDate } from "@/lib/schedule/dates";
 import {
   currentMonday,
@@ -34,6 +34,15 @@ type Props = {
   initialView: View;
 };
 
+function subscribeOnline(listener: () => void) {
+  window.addEventListener("online", listener);
+  window.addEventListener("offline", listener);
+  return () => {
+    window.removeEventListener("online", listener);
+    window.removeEventListener("offline", listener);
+  };
+}
+
 /** Background re-check when the app comes back to the foreground after this long. */
 const AUTO_CHECK_MS = 10 * 60 * 1000;
 
@@ -49,6 +58,7 @@ export function ScheduleApp(props: Props) {
   const [changed, setChanged] = useState<Set<string>>(() => new Set());
   const [toast, setToast] = useState<ToastMessage | null>(null);
 
+  const online = useSyncExternalStore(subscribeOnline, () => navigator.onLine, () => true);
   const snapshotRef = useRef(snapshot);
   useEffect(() => {
     snapshotRef.current = snapshot;
@@ -186,6 +196,12 @@ export function ScheduleApp(props: Props) {
     <div className="app">
       <AppBar checking={checking} checkedAt={checkedAt} today={today} onRefresh={() => void refresh()} />
 
+      {!online ? (
+        <p className="banner banner--offline" role="status">
+          Εκτός σύνδεσης. Βλέπεις το πρόγραμμα του τελευταίου ελέγχου ({formatCheckedAt(checkedAt, today)}).
+        </p>
+      ) : null}
+
       {staleReason ? (
         <p className="banner" role="alert">
           Δεν ήταν δυνατή η σύνδεση με το φύλλο Google. Βλέπεις το πρόγραμμα όπως ήταν στον τελευταίο επιτυχημένο
@@ -230,6 +246,10 @@ export function ScheduleApp(props: Props) {
               weekStatus={weekStatus}
               changed={changed}
               checkedAt={checkedAt}
+              weeks={snapshot.weeks}
+              weekData={weekData}
+              names={names}
+              isCurrentWeek={week === thisMonday}
               onGoToCurrentWeek={() => goToWeek(thisMonday)}
               onRefresh={() => void refresh()}
             />

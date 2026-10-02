@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { ServiceWorker } from "@/components/ServiceWorker";
 import "@fontsource/fira-sans-condensed/400.css";
 import "@fontsource/fira-sans-condensed/600.css";
 import "@fontsource/fira-sans-condensed/800.css";
@@ -27,7 +28,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="el">
-      <body>{children}</body>
+      <body>
+        {children}
+        <ServiceWorker />
+      </body>
     </html>
   );
 }
