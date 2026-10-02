@@ -1,472 +1,195 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-01T19:55:59Z",
+  "generatedAt": "2026-10-02T12:00:00Z",
   "title": "Design System: Πρόγραμμα · Vita4you Τσιμισκή",
   "extensions": {
     "colorMeta": {
-      "bg": {
+      "paper": {
         "role": "neutral",
-        "displayName": "Cool Ground",
-        "canonical": "oklch(96.6% 0.005 265)",
-        "hexApprox": "#f2f4f7",
+        "displayName": "Notice Paper",
+        "canonical": "oklch(99.2% 0.002 140)",
+        "hexApprox": "#fcfdfb",
+        "cssVar": "--paper",
         "scheme": "light",
-        "cssVar": "--bg",
         "tonalRamp": [
-          "oklch(15% 0.005 265)",
-          "oklch(26.4% 0.005 265)",
-          "oklch(37.9% 0.005 265)",
-          "oklch(49.3% 0.005 265)",
-          "oklch(60.7% 0.005 265)",
-          "oklch(72.1% 0.005 265)",
-          "oklch(83.6% 0.005 265)",
-          "oklch(95% 0.005 265)"
+          "oklch(15% 0.002 140)",
+          "oklch(26.4% 0.002 140)",
+          "oklch(37.9% 0.002 140)",
+          "oklch(49.3% 0.002 140)",
+          "oklch(60.7% 0.002 140)",
+          "oklch(72.1% 0.002 140)",
+          "oklch(83.6% 0.002 140)",
+          "oklch(95% 0.002 140)"
         ],
-        "darkCounterpart": "bg-dark"
+        "darkCounterpart": "paper-dark",
+        "exportKey": "paper"
       },
-      "surface": {
+      "paper-2": {
         "role": "neutral",
-        "displayName": "Card White",
-        "canonical": "oklch(99.6% 0.002 265)",
-        "hexApprox": "#fdfeff",
+        "displayName": "Press Grey",
+        "canonical": "oklch(95.5% 0.003 260)",
+        "hexApprox": "#eff0f2",
+        "cssVar": "--paper-2",
         "scheme": "light",
-        "cssVar": "--surface",
         "tonalRamp": [
-          "oklch(15% 0.002 265)",
-          "oklch(26.4% 0.002 265)",
-          "oklch(37.9% 0.002 265)",
-          "oklch(49.3% 0.002 265)",
-          "oklch(60.7% 0.002 265)",
-          "oklch(72.1% 0.002 265)",
-          "oklch(83.6% 0.002 265)",
-          "oklch(95% 0.002 265)"
+          "oklch(15% 0.003 260)",
+          "oklch(26.4% 0.003 260)",
+          "oklch(37.9% 0.003 260)",
+          "oklch(49.3% 0.003 260)",
+          "oklch(60.7% 0.003 260)",
+          "oklch(72.1% 0.003 260)",
+          "oklch(83.6% 0.003 260)",
+          "oklch(95% 0.003 260)"
         ],
-        "darkCounterpart": "surface-dark"
+        "darkCounterpart": "paper-2-dark"
       },
-      "surface-sunken": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Sunken Track",
-        "canonical": "oklch(94.4% 0.006 265)",
-        "hexApprox": "#eaecf1",
+        "displayName": "Ink",
+        "canonical": "oklch(17% 0.008 260)",
+        "hexApprox": "#0d1013",
+        "cssVar": "--ink",
         "scheme": "light",
-        "cssVar": "--surface-sunken",
         "tonalRamp": [
-          "oklch(15% 0.006 265)",
-          "oklch(26.4% 0.006 265)",
-          "oklch(37.9% 0.006 265)",
-          "oklch(49.3% 0.006 265)",
-          "oklch(60.7% 0.006 265)",
-          "oklch(72.1% 0.006 265)",
-          "oklch(83.6% 0.006 265)",
-          "oklch(95% 0.006 265)"
+          "oklch(15% 0.008 260)",
+          "oklch(26.4% 0.008 260)",
+          "oklch(37.9% 0.008 260)",
+          "oklch(49.3% 0.008 260)",
+          "oklch(60.7% 0.008 260)",
+          "oklch(72.1% 0.008 260)",
+          "oklch(83.6% 0.008 260)",
+          "oklch(95% 0.008 260)"
         ],
-        "darkCounterpart": "surface-sunken-dark"
+        "darkCounterpart": "ink-dark",
+        "exportKey": "ink, rule"
       },
-      "surface-hover": {
+      "ink-2": {
         "role": "neutral",
-        "displayName": "Hover Tint",
-        "canonical": "oklch(95.6% 0.006 265)",
-        "hexApprox": "#eef0f5",
+        "displayName": "Ink 2",
+        "canonical": "oklch(38% 0.008 260)",
+        "hexApprox": "#404247",
+        "cssVar": "--ink-2",
         "scheme": "light",
-        "cssVar": "--surface-hover",
         "tonalRamp": [
-          "oklch(15% 0.006 265)",
-          "oklch(26.4% 0.006 265)",
-          "oklch(37.9% 0.006 265)",
-          "oklch(49.3% 0.006 265)",
-          "oklch(60.7% 0.006 265)",
-          "oklch(72.1% 0.006 265)",
-          "oklch(83.6% 0.006 265)",
-          "oklch(95% 0.006 265)"
+          "oklch(15% 0.008 260)",
+          "oklch(26.4% 0.008 260)",
+          "oklch(37.9% 0.008 260)",
+          "oklch(49.3% 0.008 260)",
+          "oklch(60.7% 0.008 260)",
+          "oklch(72.1% 0.008 260)",
+          "oklch(83.6% 0.008 260)",
+          "oklch(95% 0.008 260)"
         ],
-        "darkCounterpart": "surface-hover-dark"
+        "darkCounterpart": "ink-2-dark",
+        "exportKey": "ink2"
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "oklch(52% 0.006 260)",
+        "hexApprox": "#67696c",
+        "cssVar": "--ink-3",
+        "scheme": "light",
+        "tonalRamp": [
+          "oklch(15% 0.006 260)",
+          "oklch(26.4% 0.006 260)",
+          "oklch(37.9% 0.006 260)",
+          "oklch(49.3% 0.006 260)",
+          "oklch(60.7% 0.006 260)",
+          "oklch(72.1% 0.006 260)",
+          "oklch(83.6% 0.006 260)",
+          "oklch(95% 0.006 260)"
+        ],
+        "darkCounterpart": "ink-3-dark"
       },
       "hairline": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "oklch(89.5% 0.007 265)",
-        "hexApprox": "#dadce1",
-        "scheme": "light",
+        "canonical": "oklch(80% 0.004 260)",
+        "hexApprox": "#bcbec0",
         "cssVar": "--hairline",
+        "scheme": "light",
         "tonalRamp": [
-          "oklch(15% 0.007 265)",
-          "oklch(26.4% 0.007 265)",
-          "oklch(37.9% 0.007 265)",
-          "oklch(49.3% 0.007 265)",
-          "oklch(60.7% 0.007 265)",
-          "oklch(72.1% 0.007 265)",
-          "oklch(83.6% 0.007 265)",
-          "oklch(95% 0.007 265)"
+          "oklch(15% 0.004 260)",
+          "oklch(26.4% 0.004 260)",
+          "oklch(37.9% 0.004 260)",
+          "oklch(49.3% 0.004 260)",
+          "oklch(60.7% 0.004 260)",
+          "oklch(72.1% 0.004 260)",
+          "oklch(83.6% 0.004 260)",
+          "oklch(95% 0.004 260)"
         ],
-        "darkCounterpart": "hairline-dark"
+        "darkCounterpart": "hairline-dark",
+        "exportKey": "hairline"
       },
-      "hairline-strong": {
+      "on-ink": {
         "role": "neutral",
-        "displayName": "Strong Hairline",
-        "canonical": "oklch(83% 0.009 265)",
-        "hexApprox": "#c4c7cd",
+        "displayName": "On Ink",
+        "canonical": "oklch(99.2% 0.002 140)",
+        "hexApprox": "#fcfdfb",
+        "cssVar": "--on-ink",
         "scheme": "light",
-        "cssVar": "--hairline-strong",
         "tonalRamp": [
-          "oklch(15% 0.009 265)",
-          "oklch(26.4% 0.009 265)",
-          "oklch(37.9% 0.009 265)",
-          "oklch(49.3% 0.009 265)",
-          "oklch(60.7% 0.009 265)",
-          "oklch(72.1% 0.009 265)",
-          "oklch(83.6% 0.009 265)",
-          "oklch(95% 0.009 265)"
+          "oklch(15% 0.002 140)",
+          "oklch(26.4% 0.002 140)",
+          "oklch(37.9% 0.002 140)",
+          "oklch(49.3% 0.002 140)",
+          "oklch(60.7% 0.002 140)",
+          "oklch(72.1% 0.002 140)",
+          "oklch(83.6% 0.002 140)",
+          "oklch(95% 0.002 140)"
         ],
-        "darkCounterpart": "hairline-strong-dark"
+        "darkCounterpart": "on-ink-dark",
+        "note": "var(--paper) in light mode"
       },
-      "text": {
-        "role": "neutral",
-        "displayName": "Ink",
-        "canonical": "oklch(23% 0.022 265)",
-        "hexApprox": "#181d27",
-        "scheme": "light",
-        "cssVar": "--text",
-        "tonalRamp": [
-          "oklch(15% 0.022 265)",
-          "oklch(26.4% 0.022 265)",
-          "oklch(37.9% 0.022 265)",
-          "oklch(49.3% 0.022 265)",
-          "oklch(60.7% 0.022 265)",
-          "oklch(72.1% 0.022 265)",
-          "oklch(83.6% 0.022 265)",
-          "oklch(95% 0.022 265)"
-        ],
-        "darkCounterpart": "text-dark"
-      },
-      "text-2": {
-        "role": "neutral",
-        "displayName": "Secondary Ink",
-        "canonical": "oklch(46% 0.02 265)",
-        "hexApprox": "#535864",
-        "scheme": "light",
-        "cssVar": "--text-2",
-        "tonalRamp": [
-          "oklch(15% 0.02 265)",
-          "oklch(26.4% 0.02 265)",
-          "oklch(37.9% 0.02 265)",
-          "oklch(49.3% 0.02 265)",
-          "oklch(60.7% 0.02 265)",
-          "oklch(72.1% 0.02 265)",
-          "oklch(83.6% 0.02 265)",
-          "oklch(95% 0.02 265)"
-        ],
-        "darkCounterpart": "text-2-dark"
-      },
-      "text-3": {
-        "role": "neutral",
-        "displayName": "Tertiary Ink",
-        "canonical": "oklch(55% 0.016 265)",
-        "hexApprox": "#6d727b",
-        "scheme": "light",
-        "cssVar": "--text-3",
-        "tonalRamp": [
-          "oklch(15% 0.016 265)",
-          "oklch(26.4% 0.016 265)",
-          "oklch(37.9% 0.016 265)",
-          "oklch(49.3% 0.016 265)",
-          "oklch(60.7% 0.016 265)",
-          "oklch(72.1% 0.016 265)",
-          "oklch(83.6% 0.016 265)",
-          "oklch(95% 0.016 265)"
-        ],
-        "darkCounterpart": "text-3-dark"
-      },
-      "accent": {
+      "green": {
         "role": "primary",
-        "displayName": "Calendar Blue",
-        "canonical": "oklch(51.5% 0.19 259)",
-        "hexApprox": "#0e60d2",
+        "displayName": "Cross Green",
+        "canonical": "oklch(53% 0.16 148)",
+        "hexApprox": "#00832e",
+        "cssVar": "--green",
         "scheme": "light",
-        "cssVar": "--accent",
         "tonalRamp": [
-          "oklch(15% 0.19 259)",
-          "oklch(26.4% 0.19 259)",
-          "oklch(37.9% 0.19 259)",
-          "oklch(49.3% 0.19 259)",
-          "oklch(60.7% 0.19 259)",
-          "oklch(72.1% 0.19 259)",
-          "oklch(83.6% 0.19 259)",
-          "oklch(95% 0.19 259)"
+          "oklch(15% 0.16 148)",
+          "oklch(26.4% 0.16 148)",
+          "oklch(37.9% 0.16 148)",
+          "oklch(49.3% 0.16 148)",
+          "oklch(60.7% 0.16 148)",
+          "oklch(72.1% 0.16 148)",
+          "oklch(83.6% 0.16 148)",
+          "oklch(95% 0.16 148)"
         ],
-        "darkCounterpart": "accent-dark"
+        "darkCounterpart": "green-dark",
+        "exportKey": "green",
+        "contrastOnPaper": "4.8:1"
       },
-      "accent-hover": {
+      "green-on-ink": {
         "role": "primary",
-        "displayName": "Pressed Blue",
-        "canonical": "oklch(46% 0.19 259)",
-        "hexApprox": "#004fbf",
+        "displayName": "Green on Ink",
+        "canonical": "oklch(74% 0.17 148)",
+        "hexApprox": "#50c76a",
+        "cssVar": "--green-on-ink",
         "scheme": "light",
-        "cssVar": "--accent-hover",
         "tonalRamp": [
-          "oklch(15% 0.19 259)",
-          "oklch(26.4% 0.19 259)",
-          "oklch(37.9% 0.19 259)",
-          "oklch(49.3% 0.19 259)",
-          "oklch(60.7% 0.19 259)",
-          "oklch(72.1% 0.19 259)",
-          "oklch(83.6% 0.19 259)",
-          "oklch(95% 0.19 259)"
+          "oklch(15% 0.17 148)",
+          "oklch(26.4% 0.17 148)",
+          "oklch(37.9% 0.17 148)",
+          "oklch(49.3% 0.17 148)",
+          "oklch(60.7% 0.17 148)",
+          "oklch(72.1% 0.17 148)",
+          "oklch(83.6% 0.17 148)",
+          "oklch(95% 0.17 148)"
         ],
-        "darkCounterpart": "accent-hover-dark"
-      },
-      "accent-soft": {
-        "role": "primary",
-        "displayName": "Blue Wash",
-        "canonical": "oklch(93.8% 0.032 259)",
-        "hexApprox": "#deecff",
-        "scheme": "light",
-        "cssVar": "--accent-soft",
-        "tonalRamp": [
-          "oklch(15% 0.032 259)",
-          "oklch(26.4% 0.032 259)",
-          "oklch(37.9% 0.032 259)",
-          "oklch(49.3% 0.032 259)",
-          "oklch(60.7% 0.032 259)",
-          "oklch(72.1% 0.032 259)",
-          "oklch(83.6% 0.032 259)",
-          "oklch(95% 0.032 259)"
-        ],
-        "darkCounterpart": "accent-soft-dark"
-      },
-      "accent-soft-text": {
-        "role": "primary",
-        "displayName": "Wash Ink",
-        "canonical": "oklch(42% 0.17 259)",
-        "hexApprox": "#0045a7",
-        "scheme": "light",
-        "cssVar": "--accent-soft-text",
-        "tonalRamp": [
-          "oklch(15% 0.17 259)",
-          "oklch(26.4% 0.17 259)",
-          "oklch(37.9% 0.17 259)",
-          "oklch(49.3% 0.17 259)",
-          "oklch(60.7% 0.17 259)",
-          "oklch(72.1% 0.17 259)",
-          "oklch(83.6% 0.17 259)",
-          "oklch(95% 0.17 259)"
-        ],
-        "darkCounterpart": "accent-soft-text-dark"
-      },
-      "on-accent": {
-        "role": "primary",
-        "displayName": "On Blue",
-        "canonical": "oklch(99% 0.003 265)",
-        "hexApprox": "#fbfcfe",
-        "scheme": "light",
-        "cssVar": "--on-accent",
-        "tonalRamp": [
-          "oklch(15% 0.003 265)",
-          "oklch(26.4% 0.003 265)",
-          "oklch(37.9% 0.003 265)",
-          "oklch(49.3% 0.003 265)",
-          "oklch(60.7% 0.003 265)",
-          "oklch(72.1% 0.003 265)",
-          "oklch(83.6% 0.003 265)",
-          "oklch(95% 0.003 265)"
-        ],
-        "darkCounterpart": "on-accent-dark"
-      },
-      "morning-bg": {
-        "role": "shift-period",
-        "displayName": "Morning Amber Fill",
-        "canonical": "oklch(94.4% 0.058 86)",
-        "hexApprox": "#feebc1",
-        "scheme": "light",
-        "cssVar": "--morning-bg",
-        "tonalRamp": [
-          "oklch(15% 0.058 86)",
-          "oklch(26.4% 0.058 86)",
-          "oklch(37.9% 0.058 86)",
-          "oklch(49.3% 0.058 86)",
-          "oklch(60.7% 0.058 86)",
-          "oklch(72.1% 0.058 86)",
-          "oklch(83.6% 0.058 86)",
-          "oklch(95% 0.058 86)"
-        ],
-        "darkCounterpart": "morning-bg-dark"
-      },
-      "morning-fg": {
-        "role": "shift-period",
-        "displayName": "Morning Amber Ink",
-        "canonical": "oklch(41% 0.085 62)",
-        "hexApprox": "#6b3e0f",
-        "scheme": "light",
-        "cssVar": "--morning-fg",
-        "tonalRamp": [
-          "oklch(15% 0.085 62)",
-          "oklch(26.4% 0.085 62)",
-          "oklch(37.9% 0.085 62)",
-          "oklch(49.3% 0.085 62)",
-          "oklch(60.7% 0.085 62)",
-          "oklch(72.1% 0.085 62)",
-          "oklch(83.6% 0.085 62)",
-          "oklch(95% 0.085 62)"
-        ],
-        "darkCounterpart": "morning-fg-dark"
-      },
-      "afternoon-bg": {
-        "role": "shift-period",
-        "displayName": "Afternoon Violet Fill",
-        "canonical": "oklch(93.6% 0.04 296)",
-        "hexApprox": "#ece5ff",
-        "scheme": "light",
-        "cssVar": "--afternoon-bg",
-        "tonalRamp": [
-          "oklch(15% 0.04 296)",
-          "oklch(26.4% 0.04 296)",
-          "oklch(37.9% 0.04 296)",
-          "oklch(49.3% 0.04 296)",
-          "oklch(60.7% 0.04 296)",
-          "oklch(72.1% 0.04 296)",
-          "oklch(83.6% 0.04 296)",
-          "oklch(95% 0.04 296)"
-        ],
-        "darkCounterpart": "afternoon-bg-dark"
-      },
-      "afternoon-fg": {
-        "role": "shift-period",
-        "displayName": "Afternoon Violet Ink",
-        "canonical": "oklch(41% 0.14 296)",
-        "hexApprox": "#53348c",
-        "scheme": "light",
-        "cssVar": "--afternoon-fg",
-        "tonalRamp": [
-          "oklch(15% 0.14 296)",
-          "oklch(26.4% 0.14 296)",
-          "oklch(37.9% 0.14 296)",
-          "oklch(49.3% 0.14 296)",
-          "oklch(60.7% 0.14 296)",
-          "oklch(72.1% 0.14 296)",
-          "oklch(83.6% 0.14 296)",
-          "oklch(95% 0.14 296)"
-        ],
-        "darkCounterpart": "afternoon-fg-dark"
-      },
-      "duty-bg": {
-        "role": "shift-period",
-        "displayName": "Duty Slate Fill",
-        "canonical": "oklch(90.5% 0.03 250)",
-        "hexApprox": "#d1e2f3",
-        "scheme": "light",
-        "cssVar": "--duty-bg",
-        "tonalRamp": [
-          "oklch(15% 0.03 250)",
-          "oklch(26.4% 0.03 250)",
-          "oklch(37.9% 0.03 250)",
-          "oklch(49.3% 0.03 250)",
-          "oklch(60.7% 0.03 250)",
-          "oklch(72.1% 0.03 250)",
-          "oklch(83.6% 0.03 250)",
-          "oklch(95% 0.03 250)"
-        ],
-        "darkCounterpart": "duty-bg-dark"
-      },
-      "duty-fg": {
-        "role": "shift-period",
-        "displayName": "Duty Slate Ink",
-        "canonical": "oklch(36% 0.065 250)",
-        "hexApprox": "#203f5e",
-        "scheme": "light",
-        "cssVar": "--duty-fg",
-        "tonalRamp": [
-          "oklch(15% 0.065 250)",
-          "oklch(26.4% 0.065 250)",
-          "oklch(37.9% 0.065 250)",
-          "oklch(49.3% 0.065 250)",
-          "oklch(60.7% 0.065 250)",
-          "oklch(72.1% 0.065 250)",
-          "oklch(83.6% 0.065 250)",
-          "oklch(95% 0.065 250)"
-        ],
-        "darkCounterpart": "duty-fg-dark"
-      },
-      "off-bg": {
-        "role": "shift-period",
-        "displayName": "Rest Green Fill",
-        "canonical": "oklch(93.8% 0.055 156)",
-        "hexApprox": "#cef6db",
-        "scheme": "light",
-        "cssVar": "--off-bg",
-        "tonalRamp": [
-          "oklch(15% 0.055 156)",
-          "oklch(26.4% 0.055 156)",
-          "oklch(37.9% 0.055 156)",
-          "oklch(49.3% 0.055 156)",
-          "oklch(60.7% 0.055 156)",
-          "oklch(72.1% 0.055 156)",
-          "oklch(83.6% 0.055 156)",
-          "oklch(95% 0.055 156)"
-        ],
-        "darkCounterpart": "off-bg-dark"
-      },
-      "off-fg": {
-        "role": "shift-period",
-        "displayName": "Rest Green Ink",
-        "canonical": "oklch(39% 0.095 156)",
-        "hexApprox": "#00532e",
-        "scheme": "light",
-        "cssVar": "--off-fg",
-        "tonalRamp": [
-          "oklch(15% 0.095 156)",
-          "oklch(26.4% 0.095 156)",
-          "oklch(37.9% 0.095 156)",
-          "oklch(49.3% 0.095 156)",
-          "oklch(60.7% 0.095 156)",
-          "oklch(72.1% 0.095 156)",
-          "oklch(83.6% 0.095 156)",
-          "oklch(95% 0.095 156)"
-        ],
-        "darkCounterpart": "off-fg-dark"
-      },
-      "leave-bg": {
-        "role": "shift-period",
-        "displayName": "Leave Stone Fill",
-        "canonical": "oklch(93% 0.014 70)",
-        "hexApprox": "#eee6de",
-        "scheme": "light",
-        "cssVar": "--leave-bg",
-        "tonalRamp": [
-          "oklch(15% 0.014 70)",
-          "oklch(26.4% 0.014 70)",
-          "oklch(37.9% 0.014 70)",
-          "oklch(49.3% 0.014 70)",
-          "oklch(60.7% 0.014 70)",
-          "oklch(72.1% 0.014 70)",
-          "oklch(83.6% 0.014 70)",
-          "oklch(95% 0.014 70)"
-        ],
-        "darkCounterpart": "leave-bg-dark"
-      },
-      "leave-fg": {
-        "role": "shift-period",
-        "displayName": "Leave Stone Ink",
-        "canonical": "oklch(41% 0.03 70)",
-        "hexApprox": "#554839",
-        "scheme": "light",
-        "cssVar": "--leave-fg",
-        "tonalRamp": [
-          "oklch(15% 0.03 70)",
-          "oklch(26.4% 0.03 70)",
-          "oklch(37.9% 0.03 70)",
-          "oklch(49.3% 0.03 70)",
-          "oklch(60.7% 0.03 70)",
-          "oklch(72.1% 0.03 70)",
-          "oklch(83.6% 0.03 70)",
-          "oklch(95% 0.03 70)"
-        ],
-        "darkCounterpart": "leave-fg-dark"
+        "darkCounterpart": "green-on-ink-dark",
+        "contrastOnInk": "8.8:1"
       },
       "danger": {
-        "role": "feedback",
-        "displayName": "Alert Red",
-        "canonical": "oklch(52% 0.19 27)",
-        "hexApprox": "#be2323",
-        "scheme": "light",
+        "role": "tertiary",
+        "displayName": "Alarm Red",
+        "canonical": "oklch(50% 0.19 27)",
+        "hexApprox": "#b7191c",
         "cssVar": "--danger",
+        "scheme": "light",
         "tonalRamp": [
           "oklch(15% 0.19 27)",
           "oklch(26.4% 0.19 27)",
@@ -479,488 +202,175 @@
         ],
         "darkCounterpart": "danger-dark"
       },
-      "danger-soft": {
-        "role": "feedback",
-        "displayName": "Alert Wash",
-        "canonical": "oklch(95% 0.03 27)",
-        "hexApprox": "#ffe7e4",
-        "scheme": "light",
-        "cssVar": "--danger-soft",
-        "tonalRamp": [
-          "oklch(15% 0.03 27)",
-          "oklch(26.4% 0.03 27)",
-          "oklch(37.9% 0.03 27)",
-          "oklch(49.3% 0.03 27)",
-          "oklch(60.7% 0.03 27)",
-          "oklch(72.1% 0.03 27)",
-          "oklch(83.6% 0.03 27)",
-          "oklch(95% 0.03 27)"
-        ],
-        "darkCounterpart": "danger-soft-dark"
-      },
-      "bg-dark": {
+      "paper-dark": {
         "role": "neutral",
-        "displayName": "Cool Ground (dark)",
-        "canonical": "oklch(15.5% 0.008 265)",
-        "hexApprox": "#0b0c10",
+        "displayName": "Notice Paper (dark)",
+        "canonical": "oklch(13% 0.004 260)",
+        "hexApprox": "#070709",
+        "cssVar": "--paper",
         "scheme": "dark",
-        "cssVar": "--bg",
         "tonalRamp": [
-          "oklch(15% 0.008 265)",
-          "oklch(26.4% 0.008 265)",
-          "oklch(37.9% 0.008 265)",
-          "oklch(49.3% 0.008 265)",
-          "oklch(60.7% 0.008 265)",
-          "oklch(72.1% 0.008 265)",
-          "oklch(83.6% 0.008 265)",
-          "oklch(95% 0.008 265)"
-        ],
-        "lightCounterpart": "bg"
+          "oklch(15% 0.004 260)",
+          "oklch(26.4% 0.004 260)",
+          "oklch(37.9% 0.004 260)",
+          "oklch(49.3% 0.004 260)",
+          "oklch(60.7% 0.004 260)",
+          "oklch(72.1% 0.004 260)",
+          "oklch(83.6% 0.004 260)",
+          "oklch(95% 0.004 260)"
+        ]
       },
-      "surface-dark": {
+      "paper-2-dark": {
         "role": "neutral",
-        "displayName": "Card White (dark)",
-        "canonical": "oklch(20.5% 0.01 265)",
-        "hexApprox": "#15171c",
+        "displayName": "Press Grey (dark)",
+        "canonical": "oklch(19% 0.005 260)",
+        "hexApprox": "#121416",
+        "cssVar": "--paper-2",
         "scheme": "dark",
-        "cssVar": "--surface",
         "tonalRamp": [
-          "oklch(15% 0.01 265)",
-          "oklch(26.4% 0.01 265)",
-          "oklch(37.9% 0.01 265)",
-          "oklch(49.3% 0.01 265)",
-          "oklch(60.7% 0.01 265)",
-          "oklch(72.1% 0.01 265)",
-          "oklch(83.6% 0.01 265)",
-          "oklch(95% 0.01 265)"
-        ],
-        "lightCounterpart": "surface"
+          "oklch(15% 0.005 260)",
+          "oklch(26.4% 0.005 260)",
+          "oklch(37.9% 0.005 260)",
+          "oklch(49.3% 0.005 260)",
+          "oklch(60.7% 0.005 260)",
+          "oklch(72.1% 0.005 260)",
+          "oklch(83.6% 0.005 260)",
+          "oklch(95% 0.005 260)"
+        ]
       },
-      "surface-sunken-dark": {
+      "ink-dark": {
         "role": "neutral",
-        "displayName": "Sunken Track (dark)",
-        "canonical": "oklch(13.5% 0.008 265)",
-        "hexApprox": "#07080b",
+        "displayName": "Ink (dark)",
+        "canonical": "oklch(96% 0.003 260)",
+        "hexApprox": "#f0f2f4",
+        "cssVar": "--ink",
         "scheme": "dark",
-        "cssVar": "--surface-sunken",
         "tonalRamp": [
-          "oklch(15% 0.008 265)",
-          "oklch(26.4% 0.008 265)",
-          "oklch(37.9% 0.008 265)",
-          "oklch(49.3% 0.008 265)",
-          "oklch(60.7% 0.008 265)",
-          "oklch(72.1% 0.008 265)",
-          "oklch(83.6% 0.008 265)",
-          "oklch(95% 0.008 265)"
-        ],
-        "lightCounterpart": "surface-sunken"
+          "oklch(15% 0.003 260)",
+          "oklch(26.4% 0.003 260)",
+          "oklch(37.9% 0.003 260)",
+          "oklch(49.3% 0.003 260)",
+          "oklch(60.7% 0.003 260)",
+          "oklch(72.1% 0.003 260)",
+          "oklch(83.6% 0.003 260)",
+          "oklch(95% 0.003 260)"
+        ]
       },
-      "surface-hover-dark": {
+      "ink-2-dark": {
         "role": "neutral",
-        "displayName": "Hover Tint (dark)",
-        "canonical": "oklch(24% 0.012 265)",
-        "hexApprox": "#1c1f25",
+        "displayName": "Ink 2 (dark)",
+        "canonical": "oklch(78% 0.006 260)",
+        "hexApprox": "#b5b7bb",
+        "cssVar": "--ink-2",
         "scheme": "dark",
-        "cssVar": "--surface-hover",
         "tonalRamp": [
-          "oklch(15% 0.012 265)",
-          "oklch(26.4% 0.012 265)",
-          "oklch(37.9% 0.012 265)",
-          "oklch(49.3% 0.012 265)",
-          "oklch(60.7% 0.012 265)",
-          "oklch(72.1% 0.012 265)",
-          "oklch(83.6% 0.012 265)",
-          "oklch(95% 0.012 265)"
-        ],
-        "lightCounterpart": "surface-hover"
+          "oklch(15% 0.006 260)",
+          "oklch(26.4% 0.006 260)",
+          "oklch(37.9% 0.006 260)",
+          "oklch(49.3% 0.006 260)",
+          "oklch(60.7% 0.006 260)",
+          "oklch(72.1% 0.006 260)",
+          "oklch(83.6% 0.006 260)",
+          "oklch(95% 0.006 260)"
+        ]
+      },
+      "ink-3-dark": {
+        "role": "neutral",
+        "displayName": "Ink 3 (dark)",
+        "canonical": "oklch(64% 0.006 260)",
+        "hexApprox": "#8a8c90",
+        "cssVar": "--ink-3",
+        "scheme": "dark",
+        "tonalRamp": [
+          "oklch(15% 0.006 260)",
+          "oklch(26.4% 0.006 260)",
+          "oklch(37.9% 0.006 260)",
+          "oklch(49.3% 0.006 260)",
+          "oklch(60.7% 0.006 260)",
+          "oklch(72.1% 0.006 260)",
+          "oklch(83.6% 0.006 260)",
+          "oklch(95% 0.006 260)"
+        ]
       },
       "hairline-dark": {
         "role": "neutral",
         "displayName": "Hairline (dark)",
-        "canonical": "oklch(29% 0.012 265)",
-        "hexApprox": "#282b31",
-        "scheme": "dark",
+        "canonical": "oklch(34% 0.006 260)",
+        "hexApprox": "#36383b",
         "cssVar": "--hairline",
+        "scheme": "dark",
         "tonalRamp": [
-          "oklch(15% 0.012 265)",
-          "oklch(26.4% 0.012 265)",
-          "oklch(37.9% 0.012 265)",
-          "oklch(49.3% 0.012 265)",
-          "oklch(60.7% 0.012 265)",
-          "oklch(72.1% 0.012 265)",
-          "oklch(83.6% 0.012 265)",
-          "oklch(95% 0.012 265)"
-        ],
-        "lightCounterpart": "hairline"
+          "oklch(15% 0.006 260)",
+          "oklch(26.4% 0.006 260)",
+          "oklch(37.9% 0.006 260)",
+          "oklch(49.3% 0.006 260)",
+          "oklch(60.7% 0.006 260)",
+          "oklch(72.1% 0.006 260)",
+          "oklch(83.6% 0.006 260)",
+          "oklch(95% 0.006 260)"
+        ]
       },
-      "hairline-strong-dark": {
+      "on-ink-dark": {
         "role": "neutral",
-        "displayName": "Strong Hairline (dark)",
-        "canonical": "oklch(36% 0.014 265)",
-        "hexApprox": "#393d45",
+        "displayName": "On Ink (dark)",
+        "canonical": "oklch(13% 0.004 260)",
+        "hexApprox": "#070709",
+        "cssVar": "--on-ink",
         "scheme": "dark",
-        "cssVar": "--hairline-strong",
         "tonalRamp": [
-          "oklch(15% 0.014 265)",
-          "oklch(26.4% 0.014 265)",
-          "oklch(37.9% 0.014 265)",
-          "oklch(49.3% 0.014 265)",
-          "oklch(60.7% 0.014 265)",
-          "oklch(72.1% 0.014 265)",
-          "oklch(83.6% 0.014 265)",
-          "oklch(95% 0.014 265)"
-        ],
-        "lightCounterpart": "hairline-strong"
+          "oklch(15% 0.004 260)",
+          "oklch(26.4% 0.004 260)",
+          "oklch(37.9% 0.004 260)",
+          "oklch(49.3% 0.004 260)",
+          "oklch(60.7% 0.004 260)",
+          "oklch(72.1% 0.004 260)",
+          "oklch(83.6% 0.004 260)",
+          "oklch(95% 0.004 260)"
+        ]
       },
-      "text-dark": {
-        "role": "neutral",
-        "displayName": "Ink (dark)",
-        "canonical": "oklch(95% 0.006 265)",
-        "hexApprox": "#eceef3",
-        "scheme": "dark",
-        "cssVar": "--text",
-        "tonalRamp": [
-          "oklch(15% 0.006 265)",
-          "oklch(26.4% 0.006 265)",
-          "oklch(37.9% 0.006 265)",
-          "oklch(49.3% 0.006 265)",
-          "oklch(60.7% 0.006 265)",
-          "oklch(72.1% 0.006 265)",
-          "oklch(83.6% 0.006 265)",
-          "oklch(95% 0.006 265)"
-        ],
-        "lightCounterpart": "text"
-      },
-      "text-2-dark": {
-        "role": "neutral",
-        "displayName": "Secondary Ink (dark)",
-        "canonical": "oklch(76% 0.014 265)",
-        "hexApprox": "#adb1ba",
-        "scheme": "dark",
-        "cssVar": "--text-2",
-        "tonalRamp": [
-          "oklch(15% 0.014 265)",
-          "oklch(26.4% 0.014 265)",
-          "oklch(37.9% 0.014 265)",
-          "oklch(49.3% 0.014 265)",
-          "oklch(60.7% 0.014 265)",
-          "oklch(72.1% 0.014 265)",
-          "oklch(83.6% 0.014 265)",
-          "oklch(95% 0.014 265)"
-        ],
-        "lightCounterpart": "text-2"
-      },
-      "text-3-dark": {
-        "role": "neutral",
-        "displayName": "Tertiary Ink (dark)",
-        "canonical": "oklch(66% 0.014 265)",
-        "hexApprox": "#8e929b",
-        "scheme": "dark",
-        "cssVar": "--text-3",
-        "tonalRamp": [
-          "oklch(15% 0.014 265)",
-          "oklch(26.4% 0.014 265)",
-          "oklch(37.9% 0.014 265)",
-          "oklch(49.3% 0.014 265)",
-          "oklch(60.7% 0.014 265)",
-          "oklch(72.1% 0.014 265)",
-          "oklch(83.6% 0.014 265)",
-          "oklch(95% 0.014 265)"
-        ],
-        "lightCounterpart": "text-3"
-      },
-      "accent-dark": {
+      "green-dark": {
         "role": "primary",
-        "displayName": "Calendar Blue (dark)",
-        "canonical": "oklch(70% 0.15 256)",
-        "hexApprox": "#5ba0fa",
+        "displayName": "Cross Green (dark)",
+        "canonical": "oklch(74% 0.17 148)",
+        "hexApprox": "#50c76a",
+        "cssVar": "--green",
         "scheme": "dark",
-        "cssVar": "--accent",
         "tonalRamp": [
-          "oklch(15% 0.15 256)",
-          "oklch(26.4% 0.15 256)",
-          "oklch(37.9% 0.15 256)",
-          "oklch(49.3% 0.15 256)",
-          "oklch(60.7% 0.15 256)",
-          "oklch(72.1% 0.15 256)",
-          "oklch(83.6% 0.15 256)",
-          "oklch(95% 0.15 256)"
-        ],
-        "lightCounterpart": "accent"
+          "oklch(15% 0.17 148)",
+          "oklch(26.4% 0.17 148)",
+          "oklch(37.9% 0.17 148)",
+          "oklch(49.3% 0.17 148)",
+          "oklch(60.7% 0.17 148)",
+          "oklch(72.1% 0.17 148)",
+          "oklch(83.6% 0.17 148)",
+          "oklch(95% 0.17 148)"
+        ]
       },
-      "accent-hover-dark": {
+      "green-on-ink-dark": {
         "role": "primary",
-        "displayName": "Pressed Blue (dark)",
-        "canonical": "oklch(76% 0.13 256)",
-        "hexApprox": "#78b3ff",
+        "displayName": "Green on Ink (dark)",
+        "canonical": "oklch(46% 0.15 148)",
+        "hexApprox": "#006d1e",
+        "cssVar": "--green-on-ink",
         "scheme": "dark",
-        "cssVar": "--accent-hover",
         "tonalRamp": [
-          "oklch(15% 0.13 256)",
-          "oklch(26.4% 0.13 256)",
-          "oklch(37.9% 0.13 256)",
-          "oklch(49.3% 0.13 256)",
-          "oklch(60.7% 0.13 256)",
-          "oklch(72.1% 0.13 256)",
-          "oklch(83.6% 0.13 256)",
-          "oklch(95% 0.13 256)"
-        ],
-        "lightCounterpart": "accent-hover"
-      },
-      "accent-soft-dark": {
-        "role": "primary",
-        "displayName": "Blue Wash (dark)",
-        "canonical": "oklch(30% 0.07 259)",
-        "hexApprox": "#172d50",
-        "scheme": "dark",
-        "cssVar": "--accent-soft",
-        "tonalRamp": [
-          "oklch(15% 0.07 259)",
-          "oklch(26.4% 0.07 259)",
-          "oklch(37.9% 0.07 259)",
-          "oklch(49.3% 0.07 259)",
-          "oklch(60.7% 0.07 259)",
-          "oklch(72.1% 0.07 259)",
-          "oklch(83.6% 0.07 259)",
-          "oklch(95% 0.07 259)"
-        ],
-        "lightCounterpart": "accent-soft"
-      },
-      "accent-soft-text-dark": {
-        "role": "primary",
-        "displayName": "Wash Ink (dark)",
-        "canonical": "oklch(86% 0.07 256)",
-        "hexApprox": "#b3d4ff",
-        "scheme": "dark",
-        "cssVar": "--accent-soft-text",
-        "tonalRamp": [
-          "oklch(15% 0.07 256)",
-          "oklch(26.4% 0.07 256)",
-          "oklch(37.9% 0.07 256)",
-          "oklch(49.3% 0.07 256)",
-          "oklch(60.7% 0.07 256)",
-          "oklch(72.1% 0.07 256)",
-          "oklch(83.6% 0.07 256)",
-          "oklch(95% 0.07 256)"
-        ],
-        "lightCounterpart": "accent-soft-text"
-      },
-      "on-accent-dark": {
-        "role": "primary",
-        "displayName": "On Blue (dark)",
-        "canonical": "oklch(17% 0.03 265)",
-        "hexApprox": "#090f1c",
-        "scheme": "dark",
-        "cssVar": "--on-accent",
-        "tonalRamp": [
-          "oklch(15% 0.03 265)",
-          "oklch(26.4% 0.03 265)",
-          "oklch(37.9% 0.03 265)",
-          "oklch(49.3% 0.03 265)",
-          "oklch(60.7% 0.03 265)",
-          "oklch(72.1% 0.03 265)",
-          "oklch(83.6% 0.03 265)",
-          "oklch(95% 0.03 265)"
-        ],
-        "lightCounterpart": "on-accent"
-      },
-      "morning-bg-dark": {
-        "role": "shift-period",
-        "displayName": "Morning Amber Fill (dark)",
-        "canonical": "oklch(33% 0.06 72)",
-        "hexApprox": "#48300d",
-        "scheme": "dark",
-        "cssVar": "--morning-bg",
-        "tonalRamp": [
-          "oklch(15% 0.06 72)",
-          "oklch(26.4% 0.06 72)",
-          "oklch(37.9% 0.06 72)",
-          "oklch(49.3% 0.06 72)",
-          "oklch(60.7% 0.06 72)",
-          "oklch(72.1% 0.06 72)",
-          "oklch(83.6% 0.06 72)",
-          "oklch(95% 0.06 72)"
-        ],
-        "lightCounterpart": "morning-bg"
-      },
-      "morning-fg-dark": {
-        "role": "shift-period",
-        "displayName": "Morning Amber Ink (dark)",
-        "canonical": "oklch(89% 0.08 86)",
-        "hexApprox": "#f2d89e",
-        "scheme": "dark",
-        "cssVar": "--morning-fg",
-        "tonalRamp": [
-          "oklch(15% 0.08 86)",
-          "oklch(26.4% 0.08 86)",
-          "oklch(37.9% 0.08 86)",
-          "oklch(49.3% 0.08 86)",
-          "oklch(60.7% 0.08 86)",
-          "oklch(72.1% 0.08 86)",
-          "oklch(83.6% 0.08 86)",
-          "oklch(95% 0.08 86)"
-        ],
-        "lightCounterpart": "morning-fg"
-      },
-      "afternoon-bg-dark": {
-        "role": "shift-period",
-        "displayName": "Afternoon Violet Fill (dark)",
-        "canonical": "oklch(32% 0.075 296)",
-        "hexApprox": "#372a54",
-        "scheme": "dark",
-        "cssVar": "--afternoon-bg",
-        "tonalRamp": [
-          "oklch(15% 0.075 296)",
-          "oklch(26.4% 0.075 296)",
-          "oklch(37.9% 0.075 296)",
-          "oklch(49.3% 0.075 296)",
-          "oklch(60.7% 0.075 296)",
-          "oklch(72.1% 0.075 296)",
-          "oklch(83.6% 0.075 296)",
-          "oklch(95% 0.075 296)"
-        ],
-        "lightCounterpart": "afternoon-bg"
-      },
-      "afternoon-fg-dark": {
-        "role": "shift-period",
-        "displayName": "Afternoon Violet Ink (dark)",
-        "canonical": "oklch(89% 0.06 296)",
-        "hexApprox": "#ded3ff",
-        "scheme": "dark",
-        "cssVar": "--afternoon-fg",
-        "tonalRamp": [
-          "oklch(15% 0.06 296)",
-          "oklch(26.4% 0.06 296)",
-          "oklch(37.9% 0.06 296)",
-          "oklch(49.3% 0.06 296)",
-          "oklch(60.7% 0.06 296)",
-          "oklch(72.1% 0.06 296)",
-          "oklch(83.6% 0.06 296)",
-          "oklch(95% 0.06 296)"
-        ],
-        "lightCounterpart": "afternoon-fg"
-      },
-      "duty-bg-dark": {
-        "role": "shift-period",
-        "displayName": "Duty Slate Fill (dark)",
-        "canonical": "oklch(31% 0.045 250)",
-        "hexApprox": "#1e3246",
-        "scheme": "dark",
-        "cssVar": "--duty-bg",
-        "tonalRamp": [
-          "oklch(15% 0.045 250)",
-          "oklch(26.4% 0.045 250)",
-          "oklch(37.9% 0.045 250)",
-          "oklch(49.3% 0.045 250)",
-          "oklch(60.7% 0.045 250)",
-          "oklch(72.1% 0.045 250)",
-          "oklch(83.6% 0.045 250)",
-          "oklch(95% 0.045 250)"
-        ],
-        "lightCounterpart": "duty-bg"
-      },
-      "duty-fg-dark": {
-        "role": "shift-period",
-        "displayName": "Duty Slate Ink (dark)",
-        "canonical": "oklch(88% 0.04 250)",
-        "hexApprox": "#c4daf2",
-        "scheme": "dark",
-        "cssVar": "--duty-fg",
-        "tonalRamp": [
-          "oklch(15% 0.04 250)",
-          "oklch(26.4% 0.04 250)",
-          "oklch(37.9% 0.04 250)",
-          "oklch(49.3% 0.04 250)",
-          "oklch(60.7% 0.04 250)",
-          "oklch(72.1% 0.04 250)",
-          "oklch(83.6% 0.04 250)",
-          "oklch(95% 0.04 250)"
-        ],
-        "lightCounterpart": "duty-fg"
-      },
-      "off-bg-dark": {
-        "role": "shift-period",
-        "displayName": "Rest Green Fill (dark)",
-        "canonical": "oklch(32% 0.065 156)",
-        "hexApprox": "#103c24",
-        "scheme": "dark",
-        "cssVar": "--off-bg",
-        "tonalRamp": [
-          "oklch(15% 0.065 156)",
-          "oklch(26.4% 0.065 156)",
-          "oklch(37.9% 0.065 156)",
-          "oklch(49.3% 0.065 156)",
-          "oklch(60.7% 0.065 156)",
-          "oklch(72.1% 0.065 156)",
-          "oklch(83.6% 0.065 156)",
-          "oklch(95% 0.065 156)"
-        ],
-        "lightCounterpart": "off-bg"
-      },
-      "off-fg-dark": {
-        "role": "shift-period",
-        "displayName": "Rest Green Ink (dark)",
-        "canonical": "oklch(89% 0.085 156)",
-        "hexApprox": "#adecc3",
-        "scheme": "dark",
-        "cssVar": "--off-fg",
-        "tonalRamp": [
-          "oklch(15% 0.085 156)",
-          "oklch(26.4% 0.085 156)",
-          "oklch(37.9% 0.085 156)",
-          "oklch(49.3% 0.085 156)",
-          "oklch(60.7% 0.085 156)",
-          "oklch(72.1% 0.085 156)",
-          "oklch(83.6% 0.085 156)",
-          "oklch(95% 0.085 156)"
-        ],
-        "lightCounterpart": "off-fg"
-      },
-      "leave-bg-dark": {
-        "role": "shift-period",
-        "displayName": "Leave Stone Fill (dark)",
-        "canonical": "oklch(30% 0.016 70)",
-        "hexApprox": "#332d25",
-        "scheme": "dark",
-        "cssVar": "--leave-bg",
-        "tonalRamp": [
-          "oklch(15% 0.016 70)",
-          "oklch(26.4% 0.016 70)",
-          "oklch(37.9% 0.016 70)",
-          "oklch(49.3% 0.016 70)",
-          "oklch(60.7% 0.016 70)",
-          "oklch(72.1% 0.016 70)",
-          "oklch(83.6% 0.016 70)",
-          "oklch(95% 0.016 70)"
-        ],
-        "lightCounterpart": "leave-bg"
-      },
-      "leave-fg-dark": {
-        "role": "shift-period",
-        "displayName": "Leave Stone Ink (dark)",
-        "canonical": "oklch(86% 0.022 70)",
-        "hexApprox": "#dbcfc2",
-        "scheme": "dark",
-        "cssVar": "--leave-fg",
-        "tonalRamp": [
-          "oklch(15% 0.022 70)",
-          "oklch(26.4% 0.022 70)",
-          "oklch(37.9% 0.022 70)",
-          "oklch(49.3% 0.022 70)",
-          "oklch(60.7% 0.022 70)",
-          "oklch(72.1% 0.022 70)",
-          "oklch(83.6% 0.022 70)",
-          "oklch(95% 0.022 70)"
-        ],
-        "lightCounterpart": "leave-fg"
+          "oklch(15% 0.15 148)",
+          "oklch(26.4% 0.15 148)",
+          "oklch(37.9% 0.15 148)",
+          "oklch(49.3% 0.15 148)",
+          "oklch(60.7% 0.15 148)",
+          "oklch(72.1% 0.15 148)",
+          "oklch(83.6% 0.15 148)",
+          "oklch(95% 0.15 148)"
+        ]
       },
       "danger-dark": {
-        "role": "feedback",
-        "displayName": "Alert Red (dark)",
+        "role": "tertiary",
+        "displayName": "Alarm Red (dark)",
         "canonical": "oklch(72% 0.15 27)",
         "hexApprox": "#f47c70",
-        "scheme": "dark",
         "cssVar": "--danger",
+        "scheme": "dark",
         "tonalRamp": [
           "oklch(15% 0.15 27)",
           "oklch(26.4% 0.15 27)",
@@ -970,196 +380,218 @@
           "oklch(72.1% 0.15 27)",
           "oklch(83.6% 0.15 27)",
           "oklch(95% 0.15 27)"
-        ],
-        "lightCounterpart": "danger"
-      },
-      "danger-soft-dark": {
-        "role": "feedback",
-        "displayName": "Alert Wash (dark)",
-        "canonical": "oklch(30% 0.07 27)",
-        "hexApprox": "#4b1e1a",
-        "scheme": "dark",
-        "cssVar": "--danger-soft",
-        "tonalRamp": [
-          "oklch(15% 0.07 27)",
-          "oklch(26.4% 0.07 27)",
-          "oklch(37.9% 0.07 27)",
-          "oklch(49.3% 0.07 27)",
-          "oklch(60.7% 0.07 27)",
-          "oklch(72.1% 0.07 27)",
-          "oklch(83.6% 0.07 27)",
-          "oklch(95% 0.07 27)"
-        ],
-        "lightCounterpart": "danger-soft"
+        ]
       }
     },
     "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "cssVar": "--text-display",
+        "purpose": "The week range between the arrows. One per page."
+      },
       "headline": {
         "displayName": "Headline",
-        "purpose": "The week range in the week navigator; the largest text on the page. Tabular numerals."
+        "cssVar": "--text-xxl",
+        "purpose": "The person's name in the underlined picker field; truncates, never wraps."
       },
-      "day-number": {
-        "displayName": "Day Number",
-        "purpose": "Date numerals in the agenda's 38px date circle; the load-error heading."
+      "slot": {
+        "displayName": "Slot",
+        "cssVar": "--text-xl",
+        "purpose": "Hours in the week table ('08–16') and empty-state titles."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "The app-bar title and empty-state titles."
-      },
-      "chip": {
-        "displayName": "Chip",
-        "purpose": "Shift time ranges inside full-size period chips. Tabular numerals."
-      },
-      "person-name": {
-        "displayName": "Person Name",
-        "purpose": "The selected name in the person picker and the first-visit name list."
+        "cssVar": "--text-l",
+        "purpose": "Masthead title, table day labels (uppercase), pick-list names, day-picker numbers, sheet-check section titles."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Running text and summary values; 52ch for empty-state copy, 72ch for footnotes."
+        "cssVar": "--text-m",
+        "purpose": "Running text and the Facts sentence (line-height 1.5 there); tabular lining numerals throughout."
       },
-      "button": {
-        "displayName": "Button",
-        "purpose": "Button labels and the refresh label."
+      "control": {
+        "displayName": "Control",
+        "cssVar": "--text-m",
+        "purpose": "Button and toast labels."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "cssVar": "--text-s",
+        "purpose": "Coworkers, notes, action feedback, footer notes, banners."
+      },
+      "tab": {
+        "displayName": "Tab",
+        "cssVar": "--text-s",
+        "purpose": "The two view tabs, uppercase; selected is 800 in ink."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Weekday abbreviations, segmented options, compact chips, matrix column heads, the Σήμερα pill."
+        "cssVar": "--text-label",
+        "purpose": "Uppercase tracked labels without tonos: subtitle, relative week, day-picker weekdays, group captions, duty word."
       },
-      "meta": {
-        "displayName": "Meta",
-        "purpose": "Shift period and duration metadata, the relative-week line, group captions, toast text."
+      "label-strong": {
+        "displayName": "Label Strong",
+        "cssVar": "--text-label",
+        "purpose": "Table headers, the «Άλλαξε» overprint, severity stamps."
       },
-      "footnote": {
-        "displayName": "Footnote",
-        "purpose": "App-bar subtitle, summary asides, calendar hints, data notes, banners."
-      },
-      "caption": {
-        "displayName": "Caption",
-        "purpose": "Freshness clock, tags, change badge, day-picker weekday labels."
+      "picker-select": {
+        "displayName": "Picker Select (exception)",
+        "purpose": "The invisible native <select> over the name field. 16px on purpose so iOS Safari does not zoom on focus; sanctioned exception to the scale."
       }
     },
-    "shadows": [
+    "fonts": [
       {
-        "name": "thumb",
-        "value": "0 1px 3px oklch(25% 0.03 265 / 0.14), 0 1px 1px oklch(25% 0.03 265 / 0.06)",
-        "purpose": "Selected option lifting out of the segmented-control track."
-      },
-      {
-        "name": "day-thumb",
-        "value": "0 1px 3px oklch(25% 0.03 265 / 0.14)",
-        "purpose": "Chosen day lifting out of the day-picker track (team view, phones)."
-      },
-      {
-        "name": "float",
-        "value": "0 8px 28px -6px oklch(25% 0.03 265 / 0.22), 0 2px 6px oklch(25% 0.03 265 / 0.08)",
-        "purpose": "The toast floating over content (--shadow-float, light scheme)."
-      },
-      {
-        "name": "float-dark",
-        "value": "0 10px 30px -6px oklch(5% 0.01 265 / 0.6), 0 2px 6px oklch(5% 0.01 265 / 0.4)",
-        "purpose": "The toast floating over content (--shadow-float, dark scheme)."
+        "family": "Fira Sans Condensed",
+        "weights": [
+          400,
+          600,
+          800
+        ],
+        "source": "@fontsource/fira-sans-condensed (self-hosted, imported in app/layout.tsx)",
+        "fallback": "Arial Narrow, system-ui, sans-serif"
       }
     ],
+    "typeScale": [
+      {
+        "name": "--text-label",
+        "value": "0.75rem"
+      },
+      {
+        "name": "--text-s",
+        "value": "0.8125rem"
+      },
+      {
+        "name": "--text-m",
+        "value": "0.9375rem"
+      },
+      {
+        "name": "--text-l",
+        "value": "1.25rem"
+      },
+      {
+        "name": "--text-xl",
+        "value": "1.375rem"
+      },
+      {
+        "name": "--text-xxl",
+        "value": "1.875rem"
+      },
+      {
+        "name": "--text-display",
+        "value": "2.25rem"
+      }
+    ],
+    "rules": [
+      {
+        "name": "--rule-heavy",
+        "value": "4px",
+        "purpose": "Masthead rule (8px in the 1080px export)."
+      },
+      {
+        "name": "--rule",
+        "value": "3px",
+        "purpose": "Opens and closes every table and section; selected-tab underline; focus outline width."
+      },
+      {
+        "name": "--border",
+        "value": "2px",
+        "purpose": "Control borders, underlined name field, overprint, stamps, banners, link underlines."
+      },
+      {
+        "name": "row-rule",
+        "value": "1px solid var(--ink)",
+        "purpose": "Between rows in the table, matrix, team groups and pick list (2px hairline in the export)."
+      }
+    ],
+    "shadows": [],
+    "shadowExceptions": [
+      {
+        "name": "toast-lift",
+        "value": "0 8px 24px -8px oklch(10% 0.01 260 / 0.45)",
+        "purpose": "Only on the floating toast. Tolerated exception, not a pattern; the system is flat."
+      }
+    ],
+    "focus": {
+      "value": "outline: 3px solid var(--green); outline-offset: 2px",
+      "selection": "background: var(--ink); color: var(--on-ink)"
+    },
     "motion": [
       {
-        "name": "ease-out",
+        "name": "--ease-out",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "The single easing curve for every transition and entrance (--ease-out)."
-      },
-      {
-        "name": "state",
-        "value": "160ms",
-        "purpose": "Hover and press colour changes on buttons, refresh, picker border, list rows."
-      },
-      {
-        "name": "press",
-        "value": "transform: scale(0.98)",
-        "purpose": "Buttons on :active."
-      },
-      {
-        "name": "segment",
-        "value": "180ms",
-        "purpose": "Segmented-control thumb background, colour and shadow."
+        "purpose": "The only easing."
       },
       {
         "name": "week-in",
-        "value": "200ms; from opacity 0.4, translateY(6px)",
-        "purpose": "A new week's content settling in after navigation or view switch."
+        "value": "200ms, opacity 0.4→1, translateY 6px→0",
+        "purpose": "Settle on week change (my week and team)."
+      },
+      {
+        "name": "overprint-in",
+        "value": "320ms, opacity 0→1, scale 1.3→1",
+        "purpose": "The «Άλλαξε» stamp landing on a changed day."
       },
       {
         "name": "toast-in",
-        "value": "260ms; from opacity 0, translateY(12px)",
-        "purpose": "Toast rising from the bottom edge."
-      },
-      {
-        "name": "badge-in",
-        "value": "420ms; from opacity 0, scale(0.6)",
-        "purpose": "The Άλλαξε badge popping in on a changed day."
+        "value": "240ms, opacity 0→1, translateY 12px→0",
+        "purpose": "Toast arrival."
       },
       {
         "name": "spin",
         "value": "900ms linear infinite",
-        "purpose": "Refresh icon while the sheet is being checked."
+        "purpose": "Refresh icon while checking."
       },
       {
         "name": "reduced-motion",
-        "value": "1ms durations, single iteration",
-        "purpose": "prefers-reduced-motion collapses every animation and transition."
+        "value": "all animation and transition durations clamp to 1ms",
+        "purpose": "prefers-reduced-motion: reduce."
       }
     ],
     "breakpoints": [
       {
-        "name": "side-by-side",
+        "name": "side-row",
         "value": "760px",
-        "purpose": "Viewport media query: picker and view switch share a row; week nav centres with a 16px gap."
+        "type": "viewport",
+        "purpose": "Name field and tabs share one row; week nav aligns start."
       },
       {
         "name": "team-matrix",
-        "value": "700px (container)",
-        "purpose": "Team view switches from day picker + grouped periods to the full matrix and legend."
+        "value": "700px",
+        "type": "container (.layout__main)",
+        "purpose": "People × days matrix replaces the phone day picker."
       },
       {
-        "name": "my-week-columns",
-        "value": "820px (container)",
-        "purpose": "Agenda plus a 300px summary/actions column, 24px gap."
+        "name": "myweek-columns",
+        "value": "820px",
+        "type": "container (.layout__main)",
+        "purpose": "Table left; status line, Facts and actions in a 320px right column."
       },
       {
         "name": "app-max",
         "value": "1120px",
-        "purpose": "Maximum width of the app shell, centred."
+        "type": "max-width",
+        "purpose": "Centred app column."
       }
     ],
-    "darkMode": {
-      "strategy": "@media (prefers-color-scheme: dark) redefines every colour custom property on :root; color-scheme follows.",
-      "tokenSuffix": "-dark",
-      "themeColor": {
-        "light": "#f2f4f7",
-        "dark": "#0b0c10"
-      }
-    },
-    "iconography": {
-      "library": "lucide (lucide-react)",
-      "sizes": {
-        "default": "18px, stroke 2",
-        "inline": "14px",
-        "notes": "16px",
-        "chip": "15px, stroke 2.25"
+    "exportImage": {
+      "source": "lib/client/exportImage.ts",
+      "size": "1080×1920 PNG",
+      "palette": "lib/design/palette.ts (light only; mirror of :root)",
+      "margin": "72px",
+      "scale": {
+        "title": "50/800 caps",
+        "subtitle": "28/400 caps ink2",
+        "name": "96/800",
+        "range": "54/800 ink2",
+        "tableHead": "26/600 caps",
+        "day": "44/800 caps",
+        "hours": "60/800 (46 when long)",
+        "off": "56/800 green caps",
+        "coworkers": "30/400",
+        "facts": "36 (800 labels, 400 values)",
+        "provenance": "24/400 ink2"
       },
-      "color": "currentColor",
-      "inUse": [
-        "RefreshCw",
-        "ChevronLeft",
-        "ChevronRight",
-        "ChevronsUpDown",
-        "ChevronRight (list)",
-        "Moon",
-        "CalendarPlus",
-        "CalendarSync",
-        "Info",
-        "ExternalLink",
-        "X"
-      ]
+      "rules": "8px header, 6px table open/close, 2px hairline between rows"
     }
   },
   "components": [
@@ -1167,162 +599,170 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The one filled action per view: adding the week to the phone calendar, or retrying a failed load.",
-      "html": "<button type=\"button\" class=\"ds-btn-primary\"><svg class=\"ds-icon\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 18h6\"/><path d=\"M16 2v3\"/><path d=\"M19 15v6\"/><path d=\"M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3\"/><path d=\"M3 9h18\"/><path d=\"M8 2v3\"/></svg>Προσθήκη στο ημερολόγιο</button>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid transparent; border-radius: var(--radius-m, 12px); background: var(--accent, oklch(51.5% 0.19 259)); color: var(--on-accent, oklch(99% 0.003 265)); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); font-size: var(--step-0, 0.9375rem); font-weight: 600; cursor: pointer; transition: background-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), border-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), transform 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; border-radius: var(--radius-m, 12px); } .ds-btn-primary:disabled { cursor: default; opacity: 0.45; transform: none; } .ds-btn-primary .ds-icon { width: 18px; height: 18px; flex: none; } @media (hover: hover) { .ds-btn-primary:hover { background: var(--accent-hover, oklch(46% 0.19 259)); } }"
+      "description": "Ink-filled square button; one per view (export image, retry, refresh in empty states).",
+      "html": "<button class=\"ds-btn ds-btn--primary\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7\"/><path d=\"m21 15-5-5L5 21\"/><path d=\"M16 3v6\"/><path d=\"m19 6-3 3-3-3\"/></svg><span>Εικόνα της εβδομάδας</span></button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 16px; border: var(--border, 2px) solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: var(--text-m, 0.9375rem); font-weight: 600; cursor: pointer; } .ds-btn--primary { background: var(--ink); color: var(--on-ink); } .ds-btn--primary:hover { background: var(--ink-2); } .ds-btn--primary:active { background: var(--ink-2); } .ds-btn:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; } .ds-icon { width: 18px; height: 18px; flex: none; }"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Outlined companion action on Card White: subscribe to the live calendar feed, open the sheet.",
-      "html": "<button type=\"button\" class=\"ds-btn-secondary\"><svg class=\"ds-icon\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 10v4h4\"/><path d=\"m11 14 1.535-1.605a5 5 0 018 1.5\"/><path d=\"M16 2v3\"/><path d=\"m21 18-1.535 1.605a5 5 0 01-8-1.5\"/><path d=\"M21 22v-4h-4\"/><path d=\"M21 8.517V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h3.517\"/><path d=\"M3 9h4\"/><path d=\"M8 2v3\"/></svg>Συνδρομή που ενημερώνεται</button>",
-      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--hairline-strong, oklch(83% 0.009 265)); border-radius: var(--radius-m, 12px); background: var(--surface, oklch(99.6% 0.002 265)); color: var(--text, oklch(23% 0.022 265)); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); font-size: var(--step-0, 0.9375rem); font-weight: 600; cursor: pointer; transition: background-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), border-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), transform 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-btn-secondary:active { transform: scale(0.98); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; border-radius: var(--radius-m, 12px); } .ds-btn-secondary:disabled { cursor: default; opacity: 0.45; transform: none; } .ds-btn-secondary .ds-icon { width: 18px; height: 18px; flex: none; } @media (hover: hover) { .ds-btn-secondary:hover { background: var(--surface-hover, oklch(95.6% 0.006 265)); } }"
+      "description": "Paper button with a 2px ink border; the second action (add to calendar, open sheet).",
+      "html": "<button class=\"ds-btn2\"><svg class=\"ds-icon2\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18M12 14v6M9 17h6\"/></svg><span>Στο ημερολόγιο</span></button>",
+      "css": ".ds-btn2 { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 16px; border: 2px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: var(--text-m, 0.9375rem); font-weight: 600; cursor: pointer; } .ds-btn2:hover, .ds-btn2:active { background: var(--paper-2); } .ds-btn2:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; } .ds-icon2 { width: 18px; height: 18px; flex: none; }"
     },
     {
-      "name": "Week Navigator",
+      "name": "Masthead",
       "kind": "nav",
-      "refersTo": "button-icon",
-      "description": "Circular blue icon buttons around the tabular week range, with the relative label and the Σήμερα pill beneath; a blue dot flags changes in that direction.",
-      "html": "<nav class=\"ds-weeknav\" aria-label=\"Εβδομάδα\"><button type=\"button\" class=\"ds-icon-btn\" aria-label=\"Προηγούμενη εβδομάδα\"><svg class=\"ds-icon\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 18-6-6 6-6\"/></svg></button><div class=\"ds-weeknav-label\"><h2 class=\"ds-weeknav-range\">5–11 Οκτ</h2><p class=\"ds-weeknav-relative\"><span>Την επόμενη εβδομάδα</span><button type=\"button\" class=\"ds-link-pill\">Σήμερα</button></p></div><button type=\"button\" class=\"ds-icon-btn\" aria-label=\"Επόμενη εβδομάδα (έχει αλλαγές)\"><svg class=\"ds-icon\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg><span class=\"ds-weeknav-dot\"></span></button></nav>",
-      "css": ".ds-weeknav { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 4px; max-width: 420px; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); color: var(--text, oklch(23% 0.022 265)); } .ds-weeknav-label { text-align: center; min-width: 0; } .ds-weeknav-range { margin: 0; font-size: var(--step-3, 1.75rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; font-variant-numeric: tabular-nums; } .ds-weeknav-relative { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 26px; margin: 2px 0 0; color: var(--text-2, oklch(46% 0.02 265)); font-size: var(--step--1, 0.8125rem); font-weight: 500; } .ds-icon-btn { position: relative; display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--accent, oklch(51.5% 0.19 259)); cursor: pointer; transition: background-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } @media (hover: hover) { .ds-icon-btn:hover { background: var(--accent-soft, oklch(93.8% 0.032 259)); } } .ds-icon-btn:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; } .ds-icon-btn:disabled { color: var(--text-3, oklch(55% 0.016 265)); background: transparent; cursor: default; } .ds-icon-btn .ds-icon { width: 18px; height: 18px; } .ds-weeknav-dot { position: absolute; top: 9px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent, oklch(51.5% 0.19 259)); box-shadow: 0 0 0 2px var(--bg, oklch(96.6% 0.005 265)); } .ds-link-pill { padding: 4px 10px; margin: -4px 0; border: 0; border-radius: 999px; background: var(--accent-soft, oklch(93.8% 0.032 259)); color: var(--accent-soft-text, oklch(42% 0.17 259)); font: inherit; font-size: var(--step--1, 0.8125rem); font-weight: 600; cursor: pointer; } @media (hover: hover) { .ds-link-pill:hover { background: color-mix(in oklch, var(--accent-soft, oklch(93.8% 0.032 259)), var(--accent, oklch(51.5% 0.19 259)) 12%); } } .ds-link-pill:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; }"
-    },
-    {
-      "name": "View Switch",
-      "kind": "nav",
-      "refersTo": "segmented-option-selected",
-      "description": "iOS segmented control: a sunken track holding two options; the selected one lifts as a white thumb.",
-      "html": "<div class=\"ds-segmented\" role=\"tablist\" aria-label=\"Προβολή\"><button type=\"button\" role=\"tab\" aria-selected=\"true\" class=\"ds-segmented-option\">Η εβδομάδα μου</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" class=\"ds-segmented-option\">Ομάδα</button></div>",
-      "css": ".ds-segmented { display: grid; grid-template-columns: 1fr 1fr; max-width: 320px; padding: 3px; border-radius: 11px; background: var(--surface-sunken, oklch(94.4% 0.006 265)); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); } .ds-segmented-option { min-height: 38px; padding: 0 12px; border: 0; border-radius: 9px; background: transparent; color: var(--text-2, oklch(46% 0.02 265)); font: inherit; font-size: var(--step--1, 0.8125rem); font-weight: 600; cursor: pointer; transition: background-color 180ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), color 180ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 180ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-segmented-option[aria-selected=\"true\"] { background: var(--surface, oklch(99.6% 0.002 265)); color: var(--text, oklch(23% 0.022 265)); box-shadow: 0 1px 3px oklch(25% 0.03 265 / 0.14), 0 1px 1px oklch(25% 0.03 265 / 0.06); } .ds-segmented-option:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; }"
+      "refersTo": "refresh",
+      "description": "The green two-bar cross, uppercase title and subtitle, and the bordered refresh with its check time, closed by the 4px rule.",
+      "html": "<header class=\"ds-mast\"><div class=\"ds-mast__brand\"><span class=\"ds-cross\" aria-hidden=\"true\"></span><div><p class=\"ds-mast__title\">Πρόγραμμα</p><p class=\"ds-mast__sub\">Vita4you Τσιμισκή</p></div></div><button class=\"ds-refresh\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\"/><path d=\"M21 3v5h-5\"/><path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\"/><path d=\"M8 16H3v5\"/></svg><span class=\"ds-refresh__text\"><span class=\"ds-refresh__label\">Ανανέωση</span><span class=\"ds-refresh__fresh\">έλεγχος 08:07</span></span></button></header>",
+      "css": ".ds-mast { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0 12px; border-bottom: 4px solid var(--ink); font-family: var(--font); color: var(--ink); } .ds-mast__brand { display: flex; align-items: center; gap: 10px; } .ds-cross { position: relative; width: 32px; height: 32px; flex: none; } .ds-cross::before, .ds-cross::after { content: \"\"; position: absolute; background: var(--green); } .ds-cross::before { left: 10.5px; top: 0; width: 11px; height: 32px; } .ds-cross::after { left: 0; top: 10.5px; width: 32px; height: 11px; } .ds-mast__title { margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: 0.02em; } .ds-mast__sub { margin: 3px 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; } .ds-refresh { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 10px; border: 2px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); font-family: inherit; text-align: right; cursor: pointer; } .ds-refresh:active { background: var(--paper-2); } .ds-refresh:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; } .ds-refresh__text { display: grid; line-height: 1.15; } .ds-refresh__label { font-size: 0.9375rem; font-weight: 800; } .ds-refresh__fresh { font-size: 0.75rem; }"
     },
     {
       "name": "Person Picker",
       "kind": "input",
-      "refersTo": "person-picker",
-      "description": "Native select restyled as a 56px grouped field with an initial avatar and up-down chevrons.",
-      "html": "<div class=\"ds-picker\"><span class=\"ds-picker-avatar\" aria-hidden=\"true\">ΚΑ</span><select class=\"ds-picker-select\" aria-label=\"Το όνομά σου\"><option>Κόντρα Α.</option><option>Παπακώστα Β.</option></select><svg class=\"ds-picker-chevron\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>",
-      "css": ".ds-picker { position: relative; display: flex; align-items: center; max-width: 360px; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); } .ds-picker-avatar { position: absolute; left: 10px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft, oklch(93.8% 0.032 259)); color: var(--accent-soft-text, oklch(42% 0.17 259)); font-size: var(--step--1, 0.8125rem); font-weight: 700; letter-spacing: 0.02em; pointer-events: none; } .ds-picker-select { width: 100%; min-height: 56px; padding: 0 44px 0 56px; border: 1px solid var(--hairline, oklch(89.5% 0.007 265)); border-radius: var(--radius-l, 16px); background: var(--surface, oklch(99.6% 0.002 265)); color: var(--text, oklch(23% 0.022 265)); font: inherit; font-size: var(--step-1, 1.0625rem); font-weight: 600; appearance: none; -webkit-appearance: none; cursor: pointer; transition: border-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } @media (hover: hover) { .ds-picker-select:hover { border-color: var(--hairline-strong, oklch(83% 0.009 265)); } } .ds-picker-select:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; } .ds-picker-chevron { position: absolute; right: 14px; width: 18px; height: 18px; color: var(--text-2, oklch(46% 0.02 265)); pointer-events: none; }"
+      "refersTo": "picker-field",
+      "description": "The name printed large on a 2px underline; an invisible native select (16px, against iOS zoom) covers the field.",
+      "html": "<div class=\"ds-picker\"><span class=\"ds-picker__name\" aria-hidden=\"true\">Κόντρα Α.</span><span class=\"ds-picker__change\" aria-hidden=\"true\">Αλλαγή <svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m6 9 6 6 6-6\"/></svg></span><select class=\"ds-picker__select\" aria-label=\"Το όνομά σου\"><option>Κόντρα Α.</option><option>Ανδρέου Α.</option></select></div>",
+      "css": ".ds-picker { position: relative; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 2px solid var(--ink); font-family: var(--font); color: var(--ink); } .ds-picker__name { min-width: 0; overflow: hidden; font-size: 1.875rem; font-weight: 800; line-height: 1.1; white-space: nowrap; text-overflow: ellipsis; } .ds-picker__change { display: inline-flex; align-items: center; gap: 4px; flex: none; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; } .ds-picker__select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; font-size: 16px; } .ds-picker:has(.ds-picker__select:focus-visible) { outline: 3px solid var(--green); outline-offset: 3px; }"
     },
     {
-      "name": "Shift Chips",
-      "kind": "chip",
-      "refersTo": "chip-morning",
-      "description": "Period-tinted chips: morning amber, afternoon violet, duty slate with a moon, ρεπό green, άδεια stone; compact form for the matrix, dashed note chip, outlined tag.",
-      "html": "<div class=\"ds-chips\"><span class=\"ds-chip ds-chip-morning\">08:00 – 16:00</span><span class=\"ds-chip ds-chip-afternoon\">13:00 – 21:00</span><span class=\"ds-chip ds-chip-duty\"><svg class=\"ds-chip-icon\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\"/></svg>16:00 – 00:00</span><span class=\"ds-chip ds-chip-off\">Ρεπό</span><span class=\"ds-chip ds-chip-leave\">Άδεια</span><span class=\"ds-chip ds-chip-note\">Χωρίς ώρα</span><span class=\"ds-chip ds-chip-compact ds-chip-morning\">08–16</span><span class=\"ds-chip ds-chip-compact ds-chip-afternoon\"><span class=\"ds-chip-approx\">≈</span> 13–21</span><span class=\"ds-tag\">Εφημερία</span></div>",
-      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); } .ds-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 12px; border-radius: 9px; font-size: var(--step-1, 1.0625rem); font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.005em; white-space: nowrap; } .ds-chip-compact { min-height: 26px; padding: 0 8px; border-radius: 7px; font-size: var(--step--1, 0.8125rem); font-weight: 600; } .ds-chip-morning { background: var(--morning-bg, oklch(94.4% 0.058 86)); color: var(--morning-fg, oklch(41% 0.085 62)); } .ds-chip-afternoon { background: var(--afternoon-bg, oklch(93.6% 0.04 296)); color: var(--afternoon-fg, oklch(41% 0.14 296)); } .ds-chip-duty { background: var(--duty-bg, oklch(90.5% 0.03 250)); color: var(--duty-fg, oklch(36% 0.065 250)); } .ds-chip-off { background: var(--off-bg, oklch(93.8% 0.055 156)); color: var(--off-fg, oklch(39% 0.095 156)); } .ds-chip-leave { background: var(--leave-bg, oklch(93% 0.014 70)); color: var(--leave-fg, oklch(41% 0.03 70)); } .ds-chip-note { border: 1px dashed var(--hairline-strong, oklch(83% 0.009 265)); color: var(--text-2, oklch(46% 0.02 265)); font-weight: 500; } .ds-chip-icon { width: 15px; height: 15px; margin-inline-start: -2px; flex: none; } .ds-chip-approx { font-weight: 500; opacity: 0.8; } .ds-tag { display: inline-flex; align-items: center; min-height: 24px; padding: 0 8px; border: 1px solid var(--hairline-strong, oklch(83% 0.009 265)); border-radius: 999px; color: var(--text-2, oklch(46% 0.02 265)); font-size: 0.75rem; font-weight: 600; }"
+      "name": "View Tabs",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Two uppercase text tabs; the selected one is 800 ink over a 3px green underline. No pill, no track.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Η εβδομάδα μου</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Ομάδα</button></div>",
+      "css": ".ds-tabs { display: flex; gap: 22px; font-family: var(--font); } .ds-tab { min-height: 40px; padding: 0; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--ink-2); font-family: inherit; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; } .ds-tab:hover { color: var(--ink); } .ds-tab[aria-selected=\"true\"] { border-bottom-color: var(--green); color: var(--ink); font-weight: 800; } .ds-tab:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }"
     },
     {
-      "name": "Week Summary",
-      "kind": "card",
-      "refersTo": "grouped-section",
-      "description": "Grouped list of label/value rows (Σήμερα, Ρεπό, Κυριακή, Ώρες); the today row carries the blue wash.",
-      "html": "<dl class=\"ds-summary\"><div class=\"ds-summary-item ds-summary-today\"><dt>Σήμερα</dt><dd><span class=\"ds-summary-stack\"><span class=\"ds-summary-chip\">08:00 – 16:00</span><span class=\"ds-summary-aside\">με Παπακώστα Β.</span></span></dd></div><div class=\"ds-summary-item\"><dt>Ρεπό</dt><dd><span class=\"ds-summary-value ds-summary-off\">Δευτέρα 28 Σεπ</span></dd></div><div class=\"ds-summary-item\"><dt>Κυριακή</dt><dd><span class=\"ds-summary-value\">Δεν δουλεύεις</span></dd></div><div class=\"ds-summary-item\"><dt>Ώρες</dt><dd><span class=\"ds-summary-value\">40 ώρες</span><span class=\"ds-summary-aside\">5 βάρδιες</span></dd></div></dl>",
-      "css": ".ds-summary { display: grid; max-width: 360px; margin: 0; border: 1px solid var(--hairline, oklch(89.5% 0.007 265)); border-radius: var(--radius-l, 16px); background: var(--surface, oklch(99.6% 0.002 265)); color: var(--text, oklch(23% 0.022 265)); overflow: hidden; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); font-size: var(--step-0, 0.9375rem); line-height: 1.45; } .ds-summary-item { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; padding: 10px 16px; } .ds-summary-item + .ds-summary-item { border-top: 1px solid var(--hairline, oklch(89.5% 0.007 265)); } .ds-summary dt { color: var(--text-2, oklch(46% 0.02 265)); font-weight: 500; } .ds-summary dd { display: flex; align-items: baseline; gap: 8px; margin: 0; text-align: right; } .ds-summary-value { font-weight: 600; } .ds-summary-off { color: var(--off-fg, oklch(39% 0.095 156)); } .ds-summary-aside { color: var(--text-2, oklch(46% 0.02 265)); font-size: var(--step--1, 0.8125rem); } .ds-summary-stack { display: grid; justify-items: end; gap: 4px; } .ds-summary-today { background: color-mix(in oklch, var(--accent-soft, oklch(93.8% 0.032 259)), var(--surface, oklch(99.6% 0.002 265)) 45%); } .ds-summary-today dt { color: var(--accent-soft-text, oklch(42% 0.17 259)); font-weight: 650; } .ds-summary-chip { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 9px; background: var(--morning-bg, oklch(94.4% 0.058 86)); color: var(--morning-fg, oklch(41% 0.085 62)); font-size: var(--step-1, 1.0625rem); font-weight: 650; font-variant-numeric: tabular-nums; }"
-    },
-    {
-      "name": "Agenda Day Rows",
+      "name": "Notice Table",
       "kind": "custom",
-      "refersTo": "day-number-today",
-      "description": "The signature: one grouped section, one row per day, a date column with the day number and an entries column with the shift chip, metadata and coworkers; today gets the filled blue circle and wash.",
-      "html": "<div class=\"ds-days\"><div class=\"ds-day\"><div class=\"ds-day-date\"><span class=\"ds-day-dow\">Τετ</span><span class=\"ds-day-num\">30</span></div><div class=\"ds-day-body\"><div class=\"ds-entry-line\"><span class=\"ds-day-chip ds-day-chip-afternoon\">13:00 – 21:00</span><span class=\"ds-entry-meta\">Απογευματινή · 8 ώρες</span></div><p class=\"ds-entry-with\"><span class=\"ds-entry-with-label\">Με </span>Ζόγκου Ε., Κολύρα Κ.</p></div></div><div class=\"ds-day ds-day-today\" aria-current=\"date\"><div class=\"ds-day-date\"><span class=\"ds-day-dow\">Πέμ</span><span class=\"ds-day-num\">1</span></div><div class=\"ds-day-body\"><div class=\"ds-entry-line\"><span class=\"ds-day-chip ds-day-chip-morning\">08:00 – 16:00</span><span class=\"ds-entry-meta\">Πρωινή · 8 ώρες</span></div><p class=\"ds-entry-with\"><span class=\"ds-entry-with-label\">Με </span>Παπακώστα Β.</p></div></div><div class=\"ds-day\"><div class=\"ds-day-date\"><span class=\"ds-day-dow\">Κυρ</span><span class=\"ds-day-num\">4</span></div><div class=\"ds-day-body\"><span class=\"ds-day-empty\">Χωρίς βάρδια</span></div></div></div>",
-      "css": ".ds-days { max-width: 520px; border: 1px solid var(--hairline, oklch(89.5% 0.007 265)); border-radius: var(--radius-l, 16px); background: var(--surface, oklch(99.6% 0.002 265)); color: var(--text, oklch(23% 0.022 265)); overflow: hidden; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); font-size: var(--step-0, 0.9375rem); line-height: 1.45; } .ds-day { display: grid; grid-template-columns: 76px minmax(0, 1fr); } .ds-day + .ds-day { border-top: 1px solid var(--hairline, oklch(89.5% 0.007 265)); } .ds-day-date { padding: 14px 8px 14px 12px; text-align: center; } .ds-day-body { padding: 14px 16px 14px 0; } .ds-day-dow { display: block; color: var(--text-2, oklch(46% 0.02 265)); font-size: var(--step--1, 0.8125rem); font-weight: 600; line-height: 1.2; } .ds-day-num { display: grid; place-items: center; width: 38px; height: 38px; margin: 2px auto 0; border-radius: 50%; font-size: var(--step-2, 1.375rem); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; } .ds-day-today { background: color-mix(in oklch, var(--accent-soft, oklch(93.8% 0.032 259)), var(--surface, oklch(99.6% 0.002 265)) 45%); } .ds-day-today .ds-day-dow { color: var(--accent-soft-text, oklch(42% 0.17 259)); } .ds-day-today .ds-day-num { background: var(--accent, oklch(51.5% 0.19 259)); color: var(--on-accent, oklch(99% 0.003 265)); } .ds-entry-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; min-height: 38px; } .ds-entry-meta { color: var(--text-2, oklch(46% 0.02 265)); font-size: var(--step--1, 0.8125rem); font-weight: 500; } .ds-entry-with { margin: 6px 0 0; font-size: var(--step--1, 0.8125rem); line-height: 1.4; } .ds-entry-with-label { color: var(--text-2, oklch(46% 0.02 265)); } .ds-day-empty { display: inline-block; padding-top: 8px; color: var(--text-2, oklch(46% 0.02 265)); } .ds-day-chip { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 9px; font-size: var(--step-1, 1.0625rem); font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.005em; white-space: nowrap; } .ds-day-chip-morning { background: var(--morning-bg, oklch(94.4% 0.058 86)); color: var(--morning-fg, oklch(41% 0.085 62)); } .ds-day-chip-afternoon { background: var(--afternoon-bg, oklch(93.6% 0.04 296)); color: var(--afternoon-fg, oklch(41% 0.14 296)); }"
+      "refersTo": "roster-row",
+      "description": "The week as a printed roster: 3px rules open and close it, 1px ink between rows, today inverted, slots as words, the «Άλλαξε» overprint on a changed day.",
+      "html": "<table class=\"ds-roster\"><thead><tr><th>Ημέρα</th><th>Ωράριο</th><th>Με</th></tr></thead><tbody><tr class=\"ds-past\"><th>Δευ 28</th><td><span class=\"ds-slot ds-slot--off\">Ρεπό</span></td><td></td></tr><tr><th>Τετ 30</th><td><span class=\"ds-slot\">13–21</span></td><td>Ζόγκου Ε., Κολύρα Κ.</td></tr><tr class=\"ds-today\"><th>Παρ 2</th><td><span class=\"ds-slot\"><span class=\"ds-approx\">≈</span>13–21<span class=\"ds-duty\">Εφημερία</span></span></td><td>Ανδρέου Α., Χαμζαλάρι Γ.</td></tr><tr><th>Σαβ 3</th><td><span class=\"ds-slot\">09–17</span></td><td><span class=\"ds-overprint\">Άλλαξε</span>Κολύρα Κ.</td></tr><tr><th>Κυρ 4</th><td><span class=\"ds-slot ds-slot--none\">—</span></td><td></td></tr></tbody></table>",
+      "css": ".ds-roster { width: 100%; border-collapse: collapse; font-family: var(--font); color: var(--ink); font-variant-numeric: tabular-nums lining-nums; } .ds-roster thead th { padding: 4px 6px; border-bottom: 3px solid var(--ink); font-size: 0.75rem; font-weight: 800; text-align: left; text-transform: uppercase; letter-spacing: 0.06em; } .ds-roster tbody > tr > * { padding: 10px 6px; border-bottom: 1px solid var(--ink); vertical-align: top; text-align: left; font-size: 0.8125rem; line-height: 1.35; } .ds-roster tbody tr:last-child > * { border-bottom: 3px solid var(--ink); } .ds-roster tbody th { width: 76px; font-size: 1.25rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; } .ds-past th { color: var(--ink-3); } .ds-today > * { background: var(--ink); color: var(--on-ink); } .ds-slot { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px; font-size: 1.375rem; font-weight: 800; line-height: 1.15; } .ds-slot--off { color: var(--green); text-transform: uppercase; } .ds-today .ds-slot--off { color: var(--green-on-ink); } .ds-slot--none { color: var(--ink-3); } .ds-approx { font-weight: 600; } .ds-duty { flex-basis: 100%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; } .ds-overprint { float: right; margin: 2px 0 0 8px; padding: 0 5px; border: 2px solid var(--green); color: var(--green); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; animation: ds-stamp 320ms cubic-bezier(0.16, 1, 0.3, 1) both; } @keyframes ds-stamp { from { opacity: 0; transform: scale(1.3); } } @media (prefers-reduced-motion: reduce) { .ds-overprint { animation-duration: 1ms; } }"
+    },
+    {
+      "name": "Status Line and Facts",
+      "kind": "custom",
+      "refersTo": "slot-off",
+      "description": "Above the table on purpose (answer first): one status line, then one printed sentence of ρεπό, Sunday and total.",
+      "html": "<div class=\"ds-lead\"><p class=\"ds-status\"><strong>Επόμενη βάρδια:</strong> σήμερα 13:00 · σε 5 ώρες</p><p class=\"ds-facts\"><b>Ρεπό:</b> <span class=\"ds-facts__off\">Δευτέρα 28/9</span><span class=\"ds-sep\"> · </span><b>Κυριακή:</b> όχι<span class=\"ds-sep\"> · </span><b>Σύνολο:</b> 40 ώρες</p></div>",
+      "css": ".ds-lead { display: grid; gap: 14px; font-family: var(--font); color: var(--ink); font-variant-numeric: tabular-nums lining-nums; } .ds-status { margin: 0; min-height: 1.4em; font-size: 0.9375rem; } .ds-status strong { font-weight: 800; } .ds-facts { margin: 0; font-size: 0.9375rem; line-height: 1.5; } .ds-facts b { font-weight: 800; } .ds-facts__off { color: var(--green); } .ds-sep { color: var(--ink-3); }"
+    },
+    {
+      "name": "Team Day Picker",
+      "kind": "nav",
+      "refersTo": "daypicker-day-selected",
+      "description": "Phone team view: seven days between a 3px and a 1px rule; today underlined green, the selected day inverted.",
+      "html": "<div class=\"ds-days\" role=\"group\" aria-label=\"Ημέρα\"><button class=\"ds-day\" aria-pressed=\"false\"><span class=\"ds-day__dow\">Δευ</span><span class=\"ds-day__num\">28</span></button><button class=\"ds-day\" aria-pressed=\"false\"><span class=\"ds-day__dow\">Τρι</span><span class=\"ds-day__num\">29</span></button><button class=\"ds-day ds-day--today\" aria-pressed=\"true\"><span class=\"ds-day__dow\">Τετ</span><span class=\"ds-day__num\">30</span></button><button class=\"ds-day\" aria-pressed=\"false\"><span class=\"ds-day__dow\">Πεμ</span><span class=\"ds-day__num\">1</span></button></div>",
+      "css": ".ds-days { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 3px solid var(--ink); border-bottom: 1px solid var(--ink); font-family: var(--font); } .ds-day { display: grid; justify-items: center; gap: 1px; min-height: 54px; padding: 6px 0; border: 0; border-radius: 0; background: transparent; color: var(--ink); font-family: inherit; cursor: pointer; } .ds-day:hover { background: var(--paper-2); } .ds-day:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; } .ds-day__dow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; } .ds-day__num { font-size: 1.25rem; font-weight: 800; } .ds-day--today .ds-day__num { text-decoration: underline; text-decoration-color: var(--green); text-decoration-thickness: 3px; text-underline-offset: 4px; } .ds-day[aria-pressed=\"true\"] { background: var(--ink); color: var(--on-ink); }"
     },
     {
       "name": "Toast",
       "kind": "custom",
       "refersTo": "toast",
-      "description": "Inverted floating status slab above the bottom safe area, with an optional action and a close button; the only element with the Float shadow.",
-      "html": "<div class=\"ds-toast\" role=\"status\"><span class=\"ds-toast-text\">Βρέθηκαν αλλαγές στην εβδομάδα σου.</span><button type=\"button\" class=\"ds-toast-action\">Προβολή</button><button type=\"button\" class=\"ds-toast-close\" aria-label=\"Κλείσιμο ειδοποίησης\"><svg class=\"ds-icon\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg></button></div>",
-      "css": ".ds-toast { display: flex; align-items: center; gap: 8px; max-width: 520px; padding: 10px 8px 10px 16px; border-radius: var(--radius-l, 16px); background: var(--text, oklch(23% 0.022 265)); color: var(--bg, oklch(96.6% 0.005 265)); box-shadow: var(--shadow-float, 0 8px 28px -6px oklch(25% 0.03 265 / 0.22), 0 2px 6px oklch(25% 0.03 265 / 0.08)); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif); font-size: var(--step--1, 0.8125rem); font-weight: 500; animation: ds-toast-in 260ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both; } .ds-toast-text { flex: 1; } .ds-toast-action { flex: none; min-height: 36px; padding: 0 12px; border: 0; border-radius: var(--radius-s, 8px); background: oklch(100% 0 0 / 0.14); color: inherit; font: inherit; font-weight: 700; cursor: pointer; } .ds-toast-close { display: grid; place-items: center; flex: none; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; opacity: 0.8; } .ds-toast-close .ds-icon { width: 18px; height: 18px; } @media (hover: hover) { .ds-toast-close:hover { opacity: 1; background: oklch(100% 0 0 / 0.12); } } .ds-toast-action:focus-visible, .ds-toast-close:focus-visible { outline: 2px solid var(--accent, oklch(51.5% 0.19 259)); outline-offset: 2px; } @keyframes ds-toast-in { from { opacity: 0; transform: translateY(12px); } }"
+      "description": "Ink rectangle with a 2px paper border at the bottom centre; optional bordered action; error fills with danger red. Its soft shadow is a tolerated exception, not a pattern.",
+      "html": "<div class=\"ds-toast\"><span class=\"ds-toast__text\">Άλλαξε 1 μέρα σου: Σάβ 3.</span><button class=\"ds-toast__action\">Δες 5/10 – 11/10</button><button class=\"ds-toast__close\" aria-label=\"Κλείσιμο ειδοποίησης\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\"><path d=\"M18 6 6 18M6 6l12 12\"/></svg></button></div>",
+      "css": ".ds-toast { display: flex; align-items: center; gap: 8px; max-width: 520px; padding: 10px 8px 10px 14px; border: 2px solid var(--paper); border-radius: 0; background: var(--ink); color: var(--on-ink); box-shadow: 0 8px 24px -8px oklch(10% 0.01 260 / 0.45); font-family: var(--font); font-size: 0.9375rem; font-weight: 600; animation: ds-toast-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both; } @keyframes ds-toast-in { from { opacity: 0; transform: translateY(12px); } } .ds-toast__text { flex: 1; } .ds-toast__action { flex: none; min-height: 36px; padding: 0 10px; border: 2px solid currentColor; border-radius: 0; background: transparent; color: inherit; font-family: inherit; font-size: 0.8125rem; font-weight: 800; cursor: pointer; } .ds-toast__action:hover { background: var(--on-ink); color: var(--ink); } .ds-toast__close { display: grid; place-items: center; width: 32px; height: 32px; border: 0; background: transparent; color: inherit; cursor: pointer; } .ds-toast :focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }"
+    },
+    {
+      "name": "Severity Stamp",
+      "kind": "chip",
+      "refersTo": "stamp-error",
+      "description": "Sheet-check page labels: square uppercase stamps. Σφάλμα inverts, Προσοχή is ink-bordered, Σημείωση is ink-3-bordered.",
+      "html": "<div class=\"ds-stamps\"><span class=\"ds-stamp ds-stamp--error\">Σφάλμα</span><span class=\"ds-stamp\">Προσοχή</span><span class=\"ds-stamp ds-stamp--info\">Σημείωση</span></div>",
+      "css": ".ds-stamps { display: flex; gap: 10px; font-family: var(--font); } .ds-stamp { min-width: 88px; padding: 1px 6px; border: 2px solid var(--ink); border-radius: 0; color: var(--ink); font-size: 0.75rem; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; } .ds-stamp--error { background: var(--ink); color: var(--on-ink); } .ds-stamp--info { border-color: var(--ink-3); color: var(--ink-2); }"
     }
   ],
   "narrative": {
-    "northStar": "The Native Agenda",
-    "overview": "Πρόγραμμα is the category standard played straight: a staff-scheduling app with the content discipline of Deputy and When I Work and the calm, native polish of Apple Calendar on iOS. The shared rota spreadsheet is rebuilt as one person's week, laid out as an agenda list with one row per day. It is not a spreadsheet and not a calendar grid of floating blocks. The system refuses metaphor, decoration and quirk. Trust comes from precision: exact times in tabular numerals, the period of every shift legible at a glance, and a freshness clock beside the refresh control.\n\nThe material is iOS grouped lists. A cool, faintly tinted ground holds near-white grouped sections with hairline separators. One blue accent does all the interactive work: selection, today, primary actions, links and focus. The only other colour in the system is data. Shift chips are soft-tinted by period: amber for morning, violet for afternoon, slate with a moon for duty and night, green for ρεπό and stone for άδεια. Type is the platform system face, with hierarchy built from size and weight steps.\n\nThe scene is a phone held in one hand between shifts, so the page is light by default and follows the device into dark mode automatically, with every colour token and the float shadow redefined for the dark scheme. Density is moderate. Rows are at least 52px, primary controls are at least 44px, and the week range is the largest type on the page. The product deliberately carries no Vita4you logo and no Vita4you brand colours. It has its own look.",
+    "northStar": "The Εφημερίες Notice",
+    "overview": "The week is posted the way every Greek pharmacy posts its duty roster on the door: a printed sheet of black type on white paper, a condensed grotesque, heavy rules, and a green cross as the only colour. It was chosen by the user as candidate A of four static mockups, after they rejected the generic app look as \"AI-generated\". The notice is austere and fast to read. It is creative in its idiom, never playful.\n\nHierarchy comes from three things only: weight (400, 600, 800 of one family), size, and rule thickness. There are no surfaces stacked on surfaces. The page is a single sheet of paper with ruled sections, and the most important row (today) is printed in reverse. Dark mode inverts the notice and keeps it a notice: white type on near-black, with a brighter green.\n\nThe page answers first and stays quiet. From top to bottom, a staff member sees the masthead with its check time, their name as an underlined field, the week, a single status line about their next or current shift, one Facts sentence (ρεπό, Sunday, total hours), the ruled table, and two actions. Each fact appears in one place. The exported 1080×1920 image prints the same sheet in the same language, so a screenshot of the page and the saved image look like the same document.",
     "keyCharacteristics": [
-      "iOS grouped-list surfaces: a tinted ground, near-white sections, 1px hairlines and 16px corners.",
-      "One blue accent for selection, today and actions, and nothing else.",
-      "Shift chips tinted by period as soft-fill and dark-ink pairs from one hue.",
-      "The platform system face, with tabular numerals for every time and date.",
-      "Lucide stroke icons at 18px, stroke width 2, in the colour of the text around them.",
-      "Flat surfaces. Shadows appear only on a selected thumb and on the floating toast.",
-      "Light by scene, with full dark-mode parity through `prefers-color-scheme`."
+      "Fira Sans Condensed at 400/600/800 for everything; uppercase tracked labels with no tonos.",
+      "Paper and ink tokens plus one green; red only for failure states.",
+      "Square corners everywhere (radius 0). Structure comes from 4px, 3px, 2px and 1px ink rules.",
+      "Today is an inverted row. Inside inverted areas, green becomes green-on-ink.",
+      "States are written as words in table cells (\"08–16\", «Ρεπό», «Άδεια», «—», «≈»), never as chips.",
+      "A green cross drawn from two bars is the brand mark, on the page, in the image and in the app icon.",
+      "Changed days get an «Άλλαξε» overprint stamped in green."
     ],
     "rules": [
       {
-        "name": "The One Blue Rule",
-        "body": "Blue means \"you, today, or tap here\". It marks selection, today, primary actions, links and focus. It never colours a shift, and a period tint never marks a control.",
+        "name": "The One Green Rule",
+        "body": "Green is the only hue in the notice. It marks the cross, the day off, the selected or focused thing, and change. A second accent colour, a per-shift colour code, or a pastel tint breaks the notice.",
         "section": "colors"
       },
       {
-        "name": "The Period Pair Rule",
-        "body": "Every shift period is a soft fill with dark ink from the same hue (`*-bg` with `*-fg`). The chip always carries words or times as well as colour: the colour speeds the scan, and the text carries the meaning.",
+        "name": "The Inversion Rule",
+        "body": "Emphasis is printed in reverse: ink fill with on-ink type. Today's row, the selected day, today's team column header, the selected person's team row, the primary button and the toast all invert. Inside an inverted area, every green becomes `green-on-ink`.",
         "section": "colors"
       },
       {
-        "name": "The Tinted Neutral Rule",
-        "body": "Every neutral sits on hue 265 at low chroma. Nothing is pure white or pure black, in either scheme.",
+        "name": "The Paper Follows Ink Rule",
+        "body": "Dark mode does not restyle anything. It swaps paper and ink, re-tunes the greens and the red, and the same rules, inversions and words carry through unchanged.",
         "section": "colors"
       },
       {
-        "name": "The Platform Voice Rule",
-        "body": "One family, the platform system face, and no webfont. Hierarchy comes from the five size steps and from weight (400 to 700), never from a second family.",
+        "name": "The Tonos-Free Capitals Rule",
+        "body": "Labels are uppercase and tracked at 0.06em, set in sentence case in the source and uppercased by CSS `text-transform`. `<html lang=\"el\">` makes the browser drop the tonos (Ημέρα → ΗΜΕΡΑ, never ΗΜΈΡΑ). The canvas export has no such help, so it strips the combining acute itself (`upperGreek()` in `lib/client/exportImage.ts`). Never type capitals with accents into the source.",
         "section": "typography"
       },
       {
-        "name": "The Tabular Time Rule",
-        "body": "Times, date numbers, week ranges and the freshness clock are set in tabular numerals, so that columns of times line up.",
+        "name": "The Sanctioned 16px Rule",
+        "body": "The scale has no 16px step except one. The person picker lays an invisible native `<select>` over the underlined name field so a tap opens the platform picker. That select is set to `font-size: 16px` on purpose, because iOS Safari zooms the page when a focused field's text is smaller than 16px. The select is invisible (`opacity: 0`), so the exception never shows. Keep it at 16px or larger, and never \"fix\" it to a scale token.",
         "section": "typography"
       },
       {
-        "name": "The Grouped List Rule",
-        "body": "Content lives in grouped sections on the tinted ground: a Card White fill, a 1px hairline border, 16px corners, and hairline separators between rows. Sections never nest inside other sections.",
+        "name": "The Weight-Not-Colour Rule",
+        "body": "Hierarchy steps by weight and size first. Colour steps (ink → ink-2 → ink-3) only demote. Green never promotes a heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Answer-First Rule",
+        "body": "The status line and the Facts sentence («Ρεπό: … · Κυριακή: … · Σύνολο: …») sit *above* the table on purpose. This follows PRODUCT.md principle 1 (the answer first): the three questions staff ask are answered before they scan seven rows. It also matches the exported image, which closes its table with the same sentence. Do not move the Facts below the table on the page to \"match\" the image's position. The sentence is the same; the page puts it where the eye lands first.",
         "section": "layout"
       },
       {
-        "name": "The Agenda Rule",
-        "body": "One person's week is a vertical agenda, with one row per day from Monday to Sunday, the date column on the left and the entries on the right. The matrix belongs to the team view only.",
+        "name": "The One Fact, One Place Rule",
+        "body": "Each piece of information appears once. Today is shown by the inverted table row and nowhere else; no box repeats a row. The page stays quiet: status line, Facts sentence, table, two actions. A new feature earns a place by replacing something or by living in the footer notes, not by adding a block above the table.",
         "section": "layout"
       },
       {
-        "name": "The Flat Ground Rule",
-        "body": "Resting surfaces carry no shadow. A shadow means something sits above a track (the selected segment, the chosen day) or floats over content (the toast).",
+        "name": "The Flat Sheet Rule",
+        "body": "Nothing on the sheet casts a shadow. The only lift in the build today is the floating toast (`0 8px 24px -8px` dark shadow), which overlays scrolled content. It is recorded as a tolerated exception, not a pattern: its 2px paper-coloured border already separates it from ink rows. Do not copy that shadow to any other element.",
         "section": "elevation"
       },
       {
-        "name": "The Circle Rule",
-        "body": "Circles are reserved for people (initial avatars), date numbers and icon-only buttons. Everything else is a rounded rectangle or a pill.",
+        "name": "The Two-Bar Cross",
+        "body": "The brand mark is a Greek-pharmacy cross built from two overlapping rectangles in green, with arms about a third of the cross's size. On the page it is CSS (`.cross`, 32px with 11px bars). In the export it is 72px with 24px bars. The app icon (`app/icon.svg`) is the same cross on paper. It is never outlined, rounded or given a circle.",
         "section": "shapes"
-      },
-      {
-        "name": "The Today Rule",
-        "body": "Today is marked the same way everywhere. The weekday turns blue (Wash Ink), the date number sits in a filled Calendar Blue circle (or is set in Calendar Blue text in the day picker), and a soft Blue Wash runs across its row or column.",
-        "section": "components"
       }
     ],
     "dos": [
-      "Do put every shift, ρεπό and άδεια in a period chip using its `*-bg` / `*-fg` pair, with the full time (\"08:00 – 16:00\") in the personal view and the compact form (\"08–16\") in the matrix.",
-      "Do add the lucide Moon icon (15px, stroke 2.25) to full-size duty chips, so that night duty does not depend on colour alone.",
-      "Do set every time, date number and week range in tabular numerals.",
-      "Do mark today with Calendar Blue: the filled 38px date circle and the 55% Blue Wash on its row.",
-      "Do place new content in grouped sections: Card White, 1px Hairline, 16px corners, hairline row separators and rows of at least 52px.",
-      "Do keep primary controls at least 44px tall and reachable with a thumb.",
-      "Do draw icons from lucide only, at 18px with stroke 2 in `currentColor` (14px inline, 16px in notes).",
-      "Do theme the browser surfaces from the palette: Blue Wash text selection, a 2px Calendar Blue focus ring at a 2px offset, links underlined at a 0.2em offset with 1px thickness, and a thin Strong Hairline scrollbar.",
-      "Do define every new colour twice, once on `:root` and once in the `prefers-color-scheme: dark` block, keeping its role.",
-      "Do animate with the shared ease-out curve (`cubic-bezier(0.16, 1, 0.3, 1)`) at 160 to 260ms, and let `prefers-reduced-motion` collapse all motion.",
-      "Do keep Tertiary Ink on Card White. On the Cool Ground it falls below 4.5:1, so it appears there only as a disabled state."
+      "**Do** build hierarchy from weight (400/600/800), size and rule thickness; demote with ink-2 and ink-3, never promote with colour.",
+      "**Do** keep every corner square (radius 0) and every box a 2px ink border.",
+      "**Do** use the rule ladder: 4px under the masthead, 3px to open and close a table or section, 2px for controls and underlined fields, 1px ink between rows.",
+      "**Do** mark today by inverting its row (ink fill, on-ink type), and switch any green inside an inverted area to `green-on-ink`.",
+      "**Do** write states as words in the cell: \"08–16\", «Ρεπό» in green caps, «Άδεια», «Χωρίς ώρα», «—», «≈» before an inferred time, «Άλλαξε» overprinted on a changed day.",
+      "**Do** put the answer before the table: status line, Facts sentence, then the table, then the two actions.",
+      "**Do** keep one fact in one place; let the inverted row be the only today marker.",
+      "**Do** set labels uppercase through `text-transform` under `lang=\"el\"` so the tonos drops, and use `upperGreek()` in the canvas export.",
+      "**Do** keep the page and the exported image in one language; when a `:root` light token changes, change `lib/design/palette.ts` with it.",
+      "**Do** keep the picker's invisible native select at 16px so iOS Safari does not zoom.",
+      "**Do** keep touch targets at 44px or more (arrows, refresh) and 48px for buttons."
     ],
     "donts": [
-      "Don't colour a shift with Calendar Blue, and don't use a period tint on a button, link or selection.",
-      "Don't use pure white or pure black. Neutrals stay on hue 265.",
-      "Don't load a webfont or add a second type family.",
-      "Don't saturate the period fills. They stay soft (around 93% lightness in light mode and 30 to 33% in dark mode) with dark ink.",
-      "Don't lay out one person's week as a time grid of floating blocks or as a spreadsheet. It is an agenda, one row per day.",
-      "Don't add decoration, metaphor, illustration or gradients. Trust comes from precision.",
-      "Don't use the Vita4you logo or Vita4you brand colours. The product has its own look.",
-      "Don't put a shadow on a resting section or card.",
-      "Don't nest a grouped section inside another grouped section."
+      "**Don't** round corners, anywhere.",
+      "**Don't** use cards, shaded panels, filled chips or pills. The only bordered labels are the «Άλλαξε» overprint and the sheet-check severity stamps, both square and uppercase.",
+      "**Don't** add a second hue or colour-code shifts. Green is the only colour; red is reserved for the unreachable-sheet banner and the error toast.",
+      "**Don't** add shadows, gradients, blur or tonal panel layering; the toast's shadow is a tolerated exception, not a pattern.",
+      "**Don't** add icon soup. An icon only labels a control (refresh, week arrows, export, calendar, external link, close, the info mark on warnings), drawn from one stroke set at 2.25 weight.",
+      "**Don't** add a box that repeats a table row or a second today highlight.",
+      "**Don't** type accented capitals into the source or use a second typeface; Fira Sans Condensed carries everything.",
+      "**Don't** put green text on the paper-2 tint at body sizes (4.3:1); green text belongs on paper or, as green-on-ink, on ink.",
+      "**Don't** add motion beyond the 200ms week settle, the overprint stamp, the toast arrival and the refresh spinner, and keep all of them under `prefers-reduced-motion`."
     ]
   }
 }

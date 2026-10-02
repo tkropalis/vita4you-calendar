@@ -154,7 +154,6 @@ a {
 
 /* Notice labels: uppercase, tracked (Greek capitals drop the tonos with lang="el"). */
 .appbar__subtitle,
-.facts dt,
 .roster thead th,
 .weeknav__relative,
 .picker__change,
@@ -217,6 +216,7 @@ a {
 }
 
 .link-button {
+  position: relative;
   padding: 2px 8px;
   border: var(--border) solid var(--ink);
   background: transparent;
@@ -224,6 +224,15 @@ a {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+/* Keeps the printed size but gives fingers a 44px target. */
+.link-button::after {
+  content: "";
+  position: absolute;
+  inset: 50% -4px auto;
+  min-height: 44px;
+  transform: translateY(-50%);
 }
 
 @media (hover: hover) {
@@ -884,6 +893,11 @@ a {
 
 .team-matrix td.is-today {
   background: var(--paper-2);
+}
+
+/* Green alone is 4.3:1 on paper-2; a little ink brings it past AA. */
+.team-matrix tr:not(.is-selected) td.is-today .slot--off {
+  color: color-mix(in oklch, var(--green) 85%, var(--ink));
 }
 
 .team-matrix thead th.is-today {
