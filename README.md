@@ -8,6 +8,12 @@ A small web app that turns the shared rota spreadsheet ("ΠΡΟΓΡΑΜΜΑ ΤΣ
 - a team view of the whole week (a matrix on desktop, a per-day list on phones)
 - **Ανανέωση**, which re-reads the sheet, says whether anything changed, and marks the changed days with «Άλλαξε»
 - calendar export: one week as an `.ics` file, or a subscription feed that keeps itself up to date
+- **Επόμενη βάρδια**: a live line such as "αύριο 08:00 · σε 14 ώρες", or "Σε βάρδια τώρα · έως 21:00"
+- **Αλλαγή βάρδιας;** under each upcoming shift: who is on ρεπό, on another shift, or on leave that day, so you know whom to ask
+- **Εικόνα της εβδομάδας**: the week as a 1080×1920 PNG in the notice style, drawn in the browser. On phones it opens the share sheet; elsewhere it downloads
+- works offline after the first visit (service worker), and can be added to the home screen
+
+For whoever keeps the sheet, **`/elegxos`** lists what is worth fixing from two weeks back onwards. It covers duplicated weeks, rows with names but no time, shift and ρεπό on the same day, 6+ working days in a week, days with no opening or closing cover, under 11 hours' rest between shifts, long runs of working days, and names typed in several ways. The working-time checks are indicative, not a legal check.
 
 The UI is in Greek and designed phone-first, with automatic dark mode. The chosen name is remembered on the device (cookie). The URL is shareable: `/?p=kontra-a&w=2026-10-05&v=team`.
 
@@ -86,10 +92,12 @@ Keep the sheet's sharing at **"Anyone with the link → Viewer"**. If it becomes
 
 ## Design
 
-The interface follows the [Impeccable](https://impeccable.style) workflow:
+The page is printed like the duty-pharmacy notice (εφημερίες) in a pharmacy window. It uses black type on white, Fira Sans Condensed, thick rules, and the green cross as the only colour; today is an inverted row, and dark mode inverts the whole notice. The direction was chosen by the team from four static mockups.
 
-- `PRODUCT.md`: product truth (users, purpose, constraints)
-- `DESIGN.md`: the visual system (tokens, components)
-- `.impeccable/surfaces/`: the direction contract for the page
+It follows the [Impeccable](https://impeccable.style) workflow:
 
-It is deliberately a standard scheduling app played straight, held to the polish of Deputy / When I Work and Apple Calendar.
+- `PRODUCT.md`: product truth
+- `DESIGN.md`: the visual system
+- `.impeccable/surfaces/`: the direction contract
+
+The exported image's colours live in `lib/design/palette.ts` and mirror the CSS tokens. Icons are rendered from `app/icon.svg` with `node scripts/render-icons.mjs`.
